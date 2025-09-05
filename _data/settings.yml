@@ -22,7 +22,7 @@ google-analytics: UA-101186181-1
 # Hero Section
 
 hero:
-  hero-title: Hi! I’m Hal, writer-editor-coder-sorta-artist.
+  hero-title: Hi! I’m Hal, writer-editor-translator-coder-sorta-artist.
 
 #-------------------------------
 # Books (Section and Page)
@@ -50,9 +50,32 @@ writing-label:
     title : "Poetry",
     type : "poetry"
   }
-
+- {
+    title : "Translation",
+    type : "translation"
+  }
 
 writing-items:
+- quote: Orbs large and small conferred, the vassal states thus adorned, anointed by the Heavens.
+  date: '2025-09-08'
+  item-types:
+  - type: translation
+  - type: fiction
+  - type: selected
+  link: https://www.kickstarter.com/projects/diabolicalplots/the-long-list-anthology-volume-9
+  name: Heavens Fall
+  publisher: The Long List Anthology, Volume 9
+  words: 6710
+  notes:
+    - Translation of 杞忧 by 陆秋槎/Lu Qiucha originally published in 银河边缘 / Galaxy’s Edge 013.
+- quote: do you think yourself / a cartographer
+  date: '2023-09-19'
+  item-types:
+  - type: poetry
+  link: https://www.atthisarts.com/product/rosalinds-siblings/
+  name: The Astronomer Aspiring
+  publisher: Rosalind’s Siblings
+  words: 177
 - quote: at least we have hauntings.
   date: '2022-02-16'
   item-types:
@@ -360,7 +383,6 @@ writing-items:
   icon: background-image:url('assets/pubs/dreamforge-3.jpg');
   item-types:
   - type: fiction
-  - type: selected
   link: https://curiousfictions.com/stories/3581-hal-y-zhang-the-specular-boy
   name: The Specular Boy
   publisher: DreamForge Magazine

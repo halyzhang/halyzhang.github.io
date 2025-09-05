@@ -7,83 +7,89 @@ background-align: bg-shape-right
 
 <section class="section">
   <div class="container">
-    <div class="row mb-5"><div class="col-12">
-      <h4>Short fiction and poetry, arranged at your fancy.</h4></div>
-    </div><div class="row mb-5">
+    <div class="row mb-5">
+      <div class="col-12">
+        <h4>Short fiction, poetry, and translations, arranged at your fancy.</h4>
+      </div>
+    </div>
+    <div class="row mb-5">
       <div class="col-12">
         <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
 
-        <div class="btn-group btn-group-toggle justify-content-center d-flex mx-auto" data-toggle="buttons">
-          <label class="btn btn-sm btn-outline-dark active">
-            <input type="radio" class="work-filter" name="shuffle-filter2" value="selected" checked/>Selected
-          </label>
-          <label class="btn btn-sm btn-outline-dark">
-            <input type="radio" class="work-filter" name="shuffle-filter2" value="all" />All
-          </label>
-        </div>
-        <div class="btn-group btn-group-toggle justify-content-center d-flex mx-auto" data-toggle="buttons">
-          {% for label in site.data.settings.writing-label %}
-          <label class="btn btn-sm btn-outline-dark active">
-            <input type="checkbox" class="work-filter work-type" name="shuffle-filter" id="work-{{ label.type }}" value="{{ label.type }}" checked/>{{ label.title }}
-          </label>
-          {% endfor %}
-        </div>
-        
-        <div class="btn-group btn-group-toggle d-flex mx-auto" data-toggle="buttons">
-          <label class="btn btn-sm btn-outline-dark active">
-            <input type="radio" class="work-filter text-lowercase" name="shuffle-sort" value="date" checked/>Sort By Date
-          </label>
-          <label class="btn btn-sm btn-outline-dark">
-            <input type="radio" class="work-filter" name="shuffle-sort" value="words" />Sort By Words
-          </label>
-        </div>
-        </div>
-      </div>
-    </div>
+          <div class="btn-group btn-group-toggle justify-content-center d-flex mx-auto" data-toggle="buttons">
+            <label class="btn btn-sm btn-outline-dark active">
+              <input type="radio" class="work-filter" name="shuffle-filter2" value="selected" checked />Selected
+            </label>
+            <label class="btn btn-sm btn-outline-dark">
+              <input type="radio" class="work-filter" name="shuffle-filter2" value="all" />All
+            </label>
+          </div>
+          <div class="btn-group btn-group-toggle justify-content-center d-flex mx-auto" data-toggle="buttons">
+            {% for label in site.data.settings.writing-label %}
+            <label class="btn btn-sm btn-outline-dark active">
+              <input type="checkbox" class="work-filter work-type" name="shuffle-filter" id="work-{{ label.type }}"
+                value="{{ label.type }}" checked />{{ label.title }}
+            </label>
+            {% endfor %}
+          </div>
 
-
-
-
-<div class="row shuffle-wrapper">
-  {% for item in site.data.settings.writing-items %}
-  <div class="col-12 shuffle-item" data-words="{{ item.words }}" data-date="{{ item.date }}"
-  data-groups="[{% for piece in item.item-types %}{% if forloop.first == true %}{% else %},{% endif %}&quot;{{ piece.type }}&quot;{% endfor %}]">
-
-    <div data-date-created={{ item.date }} class="position-relative rounded" style="margin-bottom:40px;">
-      {% if item.link %}
-      <a href={{ item.link }} target="_blank"> 
-      {% endif %}
-      <h4><b>{{ item.name }} </b>&nbsp;&nbsp;<span class="text-muted">{{ item.publisher }}</span>
-        {% if item.link %}
-      </a>
-        {% endif %}
-        &nbsp;&nbsp;<span class="badge badge-secondary text-capitalize">{{ item.item-types[0].type }}</span>
-        <span class="badge badge-secondary">{{ item.date | date: "%Y %b" }}</span>
-        <span class="badge badge-secondary">{{ item.words }} words</span>
-      </h4>
-      
-     
-      <!-- TODO <p class="paragraph-md">{{ item.blurb }}</p> -->
-      <p class="paragraph-md">
-      <em>{{ item.quote }}</em></p>
-
-
-      {% if item.notes %}
-      <ul>
-        {% for note in item.notes %}
-        <li>{{note | markdownify | remove: '<p>'| remove: '</p>' }}</li>
-        {% endfor %}
-      </ul>
-      {% endif %}
-
-      <div class="hover-overlay">
-        <div class="hover-content">
+          <div class="btn-group btn-group-toggle d-flex mx-auto" data-toggle="buttons">
+            <label class="btn btn-sm btn-outline-dark active">
+              <input type="radio" class="work-filter text-lowercase" name="shuffle-sort" value="date" checked />Sort By
+              Date
+            </label>
+            <label class="btn btn-sm btn-outline-dark">
+              <input type="radio" class="work-filter" name="shuffle-sort" value="words" />Sort By Words
+            </label>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  {% endfor %}
-</div>
+
+
+
+
+    <div class="row shuffle-wrapper">
+      {% for item in site.data.settings.writing-items %}
+      <div class="col-12 shuffle-item" data-words="{{ item.words }}" data-date="{{ item.date }}"
+        data-groups="[{% for piece in item.item-types %}{% if forloop.first == true %}{% else %},{% endif %}&quot;{{ piece.type }}&quot;{% endfor %}]">
+
+        <div data-date-created={{ item.date }} class="position-relative rounded" style="margin-bottom:40px;">
+          {% if item.link %}
+          <a href={{ item.link }} target="_blank">
+            {% endif %}
+            <h4><b>{{ item.name }} </b>&nbsp;&nbsp;<span class="text-muted">{{ item.publisher }}</span>
+              {% if item.link %}
+          </a>
+          {% endif %}
+          &nbsp;&nbsp;<span class="badge badge-secondary text-capitalize">{{ item.item-types[0].type }}</span>
+          <span class="badge badge-secondary">{{ item.date | date: "%Y %b" }}</span>
+          <span class="badge badge-secondary">{{ item.words }} words</span>
+          </h4>
+
+
+          <!-- TODO <p class="paragraph-md">{{ item.blurb }}</p> -->
+          <p class="paragraph-md">
+            <em>{{ item.quote }}</em>
+          </p>
+
+
+          {% if item.notes %}
+          <ul>
+            {% for note in item.notes %}
+            <li>{{note | markdownify | remove: '<p>'| remove: '</p>' }}</li>
+            {% endfor %}
+          </ul>
+          {% endif %}
+
+          <div class="hover-overlay">
+            <div class="hover-content">
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
 
 
 </section>
