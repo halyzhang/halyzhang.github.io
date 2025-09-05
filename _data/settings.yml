@@ -9,7 +9,7 @@ menu:
 - {name: Books, link: '/books/'}
 - {name: Writing, link: '/writing/'}
 - {name: Events, link: '/events/'}
-- {name: About/Contact, link: '/about/'}
+- {name: About, link: '/about/'}
 
 
 #-------------------------------
@@ -117,7 +117,6 @@ writing-items:
   date: '2021-03-23'
   item-types:
   - type: fiction
-  - type: selected
   link: https://www.fantasy-magazine.com/new/new-fiction/arenous/
   name: Arenous
   publisher: Fantasy Magazine
@@ -268,7 +267,6 @@ writing-items:
   icon: background-image:url('assets/pubs/wizardsinspace-5.jpg');
   item-types:
   - type: poetry
-  - type: selected
   link: https://www.wizardsinspacemag.com/read/2020/9/30/only-treading
   name: Only Treading
   publisher: Wizards in Space
@@ -339,7 +337,7 @@ writing-items:
   item-types:
   - type: poetry
   - type: selected
-  link: https://www.bansheelit.com/read/saoirse-by-hal-y-zhang
+  link: https://bansheepress.org/read/saoirse-by-hal-y-zhang
   name: Saoirse
   publisher: Banshee
   words: 81
@@ -556,7 +554,6 @@ writing-items:
   icon: background-image:url('assets/pubs/lockjaw-6-2019.jpg');
   item-types:
     - type: poetry
-    - type: selected
   link: http://lockjawmagazine.com/vol6/zhang
   name: f/loss | specific heat | knight to mate in one | beldam? bedlam?
   publisher: Lockjaw Magazine
