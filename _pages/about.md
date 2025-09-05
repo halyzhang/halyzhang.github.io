@@ -13,6 +13,7 @@ Hal Y. Zhang 章皓 writes science, fiction, and science fiction, in no particul
 Here are some other things I've done in between bouts of staring off into space:
 
 - Editor, [Diabolical Plots](https://www.diabolicalplots.com/), 2023-now
+- Co-Editor, [The Long List Anthology Volume 9](https://www.kickstarter.com/projects/diabolicalplots/the-long-list-anthology-volume-9), 2025
 - Guest Editor, Spring 2022 issue of [Fireside Magazine](https://firesidefiction.com/)
 - Panelist, [Newfound Anzaldúa Poetry Prize](https://newfound.org/poetry-prize), 2020
 - Editorial Staff, [Reckoning](https://reckoning.press/), 2020-2021
