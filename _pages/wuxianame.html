@@ -1,42 +1,511 @@
 ---
 layout: page
 title: Wuxia Name Generator
+description: Generate wuxia character names for your martial arts heroes.
 background: Light
 background-align: bg-shape-center
 ---
+<style>
+.name-generator-controls {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.name-generator-controls .btn-group {
+  display: inline-flex;
+  gap: 10px;
+}
+.name-generator-controls button {
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  padding: 15px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.name-generator-controls button:hover {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+.name-display-card {
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 8px 8px 0 rgba(0, 123, 255, 0.3);
+  padding: 40px;
+  margin-bottom: 30px;
+}
+.name-display-card h3 {
+  font-size: 48px;
+  color: #000;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+.name-display-card .pinyin {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.names-horizontal {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+.name-section {
+  flex: 1;
+  min-width: 250px;
+}
+.breakdown-section {
+  background: #f9f9f9;
+  border-left: 4px solid #007bff;
+  padding: 20px;
+  margin: 20px 0;
+}
+.breakdown-section h5 {
+  color: #000;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.character-detail {
+  margin: 10px 0;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+.literary-source {
+  background: #000;
+  color: #fff;
+  padding: 15px;
+  margin: 20px 0;
+  border-left: 4px solid #007bff;
+}
+.share-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #eaeaea;
+  text-align: center;
+}
+.share-section button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.share-section button:hover {
+  background: #0056b3;
+  color: #fff;
+}
+.disclaimer {
+  background: #fff9e6;
+  border: 2px solid #ffd700;
+  padding: 20px;
+  margin: 30px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.disclaimer strong {
+  color: #000;
+}
+</style>
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
+(function() {
+    var singleFamily = [
+        {c: "李", p: "Lǐ"}, {c: "王", p: "Wáng"}, {c: "张", p: "Zhāng"},
+        {c: "刘", p: "Liú"}, {c: "陈", p: "Chén"}, {c: "杨", p: "Yáng"},
+        {c: "赵", p: "Zhào"}, {c: "黄", p: "Huáng"}, {c: "周", p: "Zhōu"},
+        {c: "吴", p: "Wú"}, {c: "徐", p: "Xú"}, {c: "孙", p: "Sūn"},
+        {c: "胡", p: "Hú"}, {c: "朱", p: "Zhū"}, {c: "高", p: "Gāo"},
+        {c: "林", p: "Lín"}, {c: "何", p: "Hé"}, {c: "郭", p: "Guō"},
+        {c: "马", p: "Mǎ"}, {c: "罗", p: "Luó"}, {c: "梁", p: "Liáng"},
+        {c: "宋", p: "Sòng"}, {c: "郑", p: "Zhèng"}, {c: "谢", p: "Xiè"},
+        {c: "韩", p: "Hán"}, {c: "唐", p: "Táng"}, {c: "冯", p: "Féng"},
+        {c: "于", p: "Yú"}, {c: "董", p: "Dǒng"}, {c: "萧", p: "Xiāo"},
+        {c: "程", p: "Chéng"}, {c: "曹", p: "Cáo"}, {c: "袁", p: "Yuán"},
+        {c: "邓", p: "Dèng"}, {c: "许", p: "Xǔ"}, {c: "傅", p: "Fù"},
+        {c: "沈", p: "Shěn"}, {c: "曾", p: "Zēng"}, {c: "彭", p: "Péng"},
+        {c: "吕", p: "Lǚ"}
+    ];
 
-$( document ).ready(function() {
+    var compoundFamily = [
+        {c: "欧阳", p: "Ōuyáng"}, {c: "太史", p: "Tàishǐ"}, {c: "端木", p: "Duānmù"},
+        {c: "上官", p: "Shàngguān"}, {c: "司马", p: "Sīmǎ"}, {c: "东方", p: "Dōngfāng"},
+        {c: "独孤", p: "Dúgū"}, {c: "南宫", p: "Nángōng"}, {c: "万俟", p: "Mòqí"},
+        {c: "闻人", p: "Wénrén"}, {c: "夏侯", p: "Xiàhóu"}, {c: "诸葛", p: "Zhūgě"},
+        {c: "尉迟", p: "Yùchí"}, {c: "公羊", p: "Gōngyáng"}, {c: "赫连", p: "Hèlián"},
+        {c: "皇甫", p: "Huángfǔ"}, {c: "慕容", p: "Mùróng"}, {c: "轩辕", p: "Xuānyuán"},
+        {c: "令狐", p: "Línghú"}, {c: "司徒", p: "Sītú"}, {c: "西门", p: "Xīmén"},
+        {c: "百里", p: "Bǎilǐ"}
+    ];
 
+    var poeticNames = [
+        {c: "飞流", p: "Fēiliú", m: "flying rapids", g: "m", src: "Li Bai/李白: Gazing at Lushan Waterfall/《望庐山瀑布》"},
+        {c: "沧海", p: "Cānghǎi", m: "vast sea", g: "m", src: "Cao Cao/曹操: Viewing the Sea/《观沧海》"},
+        {c: "青莲", p: "Qīnglián", m: "green lotus", g: "f", src: "Li Bai/李白's style name"},
+        {c: "明月", p: "Míngyuè", m: "bright moon", g: "f", src: "Li Bai/李白: Quiet Night Thought/《静夜思》"},
+        {c: "长风", p: "Chángfēng", m: "long wind", g: "m", src: "classical poetry"},
+        {c: "归燕", p: "Guīyàn", m: "returning swallow (from ancient poetry)", g: "f", src: "Classical poetry"},
+        {c: "清风", p: "Qīngfēng", m: "clear breeze", g: "m", src: "classical poetry"},
+        {c: "如梦", p: "Rúmèng", m: "like a dream", g: "f", src: "Li Qingzhao/李清照: Ru Meng Ling/《如梦令》"},
+        {c: "凌云", p: "Língyún", m: "soaring to clouds (from ancient texts)", g: "m", src: "Classical literature"},
+        {c: "惊鸿", p: "Jīnghóng", m: "startled wild swan, metaphor for the beautiful poise of a woman", g: "f", src: "Cao Zhi/曹植: Ode to Goddess Luo/《洛神赋》"},
+        {c: "踏雪", p: "Tàxuě", m: "treading snow", g: "f", src: "Classical poetry"},
+        {c: "寻梅", p: "Xúnméi", m: "seeking plum blossoms", g: "f", src: "Classical poetry"},
+        {c: "望舒", p: "Wàngshū", m: "moon charioteer", g: "m", src: "Chu Ci/楚辞: Li Sao/《离骚》"},
+        {c: "乘风", p: "Chéngfēng", m: "riding the wind", g: "m", src: "Zhuangzi/庄子: Xiaoyao You/《逍遥游》"},
+        {c: "星河", p: "Xīnghé", m: "river of stars", g: "m", src: "Classical poetry"},
+        {c: "听雨", p: "Tīngyǔ", m: "listening to rain", g: "f", src: "Jiang Jie/蒋捷: Yu Mei Ren/《虞美人》"},
+        {c: "无为", p: "Wúwéi", m: "non-action (Daoist concept)", g: "m", src: "Daodejing/道德经 (Laozi/老子)"},
+        {c: "清虚", p: "Qīngxū", m: "clear emptines", g: "m", src: "Daoist philosophy"},
+        {c: "逍遥", p: "Xiāoyáo", m: "carefree wandering", g: "m", src: "Zhuangzi/庄子: Xiaoyao You/《逍遥游》"},
+        {c: "抱朴", p: "Bàopǔ", m: "embracing simplicity", g: "m", src: "Daodejing/道德经 and Ge Hong/葛洪"},
+        {c: "玄妙", p: "Xuánmiào", m: "mysterious and profound (Daoist concept)", g: "f", src: "Daoist philosophy"},
+        {c: "般若", p: "Bōrě", m: "prajna/wisdom", g: "f", src: "Buddhist sutras/佛经"},
+        {c: "禅心", p: "Chánxīn", m: "chan/zen mind", g: "m", src: "Chan Buddhism/禅宗"},
+        {c: "慈悲", p: "Cíbēi", m: "compassion", g: "f", src: "Buddhist teachings"},
+        {c: "觉悟", p: "Juéwù", m: "enlightenment/awakening", g: "m", src: "Buddhist philosophy"},
+        {c: "空明", p: "Kōngmíng", m: "emptiness and clarity", g: "f", src: "Heart Sutra/《心经》"}
+    ];
 
-    given="伟刚勇毅俊峰强军平保东文辉力明永健世广志义兴良海山仁波宁贵福生龙元全国胜学祥才发武新利清飞彬富顺信子杰涛昌成康星光天达安岩中茂进林有坚和彪博诚先敬震振壮会思群豪心邦承乐绍功松善厚庆磊民友裕河哲江超浩亮政谦亨奇固之轮翰朗伯宏言若鸣朋斌梁栋维启克伦翔旭鹏泽晨辰士以建家致树炎德行时泰盛雄琛钧冠策腾楠榕风航";
-    given+="秀娟英华慧巧美娜静淑惠珠翠雅芝玉萍红娥玲芬芳燕彩春菊兰凤洁梅琳素云莲真环雪荣爱妹霞香月莺媛艳瑞凡佳嘉琼勤珍贞莉桂娣叶璧璐娅琦晶妍茜秋珊莎锦黛青倩婷姣婉娴瑾颖露瑶怡婵雁蓓纨仪荷丹蓉眉君琴蕊薇菁梦岚苑婕馨瑗琰韵融园艺咏卿聪澜纯毓悦昭冰爽琬茗羽希宁欣飘育滢馥筠柔竹霭凝晓欢霄枫芸菲寒伊亚宜可姬舒影荔枝思丽";
+    var givenMale = [
+        {c: "伟", p: "wěi", m: "great, mighty"}, {c: "刚", p: "gāng", m: "strong, firm"},
+        {c: "勇", p: "yǒng", m: "brave, courageous"}, {c: "毅", p: "yì", m: "resolute, steadfast"},
+        {c: "俊", p: "jùn", m: "handsome, talented"}, {c: "峰", p: "fēng", m: "peak, summit"},
+        {c: "龙", p: "lóng", m: "dragon"}, {c: "虎", p: "hǔ", m: "tiger"},
+        {c: "鹰", p: "yīng", m: "eagle, hawk"}, {c: "剑", p: "jiàn", m: "sword"},
+        {c: "武", p: "wǔ", m: "martial, military"}, {c: "豪", p: "háo", m: "heroic, bold"},
+        {c: "杰", p: "jié", m: "outstanding, hero"}, {c: "雄", p: "xióng", m: "hero, male"},
+        {c: "天", p: "tiān", m: "heaven, sky"}, {c: "星", p: "xīng", m: "star"},
+        {c: "风", p: "fēng", m: "wind"}, {c: "云", p: "yún", m: "cloud"},
+        {c: "山", p: "shān", m: "mountain"}, {c: "海", p: "hǎi", m: "sea, ocean"},
+        {c: "明", p: "míng", m: "bright, clear"}, {c: "志", p: "zhì", m: "will, ambition"}
+    ];
 
-    family=["欧阳","太史","端木","上官","司马","东方","独孤","南宫","万俟","闻人","夏侯","诸葛","尉迟","公羊","赫连","澹台","皇甫","宗政","濮阳","公冶","太叔","申屠","公孙","慕容","仲孙","钟离","长孙","宇文","司徒","鲜于","司空","闾丘","子车","亓官","司寇","巫马","公西","颛孙","壤驷","公良","漆雕","乐正","宰父","谷梁","拓跋","夹谷","轩辕","令狐","段干","百里","呼延","东郭","南门","羊舌","微生","公户","公玉","公仪","梁丘","公仲","公上","公门","公山","公坚","左丘","公伯","西门","公祖","第五","公乘","贯丘","公皙","南荣","东里","东宫","仲长","子书","子桑","即墨","达奚","褚师"];
+    var givenFemale = [
+        {c: "秀", p: "xiù", m: "elegant, refined"}, {c: "娟", p: "juān", m: "beautiful, graceful"},
+        {c: "慧", p: "huì", m: "intelligent, wise"}, {c: "美", p: "měi", m: "beautiful"},
+        {c: "娜", p: "nà", m: "graceful"}, {c: "静", p: "jìng", m: "quiet, calm"},
+        {c: "珠", p: "zhū", m: "pearl"}, {c: "翠", p: "cuì", m: "jade green, kingfisher"},
+        {c: "雅", p: "yǎ", m: "elegant, refined"}, {c: "玉", p: "yù", m: "jade"},
+        {c: "凤", p: "fèng", m: "phoenix"}, {c: "梅", p: "méi", m: "plum blossom"},
+        {c: "琳", p: "lín", m: "beautiful jade"}, {c: "云", p: "yún", m: "cloud"},
+        {c: "莲", p: "lián", m: "lotus"}, {c: "雪", p: "xuě", m: "snow"},
+        {c: "月", p: "yuè", m: "moon"}, {c: "霞", p: "xiá", m: "rosy clouds"},
+        {c: "香", p: "xiāng", m: "fragrant"}, {c: "瑶", p: "yáo", m: "precious jade"},
+        {c: "蝶", p: "dié", m: "butterfly"}, {c: "兰", p: "lán", m: "orchid"}
+    ];
 
-    $("#genname").click(function(){
-        genname();
-    });
+    var ziPairs = [
+        {ming: "千秋", zi: "万岁", mp: "Qiānqiū", zp: "Wànsuì", m: "thousand autumns / ten thousand years", ref: "literary theme of longevity", g: "m"},
+        {ming: "破晓", zi: "迎曦", mp: "Pòxiǎo", zp: "Yíngxī", m: "breaking dawn / welcoming sunrise", ref: "poetic imagery", g: "m"},
+        {ming: "沐雨", zi: "承露", mp: "Mùyǔ", zp: "Chénglù", m: "bathed in rain / receiving dew", ref: "nature poetry", g: "f"},
+        {ming: "寒江", zi: "雪舟", mp: "Hánjiāng", zp: "Xuězhōu", m: "cold river / boat upon the snow", ref: "Liu Zongyuan/柳宗元: River Snow", g: "m"},
+        {ming: "云深", zi: "不知", mp: "Yúnshēn", zp: "Bùzhī", m: "deep in the clouds / not knowing", ref: "Jia Dao/贾岛: Seeking the Hermit", g: "m"},
+        {ming: "临风", zi: "听涛", mp: "Línfēng", zp: "Tīngtāo", m: "facing the wind / listening to waves", ref: "poetic tradition", g: "m"},
+        {ming: "惜时", zi: "知秋", mp: "Xīshí", zp: "Zhīqiū", m: "cherish time / know autumn", ref: "classical wisdom", g: "f"},
+        {ming: "思归", zi: "梦远", mp: "Sīguī", zp: "Mèngyuǎn", m: "thinking of return / dreaming faraway", ref: "classical poetry", g: "f"},
+        {ming: "剑心", zi: "龙吟", mp: "Jiànxīn", zp: "Lóngyín", m: "sword heart / dragon's song", ref: "wuxia tradition", g: "m"},
+        {ming: "霜华", zi: "冰魄", mp: "Shuānghuá", zp: "Bīngpò", m: "frost splendor / ice spirit", ref: "poetic imagery", g: "f"},
+        {ming: "逐浪", zi: "扬帆", mp: "Zhúlàng", zp: "Yángfān", m: "chasing waves / raising sails", ref: "journey metaphor", g: "m"},
+        {ming: "采薇", zi: "归隐", mp: "Cǎiwēi", zp: "Guīyǐn", m: "picking ferns / returning to seclusion", ref: "Book of Songs/诗经", g: "f"},
+        {ming: "墨痕", zi: "笔意", mp: "Mòhén", zp: "Bǐyì", m: "ink traces / brush meaning", ref: "calligraphy tradition", g: "m"},
+        {ming: "书剑", zi: "文武", mp: "Shūjiàn", zp: "Wénwǔ", m: "books and sword / cultured and martial", ref: "scholar-warrior ideal", g: "m"},
+        {ming: "琴心", zi: "瑟意", mp: "Qínxīn", zp: "Sèyì", m: "qin heart / se intention", ref: "Book of Songs/诗经 musical metaphor", g: "f"},
+        {ming: "寻芳", zi: "踏青", mp: "Xúnfāng", zp: "Tàqīng", m: "seeking fragrance / treading on green", ref: "spring poetry imagery", g: "f"},
+        {ming: "观澜", zi: "知源", mp: "Guānlán", zp: "Zhīyuán", m: "observing waves / knowing the source", ref: "Metaphor by Mencius/孟子", g: "m"},
+        {ming: "舞雪", zi: "飞鸿", mp: "Wǔxuě", zp: "Fēihóng", m: "dancing snow / flying swan", ref: "poetic imagery", g: "f"},
+        {ming: "望月", zi: "怀远", mp: "Wàngyuè", zp: "Huáiyuǎn", m: "gazing at moon / thinking of distant", ref: "Zhang Jiuling/张九龄: Full Moon/望月怀远", g: "f"},
+        {ming: "凭虚", zi: "御风", mp: "Píngxū", zp: "Yùfēng", m: "leaning on void / riding wind", ref: "Zhuangzi/庄子 Daoist imagery", g: "m"},
+        {ming: "听琴", zi: "知音", mp: "Tīngqín", zp: "Zhīyīn", m: "listening to qin / knowing the sound", ref: "the story of Bo Ya/伯牙 and Zhong Ziqi story", g: "f"},
+        {ming: "照影", zi: "临渊", mp: "Zhàoyǐng", zp: "Línyuān", m: "illuminating shadow / overlooking abyss", ref: "philosophical metaphor", g: "m"},
+        {ming: "拂柳", zi: "迎春", mp: "Fúliǔ", zp: "Yíngchūn", m: "brushing willows / welcoming spring", ref: "seasonal poetry", g: "f"},
+        {ming: "凌霄", zi: "摘星", mp: "Língxiāo", zp: "Zhāixīng", m: "soaring high / plucking stars", ref: "ambition metaphor", g: "m"},
+        {ming: "问道", zi: "求真", mp: "Wèndào", zp: "Qiúzhēn", m: "asking about the Way / seeking truth", ref: "Daoist tradition", g: "m"}
+    ];
 
-    function genname(){
-        name = family[Math.floor(Math.random() * family.length)];
-        name += given.charAt(Math.floor(Math.random() * given.length));
-        $("#wuxianame").html(name);
+    var currentName = null;
+    var currentShareText = "";
+
+    function generateName(useZi) {
+        var familyData;
+        if (Math.random() < 0.2) {
+            familyData = compoundFamily[Math.floor(Math.random() * compoundFamily.length)];
+        } else {
+            familyData = singleFamily[Math.floor(Math.random() * singleFamily.length)];
+        }
+
+        var gender = Math.random() < 0.5 ? "m" : "f";
+        var mingData = null;
+        var isPoetic = Math.random() < 0.3;
+
+        if (useZi) {
+            var availablePairs = [];
+            for (var i = 0; i < ziPairs.length; i++) {
+                if (ziPairs[i].g === gender) {
+                    availablePairs.push(ziPairs[i]);
+                }
+            }
+            var pair = availablePairs[Math.floor(Math.random() * availablePairs.length)];
+            mingData = {type: "zi", ming: pair.ming, zi: pair.zi, mp: pair.mp, zp: pair.zp, m: pair.m, ref: pair.ref};
+        } else if (isPoetic) {
+            var availablePoetic = [];
+            for (var j = 0; j < poeticNames.length; j++) {
+                if (poeticNames[j].g === gender) {
+                    availablePoetic.push(poeticNames[j]);
+                }
+            }
+            var poetic = availablePoetic[Math.floor(Math.random() * availablePoetic.length)];
+            mingData = {type: "poetic", chars: poetic.c, pinyin: poetic.p, meaning: poetic.m, source: poetic.src};
+        } else {
+            var givenPool = gender === "m" ? givenMale : givenFemale;
+            var givenChars = [];
+            if (Math.random() < 0.7) {
+                givenChars.push(givenPool[Math.floor(Math.random() * givenPool.length)]);
+                givenChars.push(givenPool[Math.floor(Math.random() * givenPool.length)]);
+            } else {
+                givenChars.push(givenPool[Math.floor(Math.random() * givenPool.length)]);
+            }
+            mingData = {type: "standard", chars: givenChars};
+        }
+
+        currentName = {
+            family: familyData,
+            ming: mingData,
+            gender: gender
+        };
+
+        displayName();
     }
-    genname();
-});
 
+    function displayName() {
+        if (!currentName) return;
 
+        var html = "";
+        var shareText = "";
+        var fullMingName = currentName.family.c;
+        var fullMingPinyin = currentName.family.p;
 
+        if (currentName.ming.type === "zi") {
+            fullMingName += currentName.ming.ming;
+            fullMingPinyin += " " + currentName.ming.mp;
+
+            var fullZiName = currentName.family.c + currentName.ming.zi;
+            var fullZiPinyin = currentName.family.p + " " + currentName.ming.zp;
+
+            html += "<div class='name-display-card'>";
+            html += "<div class='names-horizontal'>";
+
+            html += "<div class='name-section'>";
+            html += "<div><strong>Given Name (名 míng):</strong></div>";
+            html += "<h3>" + fullMingName + "</h3>";
+            html += "<div class='pinyin'>" + fullMingPinyin + "</div>";
+            var encodedMingName = encodeURIComponent(fullMingName);
+            html += "<div style='margin-top: 10px;'>";
+            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedMingName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
+            html += "🔊 Hear Pronunciation";
+            html += "</a></div>";
+            html += "</div>";
+
+            html += "<div class='name-section'>";
+            html += "<div><strong>Courtesy Name (字 zì):</strong></div>";
+            html += "<h3>" + fullZiName + "</h3>";
+            html += "<div class='pinyin'>" + fullZiPinyin + "</div>";
+            var encodedZiName = encodeURIComponent(fullZiName);
+            html += "<div style='margin-top: 10px;'>";
+            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedZiName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
+            html += "🔊 Hear Pronunciation";
+            html += "</a></div>";
+            html += "</div>";
+
+            html += "</div>";
+
+            html += "<div class='breakdown-section'>";
+            html += "<h5>Name Breakdown:</h5>";
+            html += "<div class='character-detail'>";
+            html += "<strong>Family Name:</strong> " + currentName.family.c + " (" + currentName.family.p + ")";
+            html += "</div>";
+            html += "<div class='character-detail'>";
+            html += "<strong>Given Name (名 míng):</strong> " + currentName.ming.ming + " (" + currentName.ming.mp + ")<br>";
+            html += "Meaning: <em>" + currentName.ming.m.split(' / ')[0] + "</em>";
+            html += "</div>";
+            html += "<div class='character-detail'>";
+            html += "<strong>Courtesy Name (字 zì):</strong> " + currentName.ming.zi + " (" + currentName.ming.zp + ")<br>";
+            html += "Meaning: <em>" + currentName.ming.m.split(' / ')[1] + "</em>";
+            html += "</div>";
+            html += "<div class='literary-source'>";
+            html += "<strong>Inspired by:</strong> " + currentName.ming.ref;
+            html += "</div>";
+            html += "</div>";
+
+            shareText = "My wuxia name: " + fullMingName + " (" + fullMingPinyin + "), courtesy name " + fullZiName + " (" + fullZiPinyin + "). Generated at halyzhang.com";
+
+        } else if (currentName.ming.type === "poetic") {
+            fullMingName += currentName.ming.chars;
+            fullMingPinyin += " " + currentName.ming.pinyin;
+
+            html += "<div class='name-display-card'>";
+            html += "<h3>" + fullMingName + "</h3>";
+            html += "<div class='pinyin'>" + fullMingPinyin + "</div>";
+            var encodedPoeticName = encodeURIComponent(fullMingName);
+            html += "<div style='margin-top: 10px;'>";
+            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedPoeticName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
+            html += "🔊 Hear Pronunciation";
+            html += "</a></div>";
+
+            html += "<div class='breakdown-section'>";
+            html += "<h5>Name Breakdown:</h5>";
+            html += "<div class='character-detail'>";
+            html += "<strong>Family Name:</strong> " + currentName.family.c + " (" + currentName.family.p + ")";
+            html += "</div>";
+            html += "<div class='character-detail'>";
+            html += "<strong>Given Name:</strong> " + currentName.ming.chars + " (" + currentName.ming.pinyin + ")<br>";
+            html += "Meaning: <em>" + currentName.ming.meaning + "</em>";
+            html += "</div>";
+            html += "<div class='literary-source'>";
+            html += "<strong>Literary Source:</strong> " + currentName.ming.source;
+            html += "</div>";
+            html += "</div>";
+
+            shareText = "My wuxia name: " + fullMingName + " (" + fullMingPinyin + ") - " + currentName.ming.meaning + ". From " + currentName.ming.source + ". Generated at halyzhang.com";
+
+        } else {
+            for (var i = 0; i < currentName.ming.chars.length; i++) {
+                fullMingName += currentName.ming.chars[i].c;
+                fullMingPinyin += " " + currentName.ming.chars[i].p;
+            }
+
+            html += "<div class='name-display-card'>";
+            html += "<h3>" + fullMingName + "</h3>";
+            html += "<div class='pinyin'>" + fullMingPinyin + "</div>";
+            var encodedStandardName = encodeURIComponent(fullMingName);
+            html += "<div style='margin-top: 10px;'>";
+            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedStandardName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
+            html += "🔊 Hear Pronunciation";
+            html += "</a></div>";
+
+            html += "<div class='breakdown-section'>";
+            html += "<h5>Name Breakdown:</h5>";
+            html += "<div class='character-detail'>";
+            html += "<strong>Family Name:</strong> " + currentName.family.c + " (" + currentName.family.p + ")";
+            html += "</div>";
+            html += "<div class='character-detail'>";
+            html += "<strong>Given Name (" + (currentName.gender === "m" ? "masculine" : "feminine") + "):</strong><br>";
+            for (var j = 0; j < currentName.ming.chars.length; j++) {
+                html += currentName.ming.chars[j].c + " (" + currentName.ming.chars[j].p + "): <em>" + currentName.ming.chars[j].m + "</em>";
+                if (j < currentName.ming.chars.length - 1) html += "<br>";
+            }
+            html += "</div>";
+            html += "</div>";
+
+            var meaningsList = [];
+            for (var k = 0; k < currentName.ming.chars.length; k++) {
+                meaningsList.push(currentName.ming.chars[k].m);
+            }
+            shareText = "My wuxia name: " + fullMingName + " (" + fullMingPinyin + ") - " + meaningsList.join(", ") + ". Generated at halyzhang.com";
+        }
+
+        html += "<div class='share-section'>";
+        html += "<button id='copyButton' class='copy-share-btn'>📋 Copy to Share</button>";
+        html += "<div id='shareConfirm' style='margin-top: 10px; color: #007bff; font-weight: 600; display: none;'>Copied to clipboard!</div>";
+        html += "</div>";
+
+        html += "</div>";
+
+        jQuery("#nameDisplay").html(html);
+        currentShareText = shareText;
+
+        jQuery("#copyButton").off("click").on("click", function() {
+            copyShareText();
+        });
+    }
+
+    function copyShareText() {
+        if (!currentShareText) return;
+
+        var textArea = document.createElement("textarea");
+        textArea.value = currentShareText;
+        textArea.style.position = "fixed";
+        textArea.style.opacity = "0";
+        document.body.appendChild(textArea);
+        textArea.select();
+
+        try {
+            document.execCommand("copy");
+            jQuery("#shareConfirm").fadeIn().delay(2000).fadeOut();
+        } catch (err) {
+            alert("Could not copy text. Please copy manually: " + currentShareText);
+        }
+
+        document.body.removeChild(textArea);
+    }
+
+    jQuery(document).ready(function() {
+        jQuery("#genname").click(function() {
+            var includeZi = jQuery("#includeZi").is(":checked");
+            generateName(includeZi);
+        });
+
+        generateName(false);
+    });
+})();
 </script>
 
 <section class="section">
-<center><h3>Generate wuxia names!</h3>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div style="max-width: 800px; margin: 0 auto;">
+          <p style="margin-bottom: 30px;">
+            <strong>Wuxia/武俠</strong> refers to a genre of media centered on martial artists in ancient China.
+            The word combines wǔ/武 (martial) and xiá/侠 (similar to chivalry/knight-errant), depicting heroes
+            who study incredible martial arts techniques as a means of cultivating their body and spirit. Out in the jianghu/江湖, where the government has little influence, these individuals must take it upon themselves to form alliances, right injustices, and leave their mark on the world.
+            <br><br>
+            Wuxia character names often draw from classical literature, poetry, philosophy, and martial themes—this generator creates fictional names in the wuxia tradition, not necessarily realistic contemporary names.</em>
+          </p>
 
-<h4>Your name is:
+          <div class="disclaimer">
+            <strong>⚠️ Important Note:</strong> This generator is for <strong>entertainment purposes only</strong>.
+            Real Chinese names carry deep cultural, familial, and personal significance that cannot be captured by a simple generator.
+            The literal meanings of individual characters presented here are just one aspect—names also carry tonal harmony,
+            historical associations, familial traditions, and auspicious symbolism that require cultural knowledge and expertise.
+            <br><br>
+            If you are creating a name for actual use,
+            please consult with people who are familiar with Chinese language and culture to ensure your name is culturally appropriate,
+            meaningful, and respectful.
+          </div>
 
-<div id="wuxianame"></div></h4>
+          <div class="name-generator-controls">
+            <div class="btn-group" style="margin-bottom: 20px;">
+              <button id="genname">⚔️ Generate Wuxia Name</button>
+            </div>
+            <div>
+              <label style="display: inline-flex; align-items: center; font-size: 16px; cursor: pointer;">
+                <input type="checkbox" id="includeZi" style="width: 20px; height: 20px; margin-right: 10px; cursor: pointer;">
+                <span>Include Courtesy Name (字 zì)</span>
+              </label>
+            </div>
+          </div>
 
-<button id="genname">New name!</button></center>
+          <div id="nameDisplay"></div>
+
+          <div style="background: #f9f9f9; padding: 20px; margin-top: 30px; border-left: 4px solid #007bff;">
+            <ul style="line-height: 1.8;">
+              <li>Family names come first in Chinese naming tradition, followed by the given name.</li>
+              <li><strong>Single-character surnames</strong> like 李 (Lǐ), 王 (Wáng), or 张 (Zhāng) are the most common; <strong>Compound surnames</strong> (two characters) like 欧阳 (Ōuyáng), 司马 (Sīmǎ), or 诸葛 (Zhūgě) are rarer and often associated with nobility or legendary families</li>
+              <li><strong>名 (míng)</strong> is the given name bestowed at birth and used throughout childhood.</li>
+              <li><strong>字 (zì)</strong> is the courtesy name adopted upon reaching adulthood, often thematically related to the 名. Using someone's 字 showed respect, while calling them by their 名 was more intimate.</li>
+              <li>Note that some characters are read differently from the standard pronunciation when in compound names (for example, 万俟 is mòqí and not wànqí), which Google Translate doesn't always get right.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
