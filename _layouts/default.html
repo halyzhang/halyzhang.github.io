@@ -10,10 +10,12 @@ layout: compress
 
   {% include header.html %}
 
-  {{ content }}
-  {% if page.name == "about.md" %}
-  {% include contact-section.html %}
-  {% endif %}
+  <main>
+    {{ content }}
+    {% if page.name == "about.md" %}
+    {% include contact-section.html %}
+    {% endif %}
+  </main>
 
   {% include footer.html %}
 

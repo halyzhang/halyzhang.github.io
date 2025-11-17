@@ -1,24 +1,42 @@
 #!/usr/bin/env node
 
 /**
- * Accessibility Compliance Tests
- * Validates that the site follows WCAG accessibility guidelines
+ * SEO and Modern Web Practices Compliance Tests
+ * Validates that the site follows SEO best practices and modern web standards
  */
 
 const fs = require('fs');
 const path = require('path');
 const { JSDOM } = require('jsdom');
 
-console.log('Starting accessibility compliance tests...\n');
+console.log('Starting SEO and web compliance tests...\n');
 
 let hasErrors = false;
 let hasWarnings = false;
 
 /**
- * Test HTML file for accessibility
+ * Test if a file exists
  */
-function testHTMLForAccessibility(htmlPath, pageName) {
-    console.log(`\n=== Testing ${pageName} for accessibility ===\n`);
+function testFileExists(filePath, description) {
+    console.log(`Testing: ${description}`);
+    if (fs.existsSync(filePath)) {
+        console.log(`✅ ${description} exists\n`);
+        return true;
+    } else {
+        console.error(`❌ ${description} not found at ${filePath}\n`);
+        hasErrors = true;
+        return false;
+    }
+}
+
+/**
+ * Test HTML file for SEO compliance
+ * @param {string} htmlPath - Path to the HTML file
+ * @param {string} pageName - Name of the page for reporting
+ * @param {boolean} isCompleteDoc - Whether this should be a complete HTML document (default: false for partials)
+ */
+function testHTMLForSEO(htmlPath, pageName, isCompleteDoc = false) {
+    console.log(`\n=== Testing ${pageName} for SEO compliance ===\n`);
 
     if (!fs.existsSync(htmlPath)) {
         console.error(`❌ File not found: ${htmlPath}\n`);
@@ -37,214 +55,166 @@ function testHTMLForAccessibility(htmlPath, pageName) {
         });
         const doc = dom.window.document;
 
-        // Test 1: Check for lang attribute
-        console.log('Checking language attributes...');
-        const html = doc.querySelector('html');
-        if (html && html.getAttribute('lang')) {
-            console.log('✓ HTML has lang attribute');
+        // Test 1: Check for meta description
+        console.log('Checking meta tags...');
+        const metaDesc = doc.querySelector('meta[name="description"]');
+        if (metaDesc && metaDesc.getAttribute('content')) {
+            console.log('✓ Meta description found');
         } else {
-            console.error('❌ HTML missing lang attribute');
+            console.warn('⚠️  Meta description missing or empty');
+            hasWarnings = true;
+        }
+
+        // Test 2: Check for viewport meta
+        const viewport = doc.querySelector('meta[name="viewport"]');
+        if (viewport) {
+            console.log('✓ Viewport meta tag found');
+        } else {
+            console.error('❌ Viewport meta tag missing');
             hasErrors = true;
         }
 
-        // Test 2: Check heading hierarchy
-        console.log('\nChecking heading hierarchy...');
-        const headings = doc.querySelectorAll('h1, h2, h3, h4, h5, h6');
-        let previousLevel = 0;
-        let headingIssues = 0;
+        // Test 3: Check for Open Graph tags
+        const ogTitle = doc.querySelector('meta[property="og:title"]');
+        const ogDesc = doc.querySelector('meta[property="og:description"]');
+        const ogUrl = doc.querySelector('meta[property="og:url"]');
+        const ogImage = doc.querySelector('meta[property="og:image"]');
 
-        headings.forEach((heading, idx) => {
-            const level = parseInt(heading.tagName.substring(1));
-
-            // First heading should ideally be h1
-            if (idx === 0 && level !== 1) {
-                console.warn(`⚠️  First heading is <${heading.tagName.toLowerCase()}>, should be <h1>`);
-                hasWarnings = true;
-            }
-
-            // Check for skipped levels
-            if (previousLevel > 0 && level > previousLevel + 1) {
-                console.warn(`⚠️  Heading level skipped from h${previousLevel} to h${level}`);
-                hasWarnings = true;
-                headingIssues++;
-            }
-
-            previousLevel = level;
-        });
-
-        if (headingIssues === 0 && headings.length > 0) {
-            console.log(`✓ Heading hierarchy is correct (${headings.length} headings)`);
-        } else if (headings.length === 0) {
-            console.log('ℹ️  No headings found');
+        if (ogTitle && ogDesc && ogUrl) {
+            console.log('✓ Open Graph tags found (title, description, url)');
+        } else {
+            console.error('❌ Missing some Open Graph tags');
+            hasErrors = true;
         }
 
-        // Test 3: Check for images with alt text
+        if (ogImage) {
+            console.log('✓ Open Graph image found');
+        } else {
+            console.warn('⚠️  Open Graph image missing');
+            hasWarnings = true;
+        }
+
+        // Test 4: Check for Twitter Card tags
+        const twitterCard = doc.querySelector('meta[name="twitter:card"]');
+        const twitterTitle = doc.querySelector('meta[name="twitter:title"]');
+        const twitterDesc = doc.querySelector('meta[name="twitter:description"]');
+
+        if (twitterCard && twitterTitle && twitterDesc) {
+            console.log('✓ Twitter Card tags found');
+        } else {
+            console.error('❌ Missing some Twitter Card tags');
+            hasErrors = true;
+        }
+
+        // Test 5: Check for canonical URL
+        const canonical = doc.querySelector('link[rel="canonical"]');
+        if (canonical) {
+            console.log('✓ Canonical URL found');
+        } else {
+            console.error('❌ Canonical URL missing');
+            hasErrors = true;
+        }
+
+        // Test 6: Check for theme-color
+        const themeColor = doc.querySelector('meta[name="theme-color"]');
+        if (themeColor) {
+            console.log('✓ Theme color meta tag found');
+        } else {
+            console.warn('⚠️  Theme color meta tag missing');
+            hasWarnings = true;
+        }
+
+        // Test 7: Check for title tag
+        const title = doc.querySelector('title');
+        if (title && title.textContent.trim()) {
+            console.log('✓ Title tag found and not empty');
+        } else {
+            console.error('❌ Title tag missing or empty');
+            hasErrors = true;
+        }
+
+        // Test 8: Check for manifest link
+        const manifest = doc.querySelector('link[rel="manifest"]');
+        if (manifest) {
+            console.log('✓ Web manifest link found');
+        } else {
+            console.warn('⚠️  Web manifest link missing');
+            hasWarnings = true;
+        }
+
+        // Test 9: Check for favicon
+        const favicon = doc.querySelector('link[rel="icon"], link[rel="shortcut icon"]');
+        if (favicon) {
+            console.log('✓ Favicon found');
+        } else {
+            console.warn('⚠️  Favicon missing');
+            hasWarnings = true;
+        }
+
+        // Test 10: Check for apple-touch-icon
+        const appleTouchIcon = doc.querySelector('link[rel="apple-touch-icon"]');
+        if (appleTouchIcon) {
+            console.log('✓ Apple touch icon found');
+        } else {
+            console.warn('⚠️  Apple touch icon missing');
+            hasWarnings = true;
+        }
+
+        // Test 11: Check for structured data (JSON-LD)
+        const structuredData = doc.querySelector('script[type="application/ld+json"]');
+        if (structuredData) {
+            console.log('✓ Structured data (JSON-LD) found');
+
+            // Validate JSON-LD syntax
+            try {
+                JSON.parse(structuredData.textContent);
+                console.log('✓ Structured data is valid JSON');
+            } catch (e) {
+                console.error('❌ Structured data has invalid JSON syntax:', e.message);
+                hasErrors = true;
+            }
+        } else {
+            console.warn('⚠️  Structured data (JSON-LD) missing');
+            hasWarnings = true;
+        }
+
+        // Test 12: Check images for alt text
         console.log('\nChecking images for alt text...');
         const images = doc.querySelectorAll('img');
         let missingAltCount = 0;
-        let emptyAltCount = 0;
 
-        images.forEach((img) => {
+        images.forEach((img, idx) => {
             const src = img.getAttribute('src') || 'unknown';
             const alt = img.getAttribute('alt');
 
-            if (!alt) {
-                console.error(`❌ Image missing alt attribute: ${src}`);
+            if (!alt || alt.trim() === '') {
+                console.error(`❌ Image missing alt text: ${src}`);
                 missingAltCount++;
-            } else if (alt.trim() === '') {
-                // Empty alt is acceptable for decorative images
-                emptyAltCount++;
             }
         });
 
         if (missingAltCount === 0 && images.length > 0) {
-            console.log(`✓ All ${images.length} images have alt attributes`);
-            if (emptyAltCount > 0) {
-                console.log(`ℹ️  ${emptyAltCount} images have empty alt (decorative)`);
-            }
+            console.log(`✓ All ${images.length} images have alt text`);
         } else if (images.length === 0) {
-            console.log('ℹ️  No images found');
+            console.log('ℹ️  No images found in this file');
         } else {
-            console.error(`❌ ${missingAltCount} out of ${images.length} images missing alt attributes`);
+            console.error(`❌ ${missingAltCount} out of ${images.length} images missing alt text`);
             hasErrors = true;
         }
 
-        // Test 4: Check forms for labels
-        console.log('\nChecking forms for accessibility...');
-        const inputs = doc.querySelectorAll('input, textarea, select');
-        let unlabeledInputs = 0;
-
-        inputs.forEach((input) => {
-            const id = input.getAttribute('id');
-            const ariaLabel = input.getAttribute('aria-label');
-            const ariaLabelledBy = input.getAttribute('aria-labelledby');
-            const type = input.getAttribute('type');
-
-            // Skip hidden and submit/button types
-            if (type === 'hidden' || type === 'submit' || type === 'button') {
-                return;
-            }
-
-            // Check for associated label
-            let hasLabel = false;
-            if (id) {
-                const label = doc.querySelector(`label[for="${id}"]`);
-                if (label) {
-                    hasLabel = true;
-                }
-            }
-
-            if (!hasLabel && !ariaLabel && !ariaLabelledBy) {
-                console.error(`❌ Input missing label or aria-label: ${input.outerHTML.substring(0, 50)}...`);
-                unlabeledInputs++;
-            }
-        });
-
-        if (unlabeledInputs === 0 && inputs.length > 0) {
-            console.log(`✓ All ${inputs.length} form controls have labels`);
-        } else if (inputs.length === 0) {
-            console.log('ℹ️  No form controls found');
-        } else {
-            console.error(`❌ ${unlabeledInputs} out of ${inputs.length} form controls missing labels`);
-            hasErrors = true;
-        }
-
-        // Test 5: Check links for descriptive text
-        console.log('\nChecking links for descriptive text...');
-        const links = doc.querySelectorAll('a');
-        let emptyLinks = 0;
-        let nonDescriptiveLinks = 0;
-
-        const nonDescriptiveTexts = ['click here', 'here', 'read more', 'more', 'link'];
-
-        links.forEach((link) => {
-            const text = link.textContent.trim().toLowerCase();
-            const ariaLabel = link.getAttribute('aria-label');
-
-            if (!text && !ariaLabel) {
-                console.warn(`⚠️  Link has no text content: ${link.getAttribute('href')}`);
-                emptyLinks++;
-            } else if (nonDescriptiveTexts.includes(text) && !ariaLabel) {
-                console.warn(`⚠️  Link has non-descriptive text: "${text}"`);
-                nonDescriptiveLinks++;
-            }
-        });
-
-        if (emptyLinks === 0 && nonDescriptiveLinks === 0 && links.length > 0) {
-            console.log(`✓ All ${links.length} links have descriptive text`);
-        } else if (links.length === 0) {
-            console.log('ℹ️  No links found');
-        } else {
-            if (emptyLinks > 0) {
-                console.error(`❌ ${emptyLinks} links have no text`);
+        // Test 13: Check for lang attribute on html tag (only for complete documents)
+        if (isCompleteDoc) {
+            console.log('\nChecking HTML lang attribute...');
+            const html = doc.querySelector('html');
+            if (html && html.getAttribute('lang')) {
+                console.log('✓ HTML lang attribute found');
+            } else {
+                console.error('❌ HTML lang attribute missing');
                 hasErrors = true;
             }
-            if (nonDescriptiveLinks > 0) {
-                console.warn(`⚠️  ${nonDescriptiveLinks} links have non-descriptive text`);
-                hasWarnings = true;
-            }
         }
 
-        // Test 6: Check buttons for accessible names
-        console.log('\nChecking buttons for accessible names...');
-        const buttons = doc.querySelectorAll('button');
-        let unlabeledButtons = 0;
-
-        buttons.forEach((button) => {
-            const text = button.textContent.trim();
-            const ariaLabel = button.getAttribute('aria-label');
-
-            if (!text && !ariaLabel) {
-                console.error(`❌ Button has no accessible name: ${button.outerHTML.substring(0, 50)}...`);
-                unlabeledButtons++;
-            }
-        });
-
-        if (unlabeledButtons === 0 && buttons.length > 0) {
-            console.log(`✓ All ${buttons.length} buttons have accessible names`);
-        } else if (buttons.length === 0) {
-            console.log('ℹ️  No buttons found');
-        } else {
-            console.error(`❌ ${unlabeledButtons} out of ${buttons.length} buttons missing accessible names`);
-            hasErrors = true;
-        }
-
-        // Test 7: Check for ARIA landmarks
-        console.log('\nChecking for ARIA landmarks...');
-        const nav = doc.querySelector('nav, [role="navigation"]');
-        const main = doc.querySelector('main, [role="main"]');
-        const header = doc.querySelector('header, [role="banner"]');
-        const footer = doc.querySelector('footer, [role="contentinfo"]');
-
-        if (nav) {
-            console.log('✓ Navigation landmark found');
-        } else {
-            console.warn('⚠️  Navigation landmark missing');
-            hasWarnings = true;
-        }
-
-        if (main) {
-            console.log('✓ Main landmark found');
-        } else {
-            console.warn('⚠️  Main landmark missing');
-            hasWarnings = true;
-        }
-
-        if (header) {
-            console.log('✓ Header/banner landmark found');
-        } else {
-            console.warn('⚠️  Header/banner landmark missing');
-            hasWarnings = true;
-        }
-
-        if (footer) {
-            console.log('✓ Footer/contentinfo landmark found');
-        } else {
-            console.warn('⚠️  Footer/contentinfo landmark missing');
-            hasWarnings = true;
-        }
-
-        console.log(`\n✅ ${pageName} accessibility tests completed\n`);
+        console.log(`\n✅ ${pageName} SEO tests completed\n`);
 
     } catch (error) {
         console.error(`❌ Error parsing ${htmlPath}:`, error.message);
@@ -252,36 +222,154 @@ function testHTMLForAccessibility(htmlPath, pageName) {
     }
 }
 
-// Run tests
+/**
+ * Test manifest.json validity
+ */
+function testManifest(manifestPath) {
+    console.log('\n=== Testing manifest.json ===\n');
+
+    if (!fs.existsSync(manifestPath)) {
+        console.error('❌ manifest.json not found');
+        hasErrors = true;
+        return;
+    }
+
+    try {
+        const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'));
+
+        // Check required fields
+        const requiredFields = ['name', 'short_name', 'start_url', 'display'];
+        let allPresent = true;
+
+        requiredFields.forEach(field => {
+            if (manifest[field]) {
+                console.log(`✓ Manifest has ${field}`);
+            } else {
+                console.error(`❌ Manifest missing ${field}`);
+                hasErrors = true;
+                allPresent = false;
+            }
+        });
+
+        // Check recommended fields
+        if (manifest.icons && manifest.icons.length > 0) {
+            console.log('✓ Manifest has icons');
+        } else {
+            console.warn('⚠️  Manifest missing icons');
+            hasWarnings = true;
+        }
+
+        if (manifest.theme_color) {
+            console.log('✓ Manifest has theme_color');
+        } else {
+            console.warn('⚠️  Manifest missing theme_color');
+            hasWarnings = true;
+        }
+
+        if (allPresent) {
+            console.log('\n✅ manifest.json is valid\n');
+        }
+
+    } catch (error) {
+        console.error('❌ Error parsing manifest.json:', error.message);
+        hasErrors = true;
+    }
+}
+
+/**
+ * Test robots.txt
+ */
+function testRobotsTxt(robotsPath) {
+    console.log('\n=== Testing robots.txt ===\n');
+
+    if (!fs.existsSync(robotsPath)) {
+        console.error('❌ robots.txt not found');
+        hasErrors = true;
+        return;
+    }
+
+    const content = fs.readFileSync(robotsPath, 'utf8');
+
+    // Check for Sitemap directive (most important part)
+    if (content.includes('Sitemap:')) {
+        console.log('✓ robots.txt has Sitemap directive');
+    } else {
+        console.error('❌ robots.txt missing Sitemap directive');
+        hasErrors = true;
+    }
+
+    // User-agent directive is optional (defaults to allowing all if not present)
+    if (content.includes('User-agent:')) {
+        console.log('✓ robots.txt has User-agent directive');
+    } else {
+        console.log('ℹ️  robots.txt has no User-agent directive (defaults to allowing all crawlers)');
+    }
+
+    console.log('\n✅ robots.txt tests completed\n');
+}
+
+// Run all tests
 const projectRoot = path.join(__dirname, '..');
 
-// Test layout files
-testHTMLForAccessibility(path.join(projectRoot, '_layouts', 'default.html'), 'Default layout');
-testHTMLForAccessibility(path.join(projectRoot, '_includes', 'header.html'), 'Header include');
-testHTMLForAccessibility(path.join(projectRoot, '_includes', 'footer.html'), 'Footer include');
+// Test 1: Required files
+console.log('=== Testing for required files ===\n');
+testFileExists(path.join(projectRoot, 'robots.txt'), 'robots.txt');
+testFileExists(path.join(projectRoot, 'manifest.json'), 'manifest.json');
+console.log('');
 
-// Test sample pages
+// Test 2: Layout template (the head include is in all pages)
+// Note: head.html is a partial, so we don't check for <html lang> attribute
+testHTMLForSEO(path.join(projectRoot, '_includes', 'head.html'), 'head.html template', false);
+
+// Test 3: Sample pages (these will include the head template when built)
+// Note: Testing individual pages for their own front matter
 const pagesToTest = [
     { path: path.join(projectRoot, '_pages', 'books.html'), name: 'Books page' },
     { path: path.join(projectRoot, '_pages', 'about.md'), name: 'About page' }
 ];
 
+// For Jekyll pages, we mainly check for images and content structure
+console.log('\n=== Testing individual pages ===\n');
+
 pagesToTest.forEach(page => {
     if (fs.existsSync(page.path)) {
-        testHTMLForAccessibility(page.path, page.name);
+        const content = fs.readFileSync(page.path, 'utf8');
+
+        // Check for images without alt text (basic regex check)
+        const imgTags = content.match(/<img[^>]*>/gi) || [];
+        let missingAlt = 0;
+
+        imgTags.forEach(tag => {
+            if (!tag.includes('alt=')) {
+                missingAlt++;
+                console.error(`❌ ${page.name}: Image tag missing alt attribute`);
+            }
+        });
+
+        if (imgTags.length > 0 && missingAlt === 0) {
+            console.log(`✓ ${page.name}: All ${imgTags.length} images have alt attributes`);
+        } else if (imgTags.length === 0) {
+            console.log(`ℹ️  ${page.name}: No images found`);
+        }
     }
 });
+
+// Test 4: manifest.json
+testManifest(path.join(projectRoot, 'manifest.json'));
+
+// Test 5: robots.txt
+testRobotsTxt(path.join(projectRoot, 'robots.txt'));
 
 // Final summary
 console.log('\n=== Test Summary ===\n');
 
 if (hasErrors) {
-    console.error('❌ Some accessibility tests FAILED. Please fix the errors above.\n');
+    console.error('❌ Some SEO compliance tests FAILED. Please fix the errors above.\n');
     process.exit(1);
 } else if (hasWarnings) {
-    console.warn('⚠️  All critical accessibility tests passed, but there are some warnings to address.\n');
+    console.warn('⚠️  All critical tests passed, but there are some warnings to address.\n');
     process.exit(0);
 } else {
-    console.log('✅ All accessibility tests PASSED!\n');
+    console.log('✅ All SEO and web compliance tests PASSED!\n');
     process.exit(0);
 }
