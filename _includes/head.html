@@ -5,9 +5,32 @@
   <!-- mobile responsive meta -->
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="{%if page.description%}{{page.description}}{%else%}{{site.data.settings.description}}{%endif%}">
-    
-  {% if site.author %}
-  <meta name="author" content="{{ . }}">
+  <meta name="author" content="Hal Y. Zhang">
+  <meta name="theme-color" content="#000000">
+
+  <!-- Canonical URL -->
+  <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
+
+  <!-- Open Graph meta tags for social sharing -->
+  <meta property="og:title" content="{% if page.title %}Hal Y. Zhang: {{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}">
+  <meta property="og:description" content="{%if page.description%}{{page.description}}{%else%}{{site.data.settings.description}}{%endif%}">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  <meta property="og:site_name" content="{{ site.data.settings.title }}">
+  {% if page.image %}
+  <meta property="og:image" content="{{ page.image | absolute_url }}">
+  {% else %}
+  <meta property="og:image" content="{{ '/assets/images/about/me.jpg' | absolute_url }}">
+  {% endif %}
+
+  <!-- Twitter Card meta tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="{% if page.title %}Hal Y. Zhang: {{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}">
+  <meta name="twitter:description" content="{%if page.description%}{{page.description}}{%else%}{{site.data.settings.description}}{%endif%}">
+  {% if page.image %}
+  <meta name="twitter:image" content="{{ page.image | absolute_url }}">
+  {% else %}
+  <meta name="twitter:image" content="{{ '/assets/images/about/me.jpg' | absolute_url }}">
   {% endif %}
   
   <!-- ** Plugins Needed for the Project ** -->
@@ -21,6 +44,27 @@
   <!--Favicon-->
   <link rel="shortcut icon" href="{{ '/assets/images/favicon.png' | relative_url }} " type="image/x-icon">
   <link rel="icon" href="{{ '/assets/images/favicon.png' | relative_url }} " type="image/x-icon">
+  <link rel="apple-touch-icon" href="{{ '/assets/images/favicon.png' | relative_url }}">
+
+  <!-- Web manifest for PWA support -->
+  <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
+
+  <!-- Structured Data (JSON-LD) for SEO -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Hal Y. Zhang",
+    "alternateName": "章皓",
+    "url": "{{ site.url }}",
+    "image": "{{ '/assets/images/about/me.jpg' | absolute_url }}",
+    "jobTitle": "Writer, Editor, Translator",
+    "description": "{{ site.data.settings.description }}",
+    "sameAs": [
+      "https://halyzhang.com"
+    ]
+  }
+  </script>
 
   <!-- google analytics -->
   {% if site.data.settings.google-analytics %}

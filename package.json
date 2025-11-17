@@ -4,8 +4,12 @@
   "description": "Hal Y. Zhang's author website",
   "private": true,
   "scripts": {
-    "test": "node tests/validate-html.js",
-    "test:verbose": "node tests/validate-html.js --verbose"
+    "test": "npm run test:html && npm run test:seo && npm run test:a11y",
+    "test:html": "node tests/validate-html.js",
+    "test:seo": "node tests/seo-compliance.js",
+    "test:a11y": "node tests/accessibility.js",
+    "test:verbose": "node tests/validate-html.js --verbose",
+    "test:all": "npm run test:html && npm run test:seo && npm run test:a11y"
   },
   "devDependencies": {
     "jsdom": "^23.2.0"
