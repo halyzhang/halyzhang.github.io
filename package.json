@@ -1,0 +1,15 @@
+{
+  "name": "halyzhang-website",
+  "version": "1.0.0",
+  "description": "Hal Y. Zhang's author website",
+  "private": true,
+  "scripts": {
+    "test": "node tests/validate-html.js",
+    "test:verbose": "node tests/validate-html.js --verbose"
+  },
+  "devDependencies": {
+    "jsdom": "^23.2.0"
+  },
+  "author": "Hal Y. Zhang",
+  "license": "MIT"
+}

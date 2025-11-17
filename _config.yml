@@ -4,6 +4,7 @@ url: "https://halyzhang.com" # the base hostname & protocol for your site, e.g. 
 # Build settings
 markdown: kramdown
 permalink: pretty
+encoding: utf-8
 plugins:
   - jekyll-sitemap
 compress_html:
@@ -32,3 +33,10 @@ exclude:
   - LICENSE.text
   - README.md
   - SECURITY.md
+  - node_modules
+  - package.json
+  - package-lock.json
+  - tests
+  - bin
+  - jekyll-serve.sh
+  - .ruby-version
