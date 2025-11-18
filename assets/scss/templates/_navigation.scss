@@ -12,9 +12,28 @@
     padding: 20px;
     background: $primary-color;
   }
+  @include mobile {
+    padding: 15px 10px;
+  }
 }
 
 .navbar{
+  .navbar-brand {
+    @include mobile {
+      font-size: 1.2rem;
+      max-width: calc(100% - 60px);
+      h3 {
+        font-size: 1.2rem;
+        margin: 0;
+      }
+    }
+  }
+  .navbar-toggler {
+    @include mobile {
+      padding: 0.25rem 0.5rem;
+      font-size: 1rem;
+    }
+  }
   .nav-item{
     .nav-link{
       font-family: $tertiary-font;

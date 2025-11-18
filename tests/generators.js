@@ -132,7 +132,7 @@ const projectRoot = path.join(__dirname, '..');
 
 // Test Writing Prompts Generator
 testGeneratorPage(
-    path.join(projectRoot, '_pages', 'writingprompts.html'),
+    path.join(projectRoot, '_pages', 'writingprompt.html'),
     'Writing Prompts Generator',
     {
         elements: ['generateBtn', 'promptDisplay', 'promptText', 'copyBtn'],

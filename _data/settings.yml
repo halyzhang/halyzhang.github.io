@@ -12,7 +12,7 @@ menu:
 - name: Fun
   submenu:
     - {name: Wuxia Names, link: '/wuxianame/'}
-    - {name: Writing Prompts, link: '/writingprompts/'}
+    - {name: Writing Prompts, link: '/writingprompt/'}
 - {name: About, link: '/about/'}
 
 

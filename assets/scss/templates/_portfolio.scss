@@ -11,6 +11,13 @@
     /*left: 50%;*/
     bottom: 0;
     /*width: 100%;*/
+    object-fit: cover;
+    object-position: center;
+    @include mobile {
+      width: 100%;
+      left: 0 !important;
+      right: 0 !important;
+    }
   }
 
   .bg-shape-center{
@@ -19,7 +26,7 @@
     margin-left: auto;
     margin-right: auto;
   }
-  
+
   .bg-shape-left{
     left: 0;
   }
