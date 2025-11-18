@@ -264,7 +264,6 @@ background-align: bg-shape-center
         {c: "青莲", p: "Qīnglián", m: "green lotus", g: "f", src: "Li Bai/李白's style name"},
         {c: "长风", p: "Chángfēng", m: "long wind", g: "m", src: "classical poetry"},
         {c: "归燕", p: "Guīyàn", m: "returning swallow", g: "f", src: "classical poetry"},
-        {c: "清风", p: "Qīngfēng", m: "clear breeze", g: "m", src: "classical poetry"},
         {c: "如梦", p: "Rúmèng", m: "like a dream", g: "f", src: "Li Qingzhao/李清照: Ru Meng Ling/《如梦令》"},
         {c: "凌云", p: "Língyún", m: "soaring to the clouds", g: "m", src: "Classical literature"},
         {c: "惊鸿", p: "Jīnghóng", m: "startled wild swan, metaphor for the beautiful poise of a woman", g: "f", src: "Cao Zhi/曹植: Ode to Goddess Luo/《洛神赋》"},
@@ -325,55 +324,56 @@ background-align: bg-shape-center
     ];
 
     /* Unified character database organized by category
-       Gender can be: "m" (masc), "f" (fem), or "neutral" */
+       Gender can be: "m" (masc), "f" (fem), or "n" */
     var characters = {
         celestial: [
             {c: "天", p: "tiān", m: "heaven, sky", g: "m"},
-            {c: "星", p: "xīng", m: "star", g: "neutral"},
+            {c: "星", p: "xīng", m: "star", g: "n"},
             {c: "月", p: "yuè", m: "moon", g: "f"},
             {c: "日", p: "rì", m: "sun", g: "m"},
-            {c: "辰", p: "chén", m: "celestial bodies, time", g: "neutral"},
-            {c: "曦", p: "xī", m: "sunlight", g: "neutral"},
+            {c: "辰", p: "chén", m: "celestial bodies, time", g: "n"},
+            {c: "曦", p: "xī", m: "sunlight", g: "n"},
             {c: "霄", p: "xiāo", m: "sky, clouds", g: "m"}
         ],
         nature: [
-            {c: "风", p: "fēng", m: "wind", g: "neutral"},
-            {c: "云", p: "yún", m: "cloud", g: "neutral"},
-            {c: "雪", p: "xuě", m: "snow", g: "neutral"},
-            {c: "雨", p: "yǔ", m: "rain", g: "neutral"},
-            {c: "霜", p: "shuāng", m: "frost", g: "neutral"},
-            {c: "冰", p: "bīng", m: "ice", g: "neutral"},
+            {c: "风", p: "fēng", m: "wind", g: "n"},
+            {c: "云", p: "yún", m: "cloud", g: "n"},
+            {c: "雪", p: "xuě", m: "snow", g: "n"},
+            {c: "雨", p: "yǔ", m: "rain", g: "n"},
+            {c: "霜", p: "shuāng", m: "frost", g: "n"},
+            {c: "冰", p: "bīng", m: "ice", g: "n"},
             {c: "露", p: "lù", m: "dew", g: "f"},
-            {c: "烟", p: "yān", m: "mist, smoke", g: "neutral"},
-            {c: "泉", p: "quán", m: "spring, fountain", g: "neutral"},
-            {c: "流", p: "liú", m: "flowing, stream", g: "neutral"},
+            {c: "烟", p: "yān", m: "mist", g: "n"},
+            {c: "泉", p: "quán", m: "fountain", g: "n"},
+            {c: "流", p: "liú", m: "flow", g: "n"},
             {c: "山", p: "shān", m: "mountain", g: "m"},
-            {c: "海", p: "hǎi", m: "sea, ocean", g: "m"},
+            {c: "海", p: "hǎi", m: "ocean", g: "m"},
             {c: "江", p: "jiāng", m: "river", g: "m"},
-            {c: "波", p: "bō", m: "waves", g: "neutral"}
+            {c: "波", p: "bō", m: "waves", g: "n"}
         ],
         flora: [
             {c: "梅", p: "méi", m: "plum blossom", g: "f"},
             {c: "兰", p: "lán", m: "orchid", g: "f"},
-            {c: "竹", p: "zhú", m: "bamboo", g: "neutral"},
+            {c: "竹", p: "zhú", m: "bamboo", g: "n"},
             {c: "菊", p: "jú", m: "chrysanthemum", g: "f"},
             {c: "莲", p: "lián", m: "lotus", g: "f"},
             {c: "荷", p: "hé", m: "lotus", g: "f"},
-            {c: "松", p: "sōng", m: "pine tree", g: "neutral"},
+            {c: "松", p: "sōng", m: "pine tree", g: "n"},
             {c: "柳", p: "liǔ", m: "willow", g: "f"},
             {c: "桃", p: "táo", m: "peach", g: "f"},
             {c: "薇", p: "wēi", m: "fern, delicate", g: "f"},
             {c: "芳", p: "fāng", m: "fragrant", g: "f"},
-            {c: "蕊", p: "ruǐ", m: "stamen, flower bud", g: "f"}
+            {c: "蕊", p: "ruǐ", m: "flower bud", g: "f"}
         ],
         virtue: [
+            {c: "长", p: "cháng", m: "everlasting", g: "n"},
             {c: "仁", p: "rén", m: "benevolence", g: "m"},
             {c: "义", p: "yì", m: "righteousness", g: "m"},
-            {c: "礼", p: "lǐ", m: "propriety, rites", g: "neutral"},
-            {c: "智", p: "zhì", m: "wisdom", g: "neutral"},
-            {c: "信", p: "xìn", m: "trustworthiness", g: "neutral"},
+            {c: "礼", p: "lǐ", m: "propriety, rites", g: "n"},
+            {c: "智", p: "zhì", m: "wisdom", g: "n"},
+            {c: "信", p: "xìn", m: "trustworthiness", g: "n"},
             {c: "德", p: "dé", m: "virtue", g: "m"},
-            {c: "善", p: "shàn", m: "goodness", g: "neutral"},
+            {c: "善", p: "shàn", m: "goodness", g: "n"},
             {c: "贞", p: "zhēn", m: "faithfulness", g: "f"},
             {c: "慧", p: "huì", m: "intelligent, wise", g: "f"},
             {c: "诚", p: "chéng", m: "sincerity", g: "m"}
@@ -394,11 +394,11 @@ background-align: bg-shape-center
             {c: "龙", p: "lóng", m: "dragon", g: "m"},
             {c: "虎", p: "hǔ", m: "tiger", g: "m"},
             {c: "凤", p: "fèng", m: "phoenix", g: "f"},
-            {c: "鹤", p: "hè", m: "crane", g: "neutral"},
+            {c: "鹤", p: "hè", m: "crane", g: "n"},
             {c: "鹰", p: "yīng", m: "eagle, hawk", g: "m"},
-            {c: "雁", p: "yàn", m: "wild goose", g: "neutral"},
+            {c: "雁", p: "yàn", m: "wild goose", g: "n"},
             {c: "燕", p: "yàn", m: "swallow (the bird)", g: "f"},
-            {c: "鸿", p: "hóng", m: "wild swan, vast", g: "neutral"},
+            {c: "鸿", p: "hóng", m: "wild swan, vast", g: "n"},
             {c: "麟", p: "lín", m: "qilin (mythical beast)", g: "m"},
             {c: "蝶", p: "dié", m: "butterfly", g: "f"}
         ],
@@ -407,7 +407,7 @@ background-align: bg-shape-center
             {c: "俊", p: "jùn", m: "handsome, talented", g: "m"},
             {c: "秀", p: "xiù", m: "elegant, refined", g: "f"},
             {c: "英", p: "yīng", m: "hero, outstanding", g: "m"},
-            {c: "华", p: "huá", m: "splendid, magnificent", g: "neutral"},
+            {c: "华", p: "huá", m: "splendid, magnificent", g: "n"},
             {c: "雅", p: "yǎ", m: "elegant, refined", g: "f"},
             {c: "娟", p: "juān", m: "beautiful, graceful", g: "f"},
             {c: "美", p: "měi", m: "beautiful", g: "f"},
@@ -421,27 +421,27 @@ background-align: bg-shape-center
             {c: "戟", p: "jǐ", m: "halberd", g: "m"},
             {c: "拳", p: "quán", m: "fist", g: "m"},
             {c: "掌", p: "zhǎng", m: "palm", g: "m"},
-            {c: "功", p: "gōng", m: "skill, achievement", g: "neutral"},
-            {c: "气", p: "qì", m: "energy, spirit", g: "neutral"}
+            {c: "功", p: "gōng", m: "skill, achievement", g: "n"},
+            {c: "气", p: "qì", m: "energy, spirit", g: "n"}
         ],
         light: [
-            {c: "明", p: "míng", m: "bright, clear", g: "neutral"},
-            {c: "光", p: "guāng", m: "light, radiance", g: "neutral"},
+            {c: "明", p: "míng", m: "bright, clear", g: "n"},
+            {c: "光", p: "guāng", m: "light, radiance", g: "n"},
             {c: "辉", p: "huī", m: "brilliance", g: "m"},
             {c: "耀", p: "yào", m: "shine, glory", g: "m"},
             {c: "曜", p: "yào", m: "glorious", g: "m"},
-            {c: "晖", p: "huī", m: "sunshine", g: "neutral"},
+            {c: "晖", p: "huī", m: "sunshine", g: "n"},
             {c: "煌", p: "huáng", m: "radiant", g: "m"}
         ],
         elegance: [
-            {c: "清", p: "qīng", m: "clear, pure", g: "neutral"},
+            {c: "清", p: "qīng", m: "clear, pure", g: "n"},
             {c: "静", p: "jìng", m: "quiet, calm", g: "f"},
             {c: "婉", p: "wǎn", m: "graceful", g: "f"},
             {c: "柔", p: "róu", m: "gentle, soft", g: "f"},
             {c: "婷", p: "tíng", m: "graceful", g: "f"},
             {c: "姿", p: "zī", m: "elegant poise", g: "f"},
             {c: "舞", p: "wǔ", m: "dance", g: "f"},
-            {c: "灵", p: "líng", m: "spirit, nimble", g: "neutral"}
+            {c: "灵", p: "líng", m: "spirit, nimble", g: "n"}
         ],
         beauty: [
             {c: "嫣", p: "yān", m: "beautiful", g: "f"},
@@ -453,33 +453,33 @@ background-align: bg-shape-center
             {c: "姝", p: "shū", m: "beautiful", g: "f"}
         ],
         tranquility: [
-            {c: "安", p: "ān", m: "peaceful", g: "neutral"},
-            {c: "宁", p: "níng", m: "tranquil", g: "neutral"},
+            {c: "安", p: "ān", m: "peaceful", g: "n"},
+            {c: "宁", p: "níng", m: "tranquil", g: "n"},
             {c: "泰", p: "tài", m: "peaceful, grand", g: "m"},
-            {c: "和", p: "hé", m: "harmony", g: "neutral"},
-            {c: "悠", p: "yōu", m: "leisurely", g: "neutral"},
-            {c: "闲", p: "xián", m: "leisure", g: "neutral"},
-            {c: "淡", p: "dàn", m: "tranquil", g: "neutral"}
+            {c: "和", p: "hé", m: "harmony", g: "n"},
+            {c: "悠", p: "yōu", m: "leisurely", g: "n"},
+            {c: "闲", p: "xián", m: "leisure", g: "n"},
+            {c: "淡", p: "dàn", m: "tranquil", g: "n"}
         ],
         jade: [
-            {c: "玉", p: "yù", m: "jade", g: "neutral"},
+            {c: "玉", p: "yù", m: "jade", g: "n"},
             {c: "琳", p: "lín", m: "beautiful jade", g: "f"},
             {c: "瑶", p: "yáo", m: "precious jade", g: "f"},
             {c: "琼", p: "qióng", m: "fine jade", g: "f"},
             {c: "珠", p: "zhū", m: "pearl", g: "f"},
-            {c: "璧", p: "bì", m: "jade disc", g: "neutral"},
+            {c: "璧", p: "bì", m: "jade disc", g: "n"},
             {c: "璇", p: "xuán", m: "beautiful jade", g: "f"},
             {c: "琪", p: "qí", m: "precious jade", g: "f"}
         ],
         wisdom: [
             {c: "文", p: "wén", m: "cultured, refined", g: "m"},
-            {c: "学", p: "xué", m: "learning", g: "neutral"},
-            {c: "书", p: "shū", m: "book, writing", g: "neutral"},
-            {c: "墨", p: "mò", m: "ink", g: "neutral"},
-            {c: "诗", p: "shī", m: "poetry", g: "neutral"},
-            {c: "琴", p: "qín", m: "qin (zither)", g: "neutral"},
-            {c: "棋", p: "qí", m: "chess", g: "neutral"},
-            {c: "画", p: "huà", m: "painting", g: "neutral"}
+            {c: "学", p: "xué", m: "learning", g: "n"},
+            {c: "书", p: "shū", m: "book, writing", g: "n"},
+            {c: "墨", p: "mò", m: "ink", g: "n"},
+            {c: "诗", p: "shī", m: "poetry", g: "n"},
+            {c: "琴", p: "qín", m: "qin (zither)", g: "n"},
+            {c: "棋", p: "qí", m: "chess", g: "n"},
+            {c: "画", p: "huà", m: "painting", g: "n"}
         ],
         fragrance: [
             {c: "香", p: "xiāng", m: "fragrant", g: "f"},
@@ -494,7 +494,7 @@ background-align: bg-shape-center
             {c: "博", p: "bó", m: "extensive, learned", g: "m"},
             {c: "鹏", p: "péng", m: "roc (mythical bird)", g: "m"},
             {c: "翔", p: "xiáng", m: "soar", g: "m"},
-            {c: "翼", p: "yì", m: "wings", g: "neutral"},
+            {c: "翼", p: "yì", m: "wings", g: "n"},
             {c: "凌", p: "líng", m: "soar above", g: "m"}
         ]
     };
@@ -532,20 +532,20 @@ background-align: bg-shape-center
         {ming: "月", zi: "映寒", mp: "Yuè", zp: "Yìnghán", m: "moon / reflecting coldness", ref: "poetic imagery", g: "f"},
         {ming: "剑", zi: "破空", mp: "Jiàn", zp: "Pòkōng", m: "sword / breaking through the void", ref: "wuxia tradition", g: "m"},
         {ming: "梅", zi: "傲雪", mp: "Méi", zp: "Àoxuě", m: "plum blossom / proud in snow", ref: "classical imagery", g: "f"},
-        {ming: "松", zi: "青翠", mp: "Sōng", zp: "Qīngcuì", m: "pine / evergreen", ref: "virtue metaphor", g: "neutral"},
+        {ming: "松", zi: "青翠", mp: "Sōng", zp: "Qīngcuì", m: "pine / evergreen", ref: "virtue metaphor", g: "n"},
         {ming: "兰", zi: "幽谷", mp: "Lán", zp: "Yōugǔ", m: "orchid / secluded valley", ref: "classical imagery", g: "f"},
-        {ming: "竹", zi: "虚心", mp: "Zhú", zp: "Xūxīn", m: "bamboo / humble heart", ref: "virtue metaphor", g: "neutral"},
-        {ming: "鹤", zi: "九霄", mp: "Hè", zp: "Jiǔxiāo", m: "crane / ninth heaven", ref: "daoist imagery", g: "neutral"},
+        {ming: "竹", zi: "虚心", mp: "Zhú", zp: "Xūxīn", m: "bamboo / humble heart", ref: "virtue metaphor", g: "n"},
+        {ming: "鹤", zi: "九霄", mp: "Hè", zp: "Jiǔxiāo", m: "crane / ninth heaven", ref: "daoist imagery", g: "n"},
         {ming: "龙", zi: "潜渊", mp: "Lóng", zp: "Qiányuān", m: "dragon / hidden in the abyss", ref: "I Ching/《易经》", g: "m"},
         {ming: "凤", zi: "朝阳", mp: "Fèng", zp: "Cháoyáng", m: "phoenix / facing the sun", ref: "auspicious imagery", g: "f"},
-        {ming: "星", zi: "辰落", mp: "Xīng", zp: "Chénluò", m: "star / celestial descent", ref: "poetic imagery", g: "neutral"},
-        {ming: "玉", zi: "无瑕", mp: "Yù", zp: "Wúxiá", m: "jade / flawless", ref: "virtue metaphor", g: "neutral"},
-        {ming: "琴", zi: "和鸣", mp: "Qín", zp: "Hémíng", m: "qin / harmonious resonance", ref: "Book of Songs/诗经", g: "neutral"},
-        {ming: "墨", zi: "含香", mp: "Mò", zp: "Hánxiāng", m: "ink / containing fragrance", ref: "scholarly imagery", g: "neutral"},
-        {ming: "霜", zi: "凝寒", mp: "Shuāng", zp: "Nínghán", m: "frost / condensed cold", ref: "seasonal imagery", g: "neutral"},
-        {ming: "烟", zi: "如梦", mp: "Yān", zp: "Rúmèng", m: "mist / dreamlike", ref: "poetic imagery", g: "neutral"},
+        {ming: "星", zi: "辰落", mp: "Xīng", zp: "Chénluò", m: "star / celestial descent", ref: "poetic imagery", g: "n"},
+        {ming: "玉", zi: "无瑕", mp: "Yù", zp: "Wúxiá", m: "jade / flawless", ref: "virtue metaphor", g: "n"},
+        {ming: "琴", zi: "和鸣", mp: "Qín", zp: "Hémíng", m: "qin / harmonious resonance", ref: "Book of Songs/诗经", g: "n"},
+        {ming: "墨", zi: "含香", mp: "Mò", zp: "Hánxiāng", m: "ink / containing fragrance", ref: "scholarly imagery", g: "n"},
+        {ming: "霜", zi: "凝寒", mp: "Shuāng", zp: "Nínghán", m: "frost / condensed cold", ref: "seasonal imagery", g: "n"},
+        {ming: "烟", zi: "如梦", mp: "Yān", zp: "Rúmèng", m: "mist / dreamlike", ref: "poetic imagery", g: "n"},
         {ming: "露", zi: "沾衣", mp: "Lù", zp: "Zhānyī", m: "dew / moistening robes", ref: "classical poetry", g: "f"},
-        {ming: "泉", zi: "清音", mp: "Quán", zp: "Qīngyīn", m: "spring / clear sound", ref: "nature imagery", g: "neutral"}
+        {ming: "泉", zi: "清音", mp: "Quán", zp: "Qīngyīn", m: "spring / clear sound", ref: "nature imagery", g: "n"}
     ];
 
     var currentName = null;
@@ -557,34 +557,34 @@ background-align: bg-shape-center
         var filtered = [];
         for (var i = 0; i < categoryChars.length; i++) {
             var ch = categoryChars[i];
-            if (ch.g === gender || ch.g === "neutral") {
+            if (ch.g === gender || ch.g === "n") {
                 filtered.push(ch);
             }
         }
         return filtered;
     }
 
-    /* Helper: Check if all characters in mingData are neutral */
-    function areAllCharsNeutral(mingData) {
+    /* Helper: Check if all characters in mingData are n */
+    function areAllCharsn(mingData) {
         if (!mingData) return false;
 
         if (mingData.type === "standard") {
             /* Check all chars in the array */
             if (!mingData.chars || mingData.chars.length === 0) return false;
             for (var i = 0; i < mingData.chars.length; i++) {
-                if (mingData.chars[i].g !== "neutral") {
+                if (mingData.chars[i].g !== "n") {
                     return false;
                 }
             }
             return true;
         } else if (mingData.type === "zi_freeform") {
             /* Check mingChar and ziChars */
-            if (mingData.mingChar && mingData.mingChar.g !== "neutral") {
+            if (mingData.mingChar && mingData.mingChar.g !== "n") {
                 return false;
             }
             if (mingData.ziChars) {
                 for (var i = 0; i < mingData.ziChars.length; i++) {
-                    if (mingData.ziChars[i].g !== "neutral") {
+                    if (mingData.ziChars[i].g !== "n") {
                         return false;
                     }
                 }
@@ -763,9 +763,9 @@ background-align: bg-shape-center
             mingData = {type: "standard", chars: givenChars, category: selectedCategory};
         }
 
-        /* Check if all characters are neutral and override gender if so */
+        /* Check if all characters are n and override gender if so */
         var finalGender = gender;
-        if (areAllCharsNeutral(mingData)) {
+        if (areAllCharsn(mingData)) {
             finalGender = "n";
         }
 
@@ -1034,20 +1034,16 @@ background-align: bg-shape-center
       <div class="col-lg-10 mx-auto">
         <div style="max-width: 800px; margin: 0 auto;">
           <p style="margin-bottom: 30px;">
-            <strong>Wuxia/武俠</strong> refers to a genre of media centered on martial artists in ancient China.
-            The word combines wǔ/武 (martial) and xiá/侠 (similar to chivalry/knight-errant), depicting heroes
-            who study incredible martial arts techniques as a means of cultivating their body and spirit. Out in the jianghu/江湖, beyond the reach of central authorities, these individuals take it upon themselves to form alliances, right injustices, and leave their mark on the world.
+            Wǔxiá/武俠 refers to a genre of fiction depicting heroes in ancient China
+            who study incredible martial arts techniques as a means of cultivating their body and spirit. Out in the Jiānghú/江湖, beyond the reach of central authorities, these individuals take it upon themselves to form alliances, right injustices, and leave their mark on the world.
             <br><br>
-            This generator creates fictional names in the wuxia tradition, drawing from period-appropriate naming conventions, poetry, literature, and philosophy. Names are written in Simplified Chinese characters and pinyin.</em>
+            This generator creates names in the wuxia tradition, drawing from literature, philosophy, and period-appropriate naming conventions.</em>
           </p>
 
           <div class="disclaimer">
-            <strong>⚠️ Important Note:</strong> This generator is for entertainment purposes only.
-            Real Chinese names carry deep cultural, familial, and personal significance that cannot be captured by a simple generator.
-            The literal meanings of individual characters presented here are just one aspect—names also carry tonal harmony,
-            historical associations, familial traditions, and symbolism that require cultural knowledge and expertise.
-            <br><br>
-            If you are creating a name for actual use,
+            <strong>⚠️ Important Note:</strong> This tool is for entertainment purposes only.
+            The literal meanings of characters presented here are just one aspect—real Chinese names also carry tonal harmony,
+            historical associations, familial traditions, and symbolism that require cultural knowledge and expertise. If you are creating a name for actual use,
             please consult with those who are familiar with Chinese language and culture to ensure your name is culturally appropriate, meaningful, and respectful.
           </div>
 
@@ -1067,11 +1063,11 @@ background-align: bg-shape-center
 
           <div style="background: #f9f9f9; padding: 20px; margin-top: 30px; border-left: 4px solid #007bff;">
             <ul style="line-height: 1.8;">
+              <li>Names are written in Simplified Chinese characters and pinyin. Pinyin tone marks are provided for the generated name, but Chinese names are often written without the marks, especially in an English context.</li>
               <li>Family names come first in Chinese naming tradition, followed by the given name.</li>
-              <li><strong>Single-character family names</strong> like 李 (Lǐ), 王 (Wáng), or 张 (Zhāng) are the most common; <strong>Compound family names</strong> (two characters) like 第五 (Dìwǔ) or 诸葛 (Zhūgě) are rarer and often lend an ancient and striking air, appropriate for a wuxia name. The family names used here come from the Song dynasty compendium Hundred Family Surnames/百家姓.</li>
+              <li>Single-character family names like 李 (Lǐ), 王 (Wáng), or 张 (Zhāng) are the most common; compound family names like 第五 (Dìwǔ) or 诸葛 (Zhūgě) are rarer and often lend an ancient and striking air, appropriate for a wuxia name. The family names used here come from the Song dynasty compendium Hundred Family Surnames/百家姓.</li>
               <li>Míng/名 is the given name bestowed in early life.</li>
               <li>Zì/字 is the courtesy name adopted upon reaching adulthood, often thematically related to the míng. Using someone's 字 showed respect, while calling them by their 名 was more intimate.</li>
-              <li>Pinyin tone marks are provided for the generated name, but Chinese names are often written without the marks, especially in an English context.</li>
               <li>Note that some characters have multiple readings (for example, 万俟 the family name is pronounced mòqí and not wànqí), which Google Translate doesn't always get right.</li>
             </ul>
           </div>
