@@ -116,32 +116,146 @@ background-align: bg-shape-center
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 (function() {
+    /* Single-character family names from 百家姓 (Hundred Family Surnames) */
     var singleFamily = [
-        {c: "李", p: "Lǐ"}, {c: "王", p: "Wáng"}, {c: "张", p: "Zhāng"},
-        {c: "刘", p: "Liú"}, {c: "陈", p: "Chén"}, {c: "杨", p: "Yáng"},
-        {c: "赵", p: "Zhào"}, {c: "黄", p: "Huáng"}, {c: "周", p: "Zhōu"},
-        {c: "吴", p: "Wú"}, {c: "徐", p: "Xú"}, {c: "孙", p: "Sūn"},
-        {c: "胡", p: "Hú"}, {c: "朱", p: "Zhū"}, {c: "高", p: "Gāo"},
-        {c: "林", p: "Lín"}, {c: "何", p: "Hé"}, {c: "郭", p: "Guō"},
-        {c: "马", p: "Mǎ"}, {c: "罗", p: "Luó"}, {c: "梁", p: "Liáng"},
-        {c: "宋", p: "Sòng"}, {c: "郑", p: "Zhèng"}, {c: "谢", p: "Xiè"},
-        {c: "韩", p: "Hán"}, {c: "唐", p: "Táng"}, {c: "冯", p: "Féng"},
-        {c: "于", p: "Yú"}, {c: "董", p: "Dǒng"}, {c: "萧", p: "Xiāo"},
-        {c: "程", p: "Chéng"}, {c: "曹", p: "Cáo"}, {c: "袁", p: "Yuán"},
-        {c: "邓", p: "Dèng"}, {c: "许", p: "Xǔ"}, {c: "傅", p: "Fù"},
-        {c: "沈", p: "Shěn"}, {c: "曾", p: "Zēng"}, {c: "彭", p: "Péng"},
-        {c: "吕", p: "Lǚ"}
+        {c: "赵", p: "Zhào"}, {c: "钱", p: "Qián"}, {c: "孙", p: "Sūn"}, {c: "李", p: "Lǐ"},
+        {c: "周", p: "Zhōu"}, {c: "吴", p: "Wú"}, {c: "郑", p: "Zhèng"}, {c: "王", p: "Wáng"},
+        {c: "冯", p: "Féng"}, {c: "陈", p: "Chén"}, {c: "褚", p: "Chǔ"}, {c: "卫", p: "Wèi"},
+        {c: "蒋", p: "Jiǎng"}, {c: "沈", p: "Shěn"}, {c: "韩", p: "Hán"}, {c: "杨", p: "Yáng"},
+        {c: "朱", p: "Zhū"}, {c: "秦", p: "Qín"}, {c: "尤", p: "Yóu"}, {c: "许", p: "Xǔ"},
+        {c: "何", p: "Hé"}, {c: "吕", p: "Lǚ"}, {c: "施", p: "Shī"}, {c: "张", p: "Zhāng"},
+        {c: "孔", p: "Kǒng"}, {c: "曹", p: "Cáo"}, {c: "严", p: "Yán"}, {c: "华", p: "Huà"},
+        {c: "金", p: "Jīn"}, {c: "魏", p: "Wèi"}, {c: "陶", p: "Táo"}, {c: "姜", p: "Jiāng"},
+        {c: "戚", p: "Qī"}, {c: "谢", p: "Xiè"}, {c: "邹", p: "Zōu"}, {c: "喻", p: "Yù"},
+        {c: "柏", p: "Bǎi"}, {c: "水", p: "Shuǐ"}, {c: "窦", p: "Dòu"}, {c: "章", p: "Zhāng"},
+        {c: "云", p: "Yún"}, {c: "苏", p: "Sū"}, {c: "潘", p: "Pān"}, {c: "葛", p: "Gě"},
+        {c: "奚", p: "Xī"}, {c: "范", p: "Fàn"}, {c: "彭", p: "Péng"}, {c: "郎", p: "Láng"},
+        {c: "鲁", p: "Lǔ"}, {c: "韦", p: "Wéi"}, {c: "昌", p: "Chāng"}, {c: "马", p: "Mǎ"},
+        {c: "苗", p: "Miáo"}, {c: "凤", p: "Fèng"}, {c: "花", p: "Huā"}, {c: "方", p: "Fāng"},
+        {c: "俞", p: "Yú"}, {c: "任", p: "Rèn"}, {c: "袁", p: "Yuán"}, {c: "柳", p: "Liǔ"},
+        {c: "酆", p: "Fēng"}, {c: "鲍", p: "Bào"}, {c: "史", p: "Shǐ"}, {c: "唐", p: "Táng"},
+        {c: "费", p: "Fèi"}, {c: "廉", p: "Lián"}, {c: "岑", p: "Cén"}, {c: "薛", p: "Xuē"},
+        {c: "雷", p: "Léi"}, {c: "贺", p: "Hè"}, {c: "倪", p: "Ní"}, {c: "汤", p: "Tāng"},
+        {c: "滕", p: "Téng"}, {c: "殷", p: "Yīn"}, {c: "罗", p: "Luó"}, {c: "毕", p: "Bì"},
+        {c: "郝", p: "Hǎo"}, {c: "邬", p: "Wū"}, {c: "安", p: "Ān"}, {c: "常", p: "Cháng"},
+        {c: "乐", p: "Yuè"}, {c: "于", p: "Yú"}, {c: "时", p: "Shí"}, {c: "傅", p: "Fù"},
+        {c: "皮", p: "Pí"}, {c: "卞", p: "Biàn"}, {c: "齐", p: "Qí"}, {c: "康", p: "Kāng"},
+        {c: "伍", p: "Wǔ"}, {c: "余", p: "Yú"}, {c: "元", p: "Yuán"}, {c: "卜", p: "Bǔ"},
+        {c: "顾", p: "Gù"}, {c: "孟", p: "Mèng"}, {c: "平", p: "Píng"}, {c: "黄", p: "Huáng"},
+        {c: "和", p: "Hé"}, {c: "穆", p: "Mù"}, {c: "萧", p: "Xiāo"}, {c: "尹", p: "Yǐn"},
+        {c: "姚", p: "Yáo"}, {c: "邵", p: "Shào"}, {c: "湛", p: "Zhàn"}, {c: "汪", p: "Wāng"},
+        {c: "祁", p: "Qí"}, {c: "毛", p: "Máo"}, {c: "禹", p: "Yǔ"}, {c: "狄", p: "Dí"},
+        {c: "米", p: "Mǐ"}, {c: "贝", p: "Bèi"}, {c: "明", p: "Míng"}, {c: "臧", p: "Zāng"},
+        {c: "计", p: "Jì"}, {c: "伏", p: "Fú"}, {c: "成", p: "Chéng"}, {c: "戴", p: "Dài"},
+        {c: "谈", p: "Tán"}, {c: "宋", p: "Sòng"}, {c: "茅", p: "Máo"}, {c: "庞", p: "Páng"},
+        {c: "熊", p: "Xióng"}, {c: "纪", p: "Jì"}, {c: "舒", p: "Shū"}, {c: "屈", p: "Qū"},
+        {c: "项", p: "Xiàng"}, {c: "祝", p: "Zhù"}, {c: "董", p: "Dǒng"}, {c: "梁", p: "Liáng"},
+        {c: "杜", p: "Dù"}, {c: "阮", p: "Ruǎn"}, {c: "蓝", p: "Lán"}, {c: "闵", p: "Mǐn"},
+        {c: "席", p: "Xí"}, {c: "季", p: "Jì"}, {c: "麻", p: "Má"}, {c: "强", p: "Qiáng"},
+        {c: "贾", p: "Jiǎ"}, {c: "路", p: "Lù"}, {c: "娄", p: "Lóu"}, {c: "危", p: "Wēi"},
+        {c: "江", p: "Jiāng"}, {c: "童", p: "Tóng"}, {c: "颜", p: "Yán"}, {c: "郭", p: "Guō"},
+        {c: "梅", p: "Méi"}, {c: "盛", p: "Shèng"}, {c: "林", p: "Lín"}, {c: "刁", p: "Diāo"},
+        {c: "钟", p: "Zhōng"}, {c: "徐", p: "Xú"}, {c: "邱", p: "Qiū"}, {c: "骆", p: "Luò"},
+        {c: "高", p: "Gāo"}, {c: "夏", p: "Xià"}, {c: "蔡", p: "Cài"}, {c: "田", p: "Tián"},
+        {c: "樊", p: "Fán"}, {c: "胡", p: "Hú"}, {c: "凌", p: "Líng"}, {c: "霍", p: "Huò"},
+        {c: "虞", p: "Yú"}, {c: "万", p: "Wàn"}, {c: "支", p: "Zhī"}, {c: "柯", p: "Kē"},
+        {c: "昝", p: "Zǎn"}, {c: "管", p: "Guǎn"}, {c: "卢", p: "Lú"}, {c: "莫", p: "Mò"},
+        {c: "经", p: "Jīng"}, {c: "房", p: "Fáng"}, {c: "裘", p: "Qiú"}, {c: "缪", p: "Miào"},
+        {c: "干", p: "Gān"}, {c: "解", p: "Xiè"}, {c: "应", p: "Yīng"}, {c: "宗", p: "Zōng"},
+        {c: "丁", p: "Dīng"}, {c: "宣", p: "Xuān"}, {c: "贲", p: "Bēn"}, {c: "邓", p: "Dèng"},
+        {c: "郁", p: "Yù"}, {c: "单", p: "Shàn"}, {c: "杭", p: "Háng"}, {c: "洪", p: "Hóng"},
+        {c: "包", p: "Bāo"}, {c: "诸", p: "Zhū"}, {c: "左", p: "Zuǒ"}, {c: "石", p: "Shí"},
+        {c: "崔", p: "Cuī"}, {c: "吉", p: "Jí"}, {c: "钮", p: "Niǔ"}, {c: "龚", p: "Gōng"},
+        {c: "程", p: "Chéng"}, {c: "嵇", p: "Jī"}, {c: "邢", p: "Xíng"}, {c: "滑", p: "Huá"},
+        {c: "裴", p: "Péi"}, {c: "陆", p: "Lù"}, {c: "荣", p: "Róng"}, {c: "翁", p: "Wēng"},
+        {c: "荀", p: "Xún"}, {c: "羊", p: "Yáng"}, {c: "於", p: "Yū"}, {c: "惠", p: "Huì"},
+        {c: "甄", p: "Zhēn"}, {c: "麴", p: "Qū"}, {c: "家", p: "Jiā"}, {c: "封", p: "Fēng"},
+        {c: "芮", p: "Ruì"}, {c: "羿", p: "Yì"}, {c: "储", p: "Chǔ"}, {c: "靳", p: "Jìn"},
+        {c: "汲", p: "Jí"}, {c: "邴", p: "Bǐng"}, {c: "糜", p: "Mí"}, {c: "松", p: "Sōng"},
+        {c: "井", p: "Jǐng"}, {c: "段", p: "Duàn"}, {c: "富", p: "Fù"}, {c: "巫", p: "Wū"},
+        {c: "乌", p: "Wū"}, {c: "焦", p: "Jiāo"}, {c: "巴", p: "Bā"}, {c: "弓", p: "Gōng"},
+        {c: "牧", p: "Mù"}, {c: "隗", p: "Kuí"}, {c: "山", p: "Shān"}, {c: "谷", p: "Gǔ"},
+        {c: "车", p: "Chē"}, {c: "侯", p: "Hóu"}, {c: "宓", p: "Mì"}, {c: "蓬", p: "Péng"},
+        {c: "全", p: "Quán"}, {c: "郗", p: "Xī"}, {c: "班", p: "Bān"}, {c: "仰", p: "Yǎng"},
+        {c: "秋", p: "Qiū"}, {c: "仲", p: "Zhòng"}, {c: "伊", p: "Yī"}, {c: "宫", p: "Gōng"},
+        {c: "宁", p: "Níng"}, {c: "仇", p: "Qiú"}, {c: "栾", p: "Luán"}, {c: "暴", p: "Bào"},
+        {c: "甘", p: "Gān"}, {c: "钭", p: "Tǒu"}, {c: "厉", p: "Lì"}, {c: "戎", p: "Róng"},
+        {c: "祖", p: "Zǔ"}, {c: "武", p: "Wǔ"}, {c: "符", p: "Fú"}, {c: "刘", p: "Liú"},
+        {c: "景", p: "Jǐng"}, {c: "詹", p: "Zhān"}, {c: "束", p: "Shù"}, {c: "龙", p: "Lóng"},
+        {c: "叶", p: "Yè"}, {c: "幸", p: "Xìng"}, {c: "司", p: "Sī"}, {c: "韶", p: "Sháo"},
+        {c: "郜", p: "Gào"}, {c: "黎", p: "Lí"}, {c: "蓟", p: "Jì"}, {c: "薄", p: "Bó"},
+        {c: "印", p: "Yìn"}, {c: "宿", p: "Sù"}, {c: "白", p: "Bái"}, {c: "怀", p: "Huái"},
+        {c: "蒲", p: "Pú"}, {c: "邰", p: "Tái"}, {c: "从", p: "Cóng"}, {c: "鄂", p: "È"},
+        {c: "索", p: "Suǒ"}, {c: "咸", p: "Xián"}, {c: "籍", p: "Jí"}, {c: "赖", p: "Lài"},
+        {c: "卓", p: "Zhuó"}, {c: "蔺", p: "Lìn"}, {c: "屠", p: "Tú"}, {c: "蒙", p: "Méng"},
+        {c: "池", p: "Chí"}, {c: "乔", p: "Qiáo"}, {c: "阴", p: "Yīn"}, {c: "郁", p: "Yù"},
+        {c: "胥", p: "Xū"}, {c: "能", p: "Néng"}, {c: "苍", p: "Cāng"}, {c: "双", p: "Shuāng"},
+        {c: "闻", p: "Wén"}, {c: "莘", p: "Shēn"}, {c: "党", p: "Dǎng"}, {c: "翟", p: "Zhái"},
+        {c: "谭", p: "Tán"}, {c: "贡", p: "Gòng"}, {c: "劳", p: "Láo"}, {c: "逄", p: "Páng"},
+        {c: "姬", p: "Jī"}, {c: "申", p: "Shēn"}, {c: "扶", p: "Fú"}, {c: "堵", p: "Dǔ"},
+        {c: "冉", p: "Rǎn"}, {c: "宰", p: "Zǎi"}, {c: "郦", p: "Lì"}, {c: "雍", p: "Yōng"},
+        {c: "郤", p: "Xì"}, {c: "璩", p: "Qú"}, {c: "桑", p: "Sāng"}, {c: "桂", p: "Guì"},
+        {c: "濮", p: "Pú"}, {c: "牛", p: "Niú"}, {c: "寿", p: "Shòu"}, {c: "通", p: "Tōng"},
+        {c: "边", p: "Biān"}, {c: "扈", p: "Hù"}, {c: "燕", p: "Yān"}, {c: "冀", p: "Jì"},
+        {c: "郏", p: "Jiá"}, {c: "浦", p: "Pǔ"}, {c: "尚", p: "Shàng"}, {c: "农", p: "Nóng"},
+        {c: "温", p: "Wēn"}, {c: "别", p: "Bié"}, {c: "庄", p: "Zhuāng"}, {c: "晏", p: "Yàn"},
+        {c: "柴", p: "Chái"}, {c: "瞿", p: "Qú"}, {c: "阎", p: "Yán"}, {c: "充", p: "Chōng"},
+        {c: "慕", p: "Mù"}, {c: "连", p: "Lián"}, {c: "茹", p: "Rú"}, {c: "习", p: "Xí"},
+        {c: "宦", p: "Huàn"}, {c: "艾", p: "Ài"}, {c: "鱼", p: "Yú"}, {c: "容", p: "Róng"},
+        {c: "向", p: "Xiàng"}, {c: "古", p: "Gǔ"}, {c: "易", p: "Yì"}, {c: "慎", p: "Shèn"},
+        {c: "戈", p: "Gē"}, {c: "廖", p: "Liào"}, {c: "庾", p: "Yǔ"}, {c: "终", p: "Zhōng"},
+        {c: "暨", p: "Jì"}, {c: "居", p: "Jū"}, {c: "衡", p: "Héng"}, {c: "步", p: "Bù"},
+        {c: "都", p: "Dū"}, {c: "耿", p: "Gěng"}, {c: "满", p: "Mǎn"}, {c: "弘", p: "Hóng"},
+        {c: "匡", p: "Kuāng"}, {c: "国", p: "Guó"}, {c: "文", p: "Wén"}, {c: "寇", p: "Kòu"},
+        {c: "广", p: "Guǎng"}, {c: "禄", p: "Lù"}, {c: "阙", p: "Quē"}, {c: "东", p: "Dōng"},
+        {c: "欧", p: "Ōu"}, {c: "殳", p: "Shū"}, {c: "沃", p: "Wò"}, {c: "利", p: "Lì"},
+        {c: "蔚", p: "Wèi"}, {c: "越", p: "Yuè"}, {c: "夔", p: "Kuí"}, {c: "隆", p: "Lóng"},
+        {c: "师", p: "Shī"}, {c: "巩", p: "Gǒng"}, {c: "厍", p: "Shè"}, {c: "聂", p: "Niè"},
+        {c: "晁", p: "Cháo"}, {c: "勾", p: "Gōu"}, {c: "敖", p: "Áo"}, {c: "融", p: "Róng"},
+        {c: "冷", p: "Lěng"}, {c: "訾", p: "Zī"}, {c: "辛", p: "Xīn"}, {c: "阚", p: "Kàn"},
+        {c: "那", p: "Nà"}, {c: "简", p: "Jiǎn"}, {c: "饶", p: "Ráo"}, {c: "空", p: "Kōng"},
+        {c: "曾", p: "Zēng"}, {c: "毋", p: "Wú"}, {c: "沙", p: "Shā"}, {c: "乜", p: "Niè"},
+        {c: "养", p: "Yǎng"}, {c: "鞠", p: "Jū"}, {c: "须", p: "Xū"}, {c: "丰", p: "Fēng"},
+        {c: "巢", p: "Cháo"}, {c: "关", p: "Guān"}, {c: "蒯", p: "Kuǎi"}, {c: "相", p: "Xiāng"},
+        {c: "查", p: "Zhā"}, {c: "后", p: "Hòu"}, {c: "荆", p: "Jīng"}, {c: "红", p: "Hóng"},
+        {c: "游", p: "Yóu"}, {c: "竺", p: "Zhú"}, {c: "权", p: "Quán"}, {c: "逯", p: "Lù"},
+        {c: "盖", p: "Gě"}, {c: "益", p: "Yì"}, {c: "桓", p: "Huán"}, {c: "公", p: "Gōng"},
+        {c: "俟", p: "Sì"}, {c: "亓", p: "Qí"}, {c: "诸", p: "Zhū"},
+        {c: "阳", p: "Yáng"}, {c: "佟", p: "Tóng"}, {c: "第", p: "Dì"}, {c: "言", p: "Yán"},
+        {c: "福", p: "Fú"}, {c: "百", p: "Bǎi"}, {c: "姓", p: "Xìng"}, {c: "氏", p: "Shì"},
+        {c: "仉", p: "Zhǎng"}, {c: "督", p: "Dū"}, {c: "晋", p: "Jìn"}, {c: "楚", p: "Chǔ"},
+        {c: "闫", p: "Yán"}, {c: "法", p: "Fǎ"}, {c: "汝", p: "Rǔ"}, {c: "鄢", p: "Yān"},
+        {c: "涂", p: "Tú"}, {c: "钦", p: "Qīn"}, {c: "归", p: "Guī"}, {c: "海", p: "Hǎi"},
+        {c: "岳", p: "Yuè"}, {c: "帅", p: "Shuài"}, {c: "缑", p: "Gōu"}, {c: "亢", p: "Kàng"},
+        {c: "况", p: "Kuàng"}, {c: "有", p: "Yǒu"}, {c: "琴", p: "Qín"}, {c: "商", p: "Shāng"},
+        {c: "牟", p: "Móu"}, {c: "佘", p: "Shé"}, {c: "佴", p: "Nài"}, {c: "伯", p: "Bó"},
+        {c: "赏", p: "Shǎng"}, {c: "墨", p: "Mò"}, {c: "哈", p: "Hā"}, {c: "谯", p: "Qiáo"},
+        {c: "笪", p: "Dá"}, {c: "年", p: "Nián"}, {c: "爱", p: "Ài"}, {c: "琪", p: "Qí"},
+        {c: "太", p: "Tài"}, {c: "独", p: "Dú"}, {c: "孤", p: "Gū"}
     ];
 
+    /* Compound family names from 百家姓 (Hundred Family Surnames) - all 60 authentic compound surnames */
     var compoundFamily = [
-        {c: "欧阳", p: "Ōuyáng"}, {c: "太史", p: "Tàishǐ"}, {c: "端木", p: "Duānmù"},
-        {c: "上官", p: "Shàngguān"}, {c: "司马", p: "Sīmǎ"}, {c: "东方", p: "Dōngfāng"},
-        {c: "独孤", p: "Dúgū"}, {c: "南宫", p: "Nángōng"}, {c: "万俟", p: "Mòqí"},
-        {c: "闻人", p: "Wénrén"}, {c: "夏侯", p: "Xiàhóu"}, {c: "诸葛", p: "Zhūgě"},
-        {c: "尉迟", p: "Yùchí"}, {c: "公羊", p: "Gōngyáng"}, {c: "赫连", p: "Hèlián"},
-        {c: "皇甫", p: "Huángfǔ"}, {c: "慕容", p: "Mùróng"}, {c: "轩辕", p: "Xuānyuán"},
-        {c: "令狐", p: "Línghú"}, {c: "司徒", p: "Sītú"}, {c: "西门", p: "Xīmén"},
-        {c: "百里", p: "Bǎilǐ"}
+        {c: "万俟", p: "Mòqí"}, {c: "司马", p: "Sīmǎ"}, {c: "上官", p: "Shàngguān"},
+        {c: "欧阳", p: "Ōuyáng"}, {c: "夏侯", p: "Xiàhóu"}, {c: "诸葛", p: "Zhūgě"},
+        {c: "闻人", p: "Wénrén"}, {c: "东方", p: "Dōngfāng"}, {c: "赫连", p: "Hèlián"},
+        {c: "皇甫", p: "Huángfǔ"}, {c: "尉迟", p: "Yùchí"}, {c: "公羊", p: "Gōngyáng"},
+        {c: "澹台", p: "Tántái"}, {c: "公冶", p: "Gōngyě"}, {c: "宗政", p: "Zōngzhèng"},
+        {c: "濮阳", p: "Púyáng"}, {c: "淳于", p: "Chúnyú"}, {c: "单于", p: "Chányú"},
+        {c: "太叔", p: "Tàishū"}, {c: "申屠", p: "Shēntú"}, {c: "公孙", p: "Gōngsūn"},
+        {c: "仲孙", p: "Zhòngsūn"}, {c: "轩辕", p: "Xuānyuán"}, {c: "令狐", p: "Línghú"},
+        {c: "钟离", p: "Zhōnglí"}, {c: "宇文", p: "Yǔwén"}, {c: "长孙", p: "Zhǎngsūn"},
+        {c: "慕容", p: "Mùróng"}, {c: "鲜于", p: "Xiānyú"}, {c: "闾丘", p: "Lǘqiū"},
+        {c: "司徒", p: "Sītú"}, {c: "司空", p: "Sīkōng"}, {c: "亓官", p: "Qíguān"},
+        {c: "司寇", p: "Sīkòu"}, {c: "子车", p: "Zǐchē"}, {c: "颛孙", p: "Zhuānsūn"},
+        {c: "端木", p: "Duānmù"}, {c: "巫马", p: "Wūmǎ"}, {c: "公西", p: "Gōngxī"},
+        {c: "漆雕", p: "Qīdiāo"}, {c: "乐正", p: "Yuèzhèng"}, {c: "壤驷", p: "Rǎngsì"},
+        {c: "公良", p: "Gōngliáng"}, {c: "拓跋", p: "Tuòbá"}, {c: "夹谷", p: "Jiágǔ"},
+        {c: "宰父", p: "Zǎifù"}, {c: "谷梁", p: "Gǔliáng"}, {c: "段干", p: "Duàngān"},
+        {c: "百里", p: "Bǎilǐ"}, {c: "东郭", p: "Dōngguō"}, {c: "南门", p: "Nánmén"},
+        {c: "呼延", p: "Hūyán"}, {c: "羊舌", p: "Yángshé"}, {c: "微生", p: "Wēishēng"},
+        {c: "梁丘", p: "Liángqiū"}, {c: "左丘", p: "Zuǒqiū"}, {c: "东门", p: "Dōngmén"},
+        {c: "西门", p: "Xīmén"}, {c: "南宫", p: "Nángōng"}, {c: "第五", p: "Dìwǔ"}
     ];
 
     var poeticNames = [
@@ -208,85 +322,189 @@ background-align: bg-shape-center
         {c: "未济", p: "Wèijì", m: "before completion", g: "m", src: "I Ching/《易经》: Hexagram Weiji"},
         {c: "无极", p: "Wújí", m: "limitless void", g: "m", src: "I Ching/《易经》 philosophy"},
         {c: "两仪", p: "Liǎngyí", m: "two forms (yin and yang)", g: "f", src: "I Ching/《易经》 philosophy"},
-        {c: "四象", p: "Sìxiàng", m: "four symbols", g: "m", src: "I Ching/《易经》 philosophy"}, 
-      ];
-
-    var givenMale = [
-        {c: "伟", p: "wěi", m: "great"}, {c: "刚", p: "gāng", m: "strong"},
-        {c: "勇", p: "yǒng", m: "brave"}, {c: "毅", p: "yì", m: "resolute"},
-        {c: "俊", p: "jùn", m: "handsome, talented"}, {c: "峰", p: "fēng", m: "peak"},
-        {c: "龙", p: "lóng", m: "dragon"}, {c: "虎", p: "hǔ", m: "tiger"},
-        {c: "鹰", p: "yīng", m: "eagle, hawk"}, {c: "剑", p: "jiàn", m: "sword"},
-        {c: "武", p: "wǔ", m: "martial, military"}, {c: "豪", p: "háo", m: "heroic"},
-        {c: "杰", p: "jié", m: "outstanding"}, {c: "雄", p: "xióng", m: "hero, male"},
-        {c: "天", p: "tiān", m: "sky"}, {c: "星", p: "xīng", m: "star"},
-        {c: "风", p: "fēng", m: "wind"},
-        {c: "山", p: "shān", m: "mountain"}, {c: "海", p: "hǎi", m: "sea, ocean"},
-        {c: "明", p: "míng", m: "bright, clear"}, {c: "志", p: "zhì", m: "will, ambition"},
-        {c: "霸", p: "bà", m: "dominate"},
-        {c: "锋", p: "fēng", m: "blade"},
-        {c: "煞", p: "shà", m: "baleful, fierce"},
-        {c: "绝", p: "jué", m: "absolute"},
-        {c: "烈", p: "liè", m: "fierce"},
-        {c: "狂", p: "kuáng", m: "untamed"},
-        {c: "傲", p: "ào", m: "proud"},
-        {c: "凌", p: "líng", m: "soar above"},
-        {c: "战", p: "zhàn", m: "battle, warrior"},
-        {c: "煌", p: "huáng", m: "radiant"},
-        {c: "铮", p: "zhēng", m: "clang of metal"},
-        {c: "乾", p: "qián", m: "heavens"},
-        {c: "震", p: "zhèn", m: "thunder"},
-        {c: "元", p: "yuán", m: "primal, origin"},
-        {c: "玄", p: "xuán", m: "profound, black"},
-        {c: "孤", p: "gū", m: "solitary"},
-      ];
-
-    var givenFemale = [
-        {c: "秀", p: "xiù", m: "elegant, refined"}, {c: "娟", p: "juān", m: "beautiful, graceful"},
-        {c: "慧", p: "huì", m: "intelligent, wise"}, {c: "美", p: "měi", m: "beautiful"},
-        {c: "娜", p: "nà", m: "graceful"}, {c: "静", p: "jìng", m: "quiet, calm"},
-        {c: "珠", p: "zhū", m: "pearl"}, {c: "翠", p: "cuì", m: "jade green, kingfisher"},
-        {c: "雅", p: "yǎ", m: "elegant, refined"}, {c: "玉", p: "yù", m: "jade"},
-        {c: "凤", p: "fèng", m: "phoenix"}, {c: "梅", p: "méi", m: "plum blossom"},
-        {c: "琳", p: "lín", m: "beautiful jade"},
-        {c: "莲", p: "lián", m: "lotus"},
-        {c: "月", p: "yuè", m: "moon"}, {c: "霞", p: "xiá", m: "rosy clouds"},
-        {c: "香", p: "xiāng", m: "fragrant"}, {c: "瑶", p: "yáo", m: "precious jade"},
-        {c: "蝶", p: "dié", m: "butterfly"}, {c: "兰", p: "lán", m: "orchid"},
-        {c: "媚", p: "mèi", m: "enchanting"},
-        {c: "嫣", p: "yān", m: "beautiful"},
-        {c: "绮", p: "qǐ", m: "fine silk, beautiful"},
-        {c: "柔", p: "róu", m: "gentle, soft"},
-        {c: "韵", p: "yùn", m: "charm, grace"},
-        {c: "姿", p: "zī", m: "elegant poise"},
-        {c: "舞", p: "wǔ", m: "dance"},
-        {c: "灵", p: "líng", m: "spirit"},
-        {c: "婉", p: "wǎn", m: "graceful"},
-        {c: "薇", p: "wēi", m: "fern, delicate"},
-        {c: "贞", p: "zhēn", m: "faithfulness"},
-        {c: "燕", p: "yàn", m: "swallow (the bird)"},
+        {c: "四象", p: "Sìxiàng", m: "four symbols", g: "m", src: "I Ching/《易经》 philosophy"}
     ];
 
-    var givenNeutral = [
-        {c: "星", p: "xīng", m: "star"},{c: "子", p: "zǐ", m: "person of respect"},
-        {c: "云", p: "yún", m: "cloud"}, {c: "雪", p: "xuě", m: "snow"},
-        {c: "冰", p: "bīng", m: "ice"}, {c: "寒", p: "hán", m: "cold"},
-        {c: "青", p: "qīng", m: "blue-green, young"}, {c: "白", p: "bái", m: "white"},
-        {c: "夜", p: "yè", m: "night"}, {c: "影", p: "yǐng", m: "shadow"},
-        {c: "霜", p: "shuāng", m: "frost"}, {c: "晨", p: "chén", m: "morning, dawn"},
-        {c: "秋", p: "qiū", m: "autumn"}, {c: "春", p: "chūn", m: "spring"},
-        {c: "烟", p: "yān", m: "mist, smoke"}, {c: "流", p: "liú", m: "flowing, stream"},
-        {c: "琴", p: "qín", m: "qin (zither)"}, {c: "棋", p: "qí", m: "chess"},
-        {c: "书", p: "shū", m: "book, writing"}, {c: "墨", p: "mò", m: "ink"},
-        {c: "竹", p: "zhú", m: "bamboo"}, {c: "松", p: "sōng", m: "pine tree"},
-        {c: "鹤", p: "hè", m: "crane"}, {c: "鸿", p: "hóng", m: "wild swan, vast"}
-    ];
+    /* Unified character database organized by category
+       Gender can be: "m" (masc), "f" (fem), or "neutral" */
+    var characters = {
+        celestial: [
+            {c: "天", p: "tiān", m: "heaven, sky", g: "m"},
+            {c: "星", p: "xīng", m: "star", g: "neutral"},
+            {c: "月", p: "yuè", m: "moon", g: "f"},
+            {c: "日", p: "rì", m: "sun", g: "m"},
+            {c: "辰", p: "chén", m: "celestial bodies, time", g: "neutral"},
+            {c: "曦", p: "xī", m: "sunlight", g: "neutral"},
+            {c: "霄", p: "xiāo", m: "sky, clouds", g: "m"}
+        ],
+        nature: [
+            {c: "风", p: "fēng", m: "wind", g: "neutral"},
+            {c: "云", p: "yún", m: "cloud", g: "neutral"},
+            {c: "雪", p: "xuě", m: "snow", g: "neutral"},
+            {c: "雨", p: "yǔ", m: "rain", g: "neutral"},
+            {c: "霜", p: "shuāng", m: "frost", g: "neutral"},
+            {c: "冰", p: "bīng", m: "ice", g: "neutral"},
+            {c: "露", p: "lù", m: "dew", g: "f"},
+            {c: "烟", p: "yān", m: "mist, smoke", g: "neutral"},
+            {c: "泉", p: "quán", m: "spring, fountain", g: "neutral"},
+            {c: "流", p: "liú", m: "flowing, stream", g: "neutral"},
+            {c: "山", p: "shān", m: "mountain", g: "m"},
+            {c: "海", p: "hǎi", m: "sea, ocean", g: "m"},
+            {c: "江", p: "jiāng", m: "river", g: "m"},
+            {c: "波", p: "bō", m: "waves", g: "neutral"}
+        ],
+        flora: [
+            {c: "梅", p: "méi", m: "plum blossom", g: "f"},
+            {c: "兰", p: "lán", m: "orchid", g: "f"},
+            {c: "竹", p: "zhú", m: "bamboo", g: "neutral"},
+            {c: "菊", p: "jú", m: "chrysanthemum", g: "f"},
+            {c: "莲", p: "lián", m: "lotus", g: "f"},
+            {c: "荷", p: "hé", m: "lotus", g: "f"},
+            {c: "松", p: "sōng", m: "pine tree", g: "neutral"},
+            {c: "柳", p: "liǔ", m: "willow", g: "f"},
+            {c: "桃", p: "táo", m: "peach", g: "f"},
+            {c: "薇", p: "wēi", m: "fern, delicate", g: "f"},
+            {c: "芳", p: "fāng", m: "fragrant", g: "f"},
+            {c: "蕊", p: "ruǐ", m: "stamen, flower bud", g: "f"}
+        ],
+        virtue: [
+            {c: "仁", p: "rén", m: "benevolence", g: "m"},
+            {c: "义", p: "yì", m: "righteousness", g: "m"},
+            {c: "礼", p: "lǐ", m: "propriety, rites", g: "neutral"},
+            {c: "智", p: "zhì", m: "wisdom", g: "neutral"},
+            {c: "信", p: "xìn", m: "trustworthiness", g: "neutral"},
+            {c: "德", p: "dé", m: "virtue", g: "m"},
+            {c: "善", p: "shàn", m: "goodness", g: "neutral"},
+            {c: "贞", p: "zhēn", m: "faithfulness", g: "f"},
+            {c: "慧", p: "huì", m: "intelligent, wise", g: "f"},
+            {c: "诚", p: "chéng", m: "sincerity", g: "m"}
+        ],
+        strength: [
+            {c: "刚", p: "gāng", m: "strong", g: "m"},
+            {c: "勇", p: "yǒng", m: "brave", g: "m"},
+            {c: "毅", p: "yì", m: "resolute", g: "m"},
+            {c: "武", p: "wǔ", m: "martial, military", g: "m"},
+            {c: "豪", p: "háo", m: "heroic", g: "m"},
+            {c: "威", p: "wēi", m: "power, prestige", g: "m"},
+            {c: "烈", p: "liè", m: "fierce", g: "m"},
+            {c: "刃", p: "rèn", m: "blade", g: "m"},
+            {c: "锋", p: "fēng", m: "sharp edge", g: "m"},
+            {c: "战", p: "zhàn", m: "battle, warrior", g: "m"}
+        ],
+        animals: [
+            {c: "龙", p: "lóng", m: "dragon", g: "m"},
+            {c: "虎", p: "hǔ", m: "tiger", g: "m"},
+            {c: "凤", p: "fèng", m: "phoenix", g: "f"},
+            {c: "鹤", p: "hè", m: "crane", g: "neutral"},
+            {c: "鹰", p: "yīng", m: "eagle, hawk", g: "m"},
+            {c: "雁", p: "yàn", m: "wild goose", g: "neutral"},
+            {c: "燕", p: "yàn", m: "swallow (the bird)", g: "f"},
+            {c: "鸿", p: "hóng", m: "wild swan, vast", g: "neutral"},
+            {c: "麟", p: "lín", m: "qilin (mythical beast)", g: "m"},
+            {c: "蝶", p: "dié", m: "butterfly", g: "f"}
+        ],
+        excellence: [
+            {c: "杰", p: "jié", m: "outstanding", g: "m"},
+            {c: "俊", p: "jùn", m: "handsome, talented", g: "m"},
+            {c: "秀", p: "xiù", m: "elegant, refined", g: "f"},
+            {c: "英", p: "yīng", m: "hero, outstanding", g: "m"},
+            {c: "华", p: "huá", m: "splendid, magnificent", g: "neutral"},
+            {c: "雅", p: "yǎ", m: "elegant, refined", g: "f"},
+            {c: "娟", p: "juān", m: "beautiful, graceful", g: "f"},
+            {c: "美", p: "měi", m: "beautiful", g: "f"},
+            {c: "娜", p: "nà", m: "graceful", g: "f"},
+            {c: "韵", p: "yùn", m: "charm, grace", g: "f"}
+        ],
+        martial: [
+            {c: "剑", p: "jiàn", m: "sword", g: "m"},
+            {c: "刀", p: "dāo", m: "blade, saber", g: "m"},
+            {c: "枪", p: "qiāng", m: "spear", g: "m"},
+            {c: "戟", p: "jǐ", m: "halberd", g: "m"},
+            {c: "拳", p: "quán", m: "fist", g: "m"},
+            {c: "掌", p: "zhǎng", m: "palm", g: "m"},
+            {c: "功", p: "gōng", m: "skill, achievement", g: "neutral"},
+            {c: "气", p: "qì", m: "energy, spirit", g: "neutral"}
+        ],
+        light: [
+            {c: "明", p: "míng", m: "bright, clear", g: "neutral"},
+            {c: "光", p: "guāng", m: "light, radiance", g: "neutral"},
+            {c: "辉", p: "huī", m: "brilliance", g: "m"},
+            {c: "耀", p: "yào", m: "shine, glory", g: "m"},
+            {c: "曜", p: "yào", m: "glorious", g: "m"},
+            {c: "晖", p: "huī", m: "sunshine", g: "neutral"},
+            {c: "煌", p: "huáng", m: "radiant", g: "m"}
+        ],
+        elegance: [
+            {c: "清", p: "qīng", m: "clear, pure", g: "neutral"},
+            {c: "静", p: "jìng", m: "quiet, calm", g: "f"},
+            {c: "婉", p: "wǎn", m: "graceful", g: "f"},
+            {c: "柔", p: "róu", m: "gentle, soft", g: "f"},
+            {c: "婷", p: "tíng", m: "graceful", g: "f"},
+            {c: "姿", p: "zī", m: "elegant poise", g: "f"},
+            {c: "舞", p: "wǔ", m: "dance", g: "f"},
+            {c: "灵", p: "líng", m: "spirit, nimble", g: "neutral"}
+        ],
+        beauty: [
+            {c: "嫣", p: "yān", m: "beautiful", g: "f"},
+            {c: "绮", p: "qǐ", m: "fine silk, beautiful", g: "f"},
+            {c: "媚", p: "mèi", m: "enchanting", g: "f"},
+            {c: "艳", p: "yàn", m: "gorgeous", g: "f"},
+            {c: "丽", p: "lì", m: "beautiful", g: "f"},
+            {c: "妍", p: "yán", m: "beautiful", g: "f"},
+            {c: "姝", p: "shū", m: "beautiful", g: "f"}
+        ],
+        tranquility: [
+            {c: "安", p: "ān", m: "peaceful", g: "neutral"},
+            {c: "宁", p: "níng", m: "tranquil", g: "neutral"},
+            {c: "泰", p: "tài", m: "peaceful, grand", g: "m"},
+            {c: "和", p: "hé", m: "harmony", g: "neutral"},
+            {c: "悠", p: "yōu", m: "leisurely", g: "neutral"},
+            {c: "闲", p: "xián", m: "leisure", g: "neutral"},
+            {c: "淡", p: "dàn", m: "tranquil", g: "neutral"}
+        ],
+        jade: [
+            {c: "玉", p: "yù", m: "jade", g: "neutral"},
+            {c: "琳", p: "lín", m: "beautiful jade", g: "f"},
+            {c: "瑶", p: "yáo", m: "precious jade", g: "f"},
+            {c: "琼", p: "qióng", m: "fine jade", g: "f"},
+            {c: "珠", p: "zhū", m: "pearl", g: "f"},
+            {c: "璧", p: "bì", m: "jade disc", g: "neutral"},
+            {c: "璇", p: "xuán", m: "beautiful jade", g: "f"},
+            {c: "琪", p: "qí", m: "precious jade", g: "f"}
+        ],
+        wisdom: [
+            {c: "文", p: "wén", m: "cultured, refined", g: "m"},
+            {c: "学", p: "xué", m: "learning", g: "neutral"},
+            {c: "书", p: "shū", m: "book, writing", g: "neutral"},
+            {c: "墨", p: "mò", m: "ink", g: "neutral"},
+            {c: "诗", p: "shī", m: "poetry", g: "neutral"},
+            {c: "琴", p: "qín", m: "qin (zither)", g: "neutral"},
+            {c: "棋", p: "qí", m: "chess", g: "neutral"},
+            {c: "画", p: "huà", m: "painting", g: "neutral"}
+        ],
+        fragrance: [
+            {c: "香", p: "xiāng", m: "fragrant", g: "f"},
+            {c: "馨", p: "xīn", m: "fragrance", g: "f"},
+            {c: "芬", p: "fēn", m: "fragrance", g: "f"},
+            {c: "芷", p: "zhǐ", m: "angelica (fragrant herb)", g: "f"}
+        ],
+        aspiration: [
+            {c: "志", p: "zhì", m: "will, ambition", g: "m"},
+            {c: "远", p: "yuǎn", m: "far, distant", g: "m"},
+            {c: "宏", p: "hóng", m: "grand", g: "m"},
+            {c: "博", p: "bó", m: "extensive, learned", g: "m"},
+            {c: "鹏", p: "péng", m: "roc (mythical bird)", g: "m"},
+            {c: "翔", p: "xiáng", m: "soar", g: "m"},
+            {c: "翼", p: "yì", m: "wings", g: "neutral"},
+            {c: "凌", p: "líng", m: "soar above", g: "m"}
+        ]
+    };
 
     var ziPairs = [
         {ming: "千秋", zi: "万岁", mp: "Qiānqiū", zp: "Wànsuì", m: "thousand autumns / ten thousand years", ref: "literary theme of longevity", g: "m"},
         {ming: "破晓", zi: "迎曦", mp: "Pòxiǎo", zp: "Yíngxī", m: "breaking dawn / welcoming sunrise", ref: "poetic imagery", g: "m"},
         {ming: "沐雨", zi: "承露", mp: "Mùyǔ", zp: "Chénglù", m: "bathed in rain / receiving dew", ref: "nature poetry", g: "f"},
-        {ming: "寒江", zi: "孤舟", mp: "Hánjiāng", zp: "Xuězhōu", m: "cold river / boat upon the snow", ref: "Liu Zongyuan/柳宗元: River Snow/《江雪》", g: "m"},
+        {ming: "寒江", zi: "孤舟", mp: "Hánjiāng", zp: "Gūzhōu", m: "cold river / lone boat", ref: "Liu Zongyuan/柳宗元: River Snow/《江雪》", g: "m"},
         {ming: "云深", zi: "不知", mp: "Yúnshēn", zp: "Bùzhī", m: "deep in the clouds / not knowing", ref: "Jia Dao/贾岛: Seeking the Hermit/《寻隐者不遇》", g: "m"},
         {ming: "临风", zi: "听涛", mp: "Línfēng", zp: "Tīngtāo", m: "facing the wind / listening to waves", ref: "poetic tradition", g: "m"},
         {ming: "惜时", zi: "知秋", mp: "Xīshí", zp: "Zhīqiū", m: "cherish time / know autumn", ref: "classical wisdom", g: "f"},
@@ -307,11 +525,66 @@ background-align: bg-shape-center
         {ming: "照影", zi: "临渊", mp: "Zhàoyǐng", zp: "Línyuān", m: "illuminating shadow / overlooking abyss", ref: "philosophical metaphor", g: "m"},
         {ming: "拂柳", zi: "迎春", mp: "Fúliǔ", zp: "Yíngchūn", m: "brushing willows / welcoming spring", ref: "seasonal poetry", g: "f"},
         {ming: "凌霄", zi: "摘星", mp: "Língxiāo", zp: "Zhāixīng", m: "soaring high / plucking stars", ref: "ambition metaphor", g: "m"},
-        {ming: "问道", zi: "求真", mp: "Wèndào", zp: "Qiúzhēn", m: "asking about the Way / seeking truth", ref: "Daoist tradition", g: "m"}
-      ];
+        {ming: "问道", zi: "求真", mp: "Wèndào", zp: "Qiúzhēn", m: "asking about the Way / seeking truth", ref: "Daoist tradition", g: "m"},
+        /* Additional zi pairs following 1-char ming + 2-char zi convention */
+        {ming: "云", zi: "凌霄", mp: "Yún", zp: "Língxiāo", m: "cloud / soaring to the sky", ref: "aspiration imagery", g: "m"},
+        {ming: "雪", zi: "飘零", mp: "Xuě", zp: "Piāolíng", m: "snow / drifting gracefully", ref: "poetic imagery", g: "f"},
+        {ming: "风", zi: "啸天", mp: "Fēng", zp: "Xiàotiān", m: "wind / whistling to the heavens", ref: "martial imagery", g: "m"},
+        {ming: "月", zi: "映寒", mp: "Yuè", zp: "Yìnghán", m: "moon / reflecting coldness", ref: "poetic imagery", g: "f"},
+        {ming: "剑", zi: "破空", mp: "Jiàn", zp: "Pòkōng", m: "sword / breaking through the void", ref: "wuxia tradition", g: "m"},
+        {ming: "梅", zi: "傲雪", mp: "Méi", zp: "Àoxuě", m: "plum blossom / proud in snow", ref: "classical imagery", g: "f"},
+        {ming: "松", zi: "青翠", mp: "Sōng", zp: "Qīngcuì", m: "pine / evergreen", ref: "virtue metaphor", g: "neutral"},
+        {ming: "兰", zi: "幽谷", mp: "Lán", zp: "Yōugǔ", m: "orchid / secluded valley", ref: "classical imagery", g: "f"},
+        {ming: "竹", zi: "虚心", mp: "Zhú", zp: "Xūxīn", m: "bamboo / humble heart", ref: "virtue metaphor", g: "neutral"},
+        {ming: "鹤", zi: "九霄", mp: "Hè", zp: "Jiǔxiāo", m: "crane / ninth heaven", ref: "daoist imagery", g: "neutral"},
+        {ming: "龙", zi: "潜渊", mp: "Lóng", zp: "Qiányuān", m: "dragon / hidden in the abyss", ref: "I Ching/《易经》", g: "m"},
+        {ming: "凤", zi: "朝阳", mp: "Fèng", zp: "Cháoyáng", m: "phoenix / facing the sun", ref: "auspicious imagery", g: "f"},
+        {ming: "星", zi: "辰落", mp: "Xīng", zp: "Chénluò", m: "star / celestial descent", ref: "poetic imagery", g: "neutral"},
+        {ming: "玉", zi: "无瑕", mp: "Yù", zp: "Wúxiá", m: "jade / flawless", ref: "virtue metaphor", g: "neutral"},
+        {ming: "琴", zi: "和鸣", mp: "Qín", zp: "Hémíng", m: "qin / harmonious resonance", ref: "Book of Songs/诗经", g: "neutral"},
+        {ming: "墨", zi: "含香", mp: "Mò", zp: "Hánxiāng", m: "ink / containing fragrance", ref: "scholarly imagery", g: "neutral"},
+        {ming: "霜", zi: "凝寒", mp: "Shuāng", zp: "Nínghán", m: "frost / condensed cold", ref: "seasonal imagery", g: "neutral"},
+        {ming: "烟", zi: "如梦", mp: "Yān", zp: "Rúmèng", m: "mist / dreamlike", ref: "poetic imagery", g: "neutral"},
+        {ming: "露", zi: "沾衣", mp: "Lù", zp: "Zhānyī", m: "dew / moistening robes", ref: "classical poetry", g: "f"},
+        {ming: "泉", zi: "清音", mp: "Quán", zp: "Qīngyīn", m: "spring / clear sound", ref: "nature imagery", g: "neutral"}
+    ];
 
     var currentName = null;
     var currentShareText = "";
+
+    /* Helper: Get all chars from a category filtered by gender */
+    function getAllCharsFromCategory(category, gender) {
+        var categoryChars = characters[category] || [];
+        var filtered = [];
+        for (var i = 0; i < categoryChars.length; i++) {
+            var ch = categoryChars[i];
+            if (ch.g === gender || ch.g === "neutral") {
+                filtered.push(ch);
+            }
+        }
+        return filtered;
+    }
+
+    /* Helper: Get all category names */
+    function getAllCategories() {
+        return Object.keys(characters);
+    }
+
+    /* Helper: Check if character is used in array of char objects */
+    function charInArray(char, charArray) {
+        for (var i = 0; i < charArray.length; i++) {
+            if (charArray[i].c === char) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /* Helper: Check if character appears in compound family name */
+    function charInCompoundFamily(char, familyObj) {
+        if (!familyObj || !familyObj.c) return false;
+        return familyObj.c.indexOf(char) !== -1;
+    }
 
     function generateName(useZi) {
         var familyData;
@@ -326,14 +599,66 @@ background-align: bg-shape-center
         var isPoetic = Math.random() < 0.3;
 
         if (useZi) {
-            var availablePairs = [];
-            for (var i = 0; i < ziPairs.length; i++) {
-                if (ziPairs[i].g === gender) {
-                    availablePairs.push(ziPairs[i]);
+            /* 50% chance of using predefined zi pairs, 50% freeform generation */
+            if (Math.random() < 0.5) {
+                /* Use predefined zi pairs */
+                var availablePairs = [];
+                for (var i = 0; i < ziPairs.length; i++) {
+                    if (ziPairs[i].g === gender) {
+                        availablePairs.push(ziPairs[i]);
+                    }
+                }
+                if (availablePairs.length > 0) {
+                    var pair = availablePairs[Math.floor(Math.random() * availablePairs.length)];
+                    mingData = {type: "zi", ming: pair.ming, zi: pair.zi, mp: pair.mp, zp: pair.zp, m: pair.m, ref: pair.ref};
                 }
             }
-            var pair = availablePairs[Math.floor(Math.random() * availablePairs.length)];
-            mingData = {type: "zi", ming: pair.ming, zi: pair.zi, mp: pair.mp, zp: pair.zp, m: pair.m, ref: pair.ref};
+
+            /* Freeform zi generation: 1-char ming + 2-char zi from same category */
+            if (!mingData) {
+                var categories = getAllCategories();
+                var categoryAttempts = 0;
+                var maxCategoryAttempts = categories.length;
+
+                while (!mingData && categoryAttempts < maxCategoryAttempts) {
+                    var selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+                    var categoryChars = getAllCharsFromCategory(selectedCategory, gender);
+
+                    if (categoryChars.length >= 3) {
+                        /* Pick 1 char for ming */
+                        var mingChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        var mingAttempts = 0;
+                        /* Ensure ming char doesn't appear in compound family name */
+                        while (charInCompoundFamily(mingChar.c, familyData) && mingAttempts < 20) {
+                            mingChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                            mingAttempts++;
+                        }
+
+                        /* Pick 2 chars for zi from same category, ensuring they don't duplicate ming char */
+                        var ziChar1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        var ziAttempts1 = 0;
+                        while (ziChar1.c === mingChar.c && ziAttempts1 < 20) {
+                            ziChar1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                            ziAttempts1++;
+                        }
+
+                        var ziChar2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        var ziAttempts2 = 0;
+                        while (ziChar2.c === mingChar.c && ziAttempts2 < 20) {
+                            ziChar2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                            ziAttempts2++;
+                        }
+
+                        mingData = {
+                            type: "zi_freeform",
+                            mingChar: mingChar,
+                            ziChars: [ziChar1, ziChar2],
+                            category: selectedCategory
+                        };
+                    }
+                    categoryAttempts++;
+                }
+            }
         } else if (isPoetic) {
             var availablePoetic = [];
             for (var j = 0; j < poeticNames.length; j++) {
@@ -341,45 +666,71 @@ background-align: bg-shape-center
                     availablePoetic.push(poeticNames[j]);
                 }
             }
-            var poetic = availablePoetic[Math.floor(Math.random() * availablePoetic.length)];
-            mingData = {type: "poetic", chars: poetic.c, pinyin: poetic.p, meaning: poetic.m, source: poetic.src};
-        } else {
+            if (availablePoetic.length > 0) {
+                var poetic = availablePoetic[Math.floor(Math.random() * availablePoetic.length)];
+                mingData = {type: "poetic", chars: poetic.c, pinyin: poetic.p, meaning: poetic.m, source: poetic.src};
+            }
+        }
+
+        /* Standard name generation if no other type was generated */
+        if (!mingData) {
+            var categories = getAllCategories();
+            var selectedCategory = categories[Math.floor(Math.random() * categories.length)];
             var givenChars = [];
-            if (gender === "n") {
-                if (Math.random() < 0.7) {
-                    givenChars.push(givenNeutral[Math.floor(Math.random() * givenNeutral.length)]);
-                    givenChars.push(givenNeutral[Math.floor(Math.random() * givenNeutral.length)]);
-                } else {
-                    givenChars.push(givenNeutral[Math.floor(Math.random() * givenNeutral.length)]);
-                }
-            } else {
-                var givenPool = gender === "m" ? givenMale : givenFemale;
-                if (Math.random() < 0.7) {
-                    var useNeutral = Math.random() < 0.3;
-                    if (useNeutral) {
-                        var neutralChar = givenNeutral[Math.floor(Math.random() * givenNeutral.length)];
-                        var genderedChar = givenPool[Math.floor(Math.random() * givenPool.length)];
-                        if (Math.random() < 0.5) {
-                            givenChars.push(neutralChar);
-                            givenChars.push(genderedChar);
-                        } else {
-                            givenChars.push(genderedChar);
-                            givenChars.push(neutralChar);
-                        }
-                    } else {
-                        givenChars.push(givenPool[Math.floor(Math.random() * givenPool.length)]);
-                        givenChars.push(givenPool[Math.floor(Math.random() * givenPool.length)]);
-                    }
-                } else {
-                    var useNeutral = Math.random() < 0.3;
-                    if (useNeutral) {
-                        givenChars.push(givenNeutral[Math.floor(Math.random() * givenNeutral.length)]);
-                    } else {
-                        givenChars.push(givenPool[Math.floor(Math.random() * givenPool.length)]);
+            var categoryChars = getAllCharsFromCategory(selectedCategory, gender);
+
+            if (categoryChars.length === 0) {
+                /* Fallback to all categories if selected one has no chars for this gender */
+                for (var cat = 0; cat < categories.length; cat++) {
+                    var tempChars = getAllCharsFromCategory(categories[cat], gender);
+                    if (tempChars.length > 0) {
+                        categoryChars = tempChars;
+                        selectedCategory = categories[cat];
+                        break;
                     }
                 }
             }
-            mingData = {type: "standard", chars: givenChars};
+
+            if (categoryChars.length > 0) {
+                /* 70% chance of 2-char name, 30% chance of 1-char name */
+                if (Math.random() < 0.7 && categoryChars.length >= 2) {
+                    var char1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                    var char1Attempts = 0;
+                    /* Ensure first char doesn't appear in compound family name */
+                    while (charInCompoundFamily(char1.c, familyData) && char1Attempts < 20) {
+                        char1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        char1Attempts++;
+                    }
+                    givenChars.push(char1);
+
+                    var char2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                    var char2Attempts = 0;
+                    /* For masc: no duplicates allowed. For fem: 25% chance of duplicate, otherwise prevent */
+                    var allowDuplicate = (gender === "f" && Math.random() < 0.25);
+                    while (charInCompoundFamily(char2.c, familyData) && char2Attempts < 20) {
+                        char2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        char2Attempts++;
+                    }
+                    if (!allowDuplicate) {
+                        while (char2.c === char1.c && char2Attempts < 20) {
+                            char2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                            char2Attempts++;
+                        }
+                    }
+                    givenChars.push(char2);
+                } else {
+                    var singleChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                    var singleAttempts = 0;
+                    /* Ensure char doesn't appear in compound family name */
+                    while (charInCompoundFamily(singleChar.c, familyData) && singleAttempts < 20) {
+                        singleChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        singleAttempts++;
+                    }
+                    givenChars.push(singleChar);
+                }
+            }
+
+            mingData = {type: "standard", chars: givenChars, category: selectedCategory};
         }
 
         currentName = {
@@ -399,12 +750,34 @@ background-align: bg-shape-center
         var fullMingName = currentName.family.c;
         var fullMingPinyin = currentName.family.p;
 
-        if (currentName.ming.type === "zi") {
-            fullMingName += currentName.ming.ming;
-            fullMingPinyin += " " + currentName.ming.mp;
+        if (currentName.ming.type === "zi" || currentName.ming.type === "zi_freeform") {
+            var mingChars, mingPinyin, ziChars, ziPinyin, mingMeaning, ziMeaning, hasReference;
 
-            var fullZiName = currentName.family.c + currentName.ming.zi;
-            var fullZiPinyin = currentName.family.p + " " + currentName.ming.zp;
+            if (currentName.ming.type === "zi") {
+                /* Predefined zi pair */
+                mingChars = currentName.ming.ming;
+                mingPinyin = currentName.ming.mp;
+                ziChars = currentName.ming.zi;
+                ziPinyin = currentName.ming.zp;
+                mingMeaning = currentName.ming.m.split(' / ')[0];
+                ziMeaning = currentName.ming.m.split(' / ')[1];
+                hasReference = true;
+            } else {
+                /* Freeform zi */
+                mingChars = currentName.ming.mingChar.c;
+                mingPinyin = currentName.ming.mingChar.p.charAt(0).toUpperCase() + currentName.ming.mingChar.p.slice(1);
+                ziChars = currentName.ming.ziChars[0].c + currentName.ming.ziChars[1].c;
+                ziPinyin = currentName.ming.ziChars[0].p.charAt(0).toUpperCase() + currentName.ming.ziChars[0].p.slice(1) + currentName.ming.ziChars[1].p;
+                mingMeaning = currentName.ming.mingChar.m;
+                ziMeaning = currentName.ming.ziChars[0].m + ", " + currentName.ming.ziChars[1].m;
+                hasReference = false;
+            }
+
+            fullMingName += mingChars;
+            fullMingPinyin += " " + mingPinyin;
+
+            var fullZiName = currentName.family.c + ziChars;
+            var fullZiPinyin = currentName.family.p + " " + ziPinyin;
 
             html += "<div class='name-display-card'>";
             html += "<div class='names-horizontal'>";
@@ -438,17 +811,58 @@ background-align: bg-shape-center
             html += "<div class='character-detail'>";
             html += "<strong>Family Name:</strong> " + currentName.family.c + " (" + currentName.family.p + ")";
             html += "</div>";
-            html += "<div class='character-detail'>";
-            html += "<strong>Given Name:</strong><br>";
-            html += currentName.ming.ming + ": <em>" + currentName.ming.m.split(' / ')[0] + "</em>";
-            html += "</div>";
-            html += "<div class='character-detail'>";
-            html += "<strong>Courtesy Name:</strong><br>";
-            html += currentName.ming.zi + ": <em>" + currentName.ming.m.split(' / ')[1] + "</em>";
-            html += "</div>";
-            html += "<div class='literary-source'>";
-            html += "<strong>Inspired by:</strong> " + currentName.ming.ref;
-            html += "</div>";
+
+            if (currentName.ming.type === "zi") {
+                /* Predefined zi pair - use simple breakdown */
+                html += "<div class='character-detail'>";
+                html += "<strong>Given Name:</strong><br>";
+                html += mingChars + ": <em>" + mingMeaning + "</em>";
+                html += "</div>";
+                html += "<div class='character-detail'>";
+                html += "<strong>Courtesy Name:</strong><br>";
+                html += ziChars + ": <em>" + ziMeaning + "</em>";
+                html += "</div>";
+            } else {
+                /* Freeform zi - break down each character individually */
+                var mingCharArray = [currentName.ming.mingChar];
+                var ziCharArray = currentName.ming.ziChars;
+
+                html += "<div class='character-detail'>";
+                html += "<strong>Given Name:</strong><br>";
+                var seenMingChars = {};
+                var displayedMingCount = 0;
+                for (var mingIdx = 0; mingIdx < mingCharArray.length; mingIdx++) {
+                    var mingCharKey = mingCharArray[mingIdx].c;
+                    if (!seenMingChars[mingCharKey]) {
+                        seenMingChars[mingCharKey] = true;
+                        if (displayedMingCount > 0) html += "<br>";
+                        html += mingCharArray[mingIdx].c + " (" + mingCharArray[mingIdx].p + "): <em>" + mingCharArray[mingIdx].m + "</em>";
+                        displayedMingCount++;
+                    }
+                }
+                html += "</div>";
+
+                html += "<div class='character-detail'>";
+                html += "<strong>Courtesy Name:</strong><br>";
+                var seenZiChars = {};
+                var displayedZiCount = 0;
+                for (var ziIdx = 0; ziIdx < ziCharArray.length; ziIdx++) {
+                    var ziCharKey = ziCharArray[ziIdx].c;
+                    if (!seenZiChars[ziCharKey]) {
+                        seenZiChars[ziCharKey] = true;
+                        if (displayedZiCount > 0) html += "<br>";
+                        html += ziCharArray[ziIdx].c + " (" + ziCharArray[ziIdx].p + "): <em>" + ziCharArray[ziIdx].m + "</em>";
+                        displayedZiCount++;
+                    }
+                }
+                html += "</div>";
+            }
+
+            if (hasReference) {
+                html += "<div class='literary-source'>";
+                html += "<strong>Inspired by:</strong> " + currentName.ming.ref;
+                html += "</div>";
+            }
             html += "</div>";
 
             shareText = "My wuxia name: " + fullMingName + " (" + fullMingPinyin + "), courtesy name " + fullZiName + " (" + fullZiPinyin + "). Generated at halyzhang.com/wuxianame";
@@ -618,7 +1032,7 @@ background-align: bg-shape-center
           <div style="background: #f9f9f9; padding: 20px; margin-top: 30px; border-left: 4px solid #007bff;">
             <ul style="line-height: 1.8;">
               <li>Family names come first in Chinese naming tradition, followed by the given name.</li>
-              <li>Single-character family names like 李 (Lǐ), 王 (Wáng), or 张 (Zhāng) are the most common. Compound two-character family names like 欧阳 (Ōuyáng), 司马 (Sīmǎ), or 诸葛 (Zhūgě) are rarer, especially nowadays, and often lend an ancient or unusual air to a wuxia name.</li>
+              <li><strong>Single-character family names</strong> like 李 (Lǐ), 王 (Wáng), or 张 (Zhāng) are the most common; <strong>Compound family names</strong> (two characters) like 第五 (Dìwǔ) or 诸葛 (Zhūgě) are rarer and often lend an ancient and striking air, appropriate for a wuxia name. The family names used here come from the Song dynasty compendium Hundred Family Surnames/百家姓.</li>
               <li>Míng/名 is the given name bestowed in early life.</li>
               <li>Zì/字 is the courtesy name adopted upon reaching adulthood, often thematically related to the míng. Using someone's 字 showed respect, while calling them by their 名 was more intimate.</li>
               <li>Pinyin tone marks are provided for the generated name, but Chinese names are often written without the marks, especially in an English context.</li>
