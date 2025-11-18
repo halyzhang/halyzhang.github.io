@@ -19,8 +19,6 @@ background-align: bg-shape-center
   color: #fff;
   border: 2px solid #000;
   padding: 15px 30px;
-  font-size: 16px;
-  font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -221,7 +219,7 @@ background-align: bg-shape-center
         {c: "鹰", p: "yīng", m: "eagle, hawk"}, {c: "剑", p: "jiàn", m: "sword"},
         {c: "武", p: "wǔ", m: "martial, military"}, {c: "豪", p: "háo", m: "heroic"},
         {c: "杰", p: "jié", m: "outstanding"}, {c: "雄", p: "xióng", m: "hero, male"},
-        {c: "天", p: "tiān", m: "heaven, sky"}, {c: "星", p: "xīng", m: "star"},
+        {c: "天", p: "tiān", m: "sky"}, {c: "星", p: "xīng", m: "star"},
         {c: "风", p: "fēng", m: "wind"},
         {c: "山", p: "shān", m: "mountain"}, {c: "海", p: "hǎi", m: "sea, ocean"},
         {c: "明", p: "míng", m: "bright, clear"}, {c: "志", p: "zhì", m: "will, ambition"},
@@ -236,10 +234,11 @@ background-align: bg-shape-center
         {c: "战", p: "zhàn", m: "battle, warrior"},
         {c: "煌", p: "huáng", m: "radiant"},
         {c: "铮", p: "zhēng", m: "clang of metal"},
-        {c: "乾", p: "qián", m: "heaven"},
+        {c: "乾", p: "qián", m: "heavens"},
         {c: "震", p: "zhèn", m: "thunder"},
         {c: "元", p: "yuán", m: "primal, origin"},
         {c: "玄", p: "xuán", m: "profound, black"},
+        {c: "孤", p: "gū", m: "solitary"},
       ];
 
     var givenFemale = [
@@ -287,8 +286,8 @@ background-align: bg-shape-center
         {ming: "千秋", zi: "万岁", mp: "Qiānqiū", zp: "Wànsuì", m: "thousand autumns / ten thousand years", ref: "literary theme of longevity", g: "m"},
         {ming: "破晓", zi: "迎曦", mp: "Pòxiǎo", zp: "Yíngxī", m: "breaking dawn / welcoming sunrise", ref: "poetic imagery", g: "m"},
         {ming: "沐雨", zi: "承露", mp: "Mùyǔ", zp: "Chénglù", m: "bathed in rain / receiving dew", ref: "nature poetry", g: "f"},
-        {ming: "寒江", zi: "雪舟", mp: "Hánjiāng", zp: "Xuězhōu", m: "cold river / boat upon the snow", ref: "Liu Zongyuan/柳宗元: River Snow", g: "m"},
-        {ming: "云深", zi: "不知", mp: "Yúnshēn", zp: "Bùzhī", m: "deep in the clouds / not knowing", ref: "Jia Dao/贾岛: Seeking the Hermit", g: "m"},
+        {ming: "寒江", zi: "孤舟", mp: "Hánjiāng", zp: "Xuězhōu", m: "cold river / boat upon the snow", ref: "Liu Zongyuan/柳宗元: River Snow/《江雪》", g: "m"},
+        {ming: "云深", zi: "不知", mp: "Yúnshēn", zp: "Bùzhī", m: "deep in the clouds / not knowing", ref: "Jia Dao/贾岛: Seeking the Hermit/《寻隐者不遇》", g: "m"},
         {ming: "临风", zi: "听涛", mp: "Línfēng", zp: "Tīngtāo", m: "facing the wind / listening to waves", ref: "poetic tradition", g: "m"},
         {ming: "惜时", zi: "知秋", mp: "Xīshí", zp: "Zhīqiū", m: "cherish time / know autumn", ref: "classical wisdom", g: "f"},
         {ming: "思归", zi: "梦远", mp: "Sīguī", zp: "Mèngyuǎn", m: "thinking of return / dreaming faraway", ref: "classical poetry", g: "f"},
@@ -411,7 +410,7 @@ background-align: bg-shape-center
             html += "<div class='names-horizontal'>";
 
             html += "<div class='name-section'>";
-            html += "<div><strong>Given Name (名 míng):</strong></div>";
+            html += "<div><strong>Given Name:</strong></div>";
             html += "<h3>" + fullMingName + "</h3>";
             html += "<div class='pinyin'>" + fullMingPinyin + "</div>";
             var encodedMingName = encodeURIComponent(fullMingName);
@@ -422,7 +421,7 @@ background-align: bg-shape-center
             html += "</div>";
 
             html += "<div class='name-section'>";
-            html += "<div><strong>Courtesy Name (字 zì):</strong></div>";
+            html += "<div><strong>Courtesy Name:</strong></div>";
             html += "<h3>" + fullZiName + "</h3>";
             html += "<div class='pinyin'>" + fullZiPinyin + "</div>";
             var encodedZiName = encodeURIComponent(fullZiName);
@@ -534,7 +533,7 @@ background-align: bg-shape-center
         }
 
         html += "<div class='share-section'>";
-        html += "<button id='copyButton' class='copy-share-btn'>📋 Copy to Share</button>";
+        html += "<button id='copyButton' class='btn btn-success'>Copy to Share</button>";
         html += "<div id='shareConfirm' style='margin-top: 10px; color: #007bff; font-weight: 600; display: none;'>Copied to clipboard!</div>";
         html += "</div>";
 
@@ -604,7 +603,7 @@ background-align: bg-shape-center
 
           <div class="name-generator-controls">
             <div class="btn-group" style="margin-bottom: 20px;">
-              <button id="genname">⚔️ Generate Wuxia Name</button>
+              <button id="genname" class="btn btn-primary" role="button">Generate Wuxia Name</button>
             </div>
             <div>
               <label style="display: inline-flex; align-items: center; font-size: 16px; cursor: pointer;">

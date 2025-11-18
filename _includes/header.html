@@ -18,9 +18,22 @@
           <a class="nav-link" href="{{ site.baseurl }}/">Home</a>
         </li>
         {% for link in site.data.settings.menu %}
+          {% if link.submenu %}
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown{{ forloop.index }}" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              {{ link.name }}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown{{ forloop.index }}">
+              {% for sublink in link.submenu %}
+              <a class="dropdown-item" href="{{ sublink.link }}">{{ sublink.name }}</a>
+              {% endfor %}
+            </div>
+          </li>
+          {% else %}
           <li class="nav-item {{ class }}">
             <a class="nav-link" href="{{ link.link }}">{{ link.name }}</a>
           </li>
+          {% endif %}
         {% endfor %}
       </ul>
     </div>

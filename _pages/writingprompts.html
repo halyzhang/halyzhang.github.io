@@ -1,0 +1,352 @@
+---
+layout: page
+title: Writing Prompts
+description: Generate oblique strategies for breaking through writer's block.
+background: Chain
+background-align: bg-shape-center
+---
+<style>
+.prompt-generator-controls {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.prompt-display-card {
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 8px 8px 0 rgba(0, 123, 255, 0.3);
+  padding: 40px;
+  margin-bottom: 30px;
+  min-height: 200px;
+}
+.prompt-display-card .prompt-text {
+  font-size: 24px;
+  line-height: 1.6;
+  color: #000;
+  font-weight: 500;
+  text-align: center;
+}
+.prompt-display-card .prompt-text .clause {
+  display: inline;
+}
+.prompt-display-card .prompt-text .constraint {
+  color: #dc3545;
+  font-weight: 600;
+}
+.prompt-display-card .prompt-text .subject {
+  color: #007bff;
+  font-weight: 600;
+}
+.prompt-display-card .prompt-text .form {
+  color: #28a745;
+  font-weight: 600;
+}
+.prompt-display-card .prompt-text .perspective {
+  color: #6f42c1;
+  font-weight: 600;
+}
+.instructions {
+  background: #f9f9f9;
+  border-left: 4px solid #007bff;
+  padding: 20px;
+  margin: 30px 0;
+}
+.instructions h4 {
+  margin-top: 0;
+  color: #000;
+}
+.share-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #eaeaea;
+  text-align: center;
+}
+</style>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+(function() {
+  var promptElements = {
+    constraints: [
+      "Write in exactly 50 words",
+      "Write in exactly 100 words",
+      "Write in exactly 500 words",
+      "Write in exactly 1000 words",
+      "Use no adjectives",
+      "Use no verbs",
+      "Use no proper nouns",
+      "Use no pronouns",
+      "Switch languages mid-sentence",
+      "Write backwards from the ending",
+      "Every sentence contains a color",
+      "Every sentence contains a number",
+      "Every sentence contains food",
+      "Every sentence must rhyme",
+      "Use only monosyllabic English words",
+      "Write entirely in dialogue",
+      "Write with no dialogue",
+      "Use no punctuation except periods",
+      "Use no periods",
+      "Start each sentence with the same word",
+      "Each paragraph is a single sentence",
+      "Use only questions",
+      "Use only declarative sentences",
+      "Include three lies and one truth",
+      "Repeat one phrase exactly three times",
+      "No sentence longer than five words",
+      "No sentence shorter than twenty words",
+      "Write without using the letter 'e'",
+      "End every sentence with the same word",
+      "Use only present tense",
+      "Use only past tense",
+      "Include every vowel in each sentence"
+    ],
+
+    subjects: [
+      "a translator who becomes their translation",
+      "memory that exists in only one language",
+      "a word with no equivalent",
+      "the space between two languages",
+      "technology as a magic system",
+      "magic as broken technology",
+      "inheritance that cannot be translated",
+      "the body as alien territory",
+      "hunger that transcends dimensions",
+      "a ghost that speaks the wrong language",
+      "algorithms that dream",
+      "grief in a language you're forgetting",
+      "code-switching as survival",
+      "diaspora across galaxies",
+      "the last speaker of a dead language",
+      "shapeshifting as code-switching",
+      "homesickness for a place that never existed",
+      "artificial intelligence learning to lie",
+      "the physics of belonging",
+      "colonization through language",
+      "a curse that changes meaning in translation",
+      "bilingual ghosts",
+      "words that taste different in each language",
+      "the etymology of violence",
+      "silence as its own language",
+      "code as poetry",
+      "names that are prisons",
+      "forgetting on purpose",
+      "the future your ancestors imagined",
+      "immigrants with parallel lives"
+    ],
+
+    forms: [
+      "as a prose poem",
+      "as code comments",
+      "as a scientific report",
+      "as a recipe",
+      "as a repair manual",
+      "in epistolary form",
+      "as field notes",
+      "as a dictionary entry",
+      "as a warning label",
+      "as a list of instructions",
+      "as overheard conversation",
+      "as a technical specification",
+      "as a bedtime story",
+      "as a police report",
+      "as spam email",
+      "as a prayer",
+      "as a ransom note",
+      "as a job posting",
+      "as a weather forecast",
+      "as a user manual",
+      "as a medical diagnosis",
+      "as a shipping manifest",
+      "as a tax form",
+      "as a constellation myth",
+      "as a choose-your-own-adventure",
+      "as liner notes",
+      "as a lab report",
+      "as a to-do list",
+      "as a contract",
+      "as a spell",
+      "as a restaurant menu",
+      "as a telegram"
+    ],
+
+    perspectives: [
+      "from the POV of your younger self",
+      "from the POV of your older self",
+      "as if overheard in fragments",
+      "through gaps and silences",
+      "from an inanimate object's POV",
+      "as a letter never sent",
+      "in second person",
+      "from the perspective of the villain",
+      "as if explaining to a child",
+      "from the perspective of someone who doesn't understand",
+      "as if you're lying",
+      "from the perspective of the landscape",
+      "as remembered decades later",
+      "from multiple contradictory perspectives",
+      "as if teaching someone how to do it",
+      "as if discovered in ruins",
+      "from the perspective of someone falling asleep",
+      "as if you only have five minutes",
+      "from the POV of a translator",
+      "as if you're already dead",
+      "from the POV of the monster",
+      "as if confessing",
+      "from the perspective of someone immortal",
+      "as if underwater",
+      "from the POV of a machine",
+      "as if you're the only one who remembers",
+      "from the perspective of a satellite",
+      "as if addressing your enemy"
+    ]
+  };
+
+  function getRandomElement(array) {
+    return array[Math.floor(Math.random() * array.length)];
+  }
+
+  function shuffle(array) {
+    var shuffled = array.slice();
+    for (var i = shuffled.length - 1; i > 0; i--) {
+      var j = Math.floor(Math.random() * (i + 1));
+      var temp = shuffled[i];
+      shuffled[i] = shuffled[j];
+      shuffled[j] = temp;
+    }
+    return shuffled;
+  }
+
+  function generatePrompt() {
+    var numClauses = Math.floor(Math.random() * 3) + 2;
+    var clauseTypes = ['constraints', 'subjects', 'forms', 'perspectives'];
+    var selectedTypes = shuffle(clauseTypes).slice(0, numClauses);
+    var parts = [];
+    var usedElements = [];
+
+    for (var i = 0; i < selectedTypes.length; i++) {
+      var type = selectedTypes[i];
+      var element;
+      do {
+        element = getRandomElement(promptElements[type]);
+      } while (usedElements.indexOf(element) !== -1);
+
+      usedElements.push(element);
+      var className = type.slice(0, -1);
+      parts.push('<span class="clause ' + className + '">' + element + '</span>');
+    }
+
+    var promptHTML = "";
+
+    var hasConstraint = selectedTypes.indexOf('constraints') !== -1;
+    var hasSubject = selectedTypes.indexOf('subjects') !== -1;
+    var hasForm = selectedTypes.indexOf('forms') !== -1;
+    var hasPerspective = selectedTypes.indexOf('perspectives') !== -1;
+
+    var constraintIdx = selectedTypes.indexOf('constraints');
+    var subjectIdx = selectedTypes.indexOf('subjects');
+    var formIdx = selectedTypes.indexOf('forms');
+    var perspectiveIdx = selectedTypes.indexOf('perspectives');
+
+    /* Build grammatically correct prompt */
+    /* Constraints are already imperatives, subjects need "about", forms/perspectives just append */
+
+    if (hasConstraint) {
+      promptHTML = parts[constraintIdx];
+      if (hasSubject) {
+        promptHTML += " about " + parts[subjectIdx];
+      }
+      if (hasForm) {
+        promptHTML += " " + parts[formIdx];
+      }
+      if (hasPerspective) {
+        promptHTML += " " + parts[perspectiveIdx];
+      }
+    } else if (hasSubject) {
+      /* No constraint but has subject */
+      promptHTML = "Write about " + parts[subjectIdx];
+      if (hasForm) {
+        promptHTML += " " + parts[formIdx];
+      }
+      if (hasPerspective) {
+        promptHTML += " " + parts[perspectiveIdx];
+      }
+    } else {
+      /* No constraint, no subject - just form and/or perspective */
+      if (hasForm) {
+        promptHTML = "Write " + parts[formIdx];
+        if (hasPerspective) {
+          promptHTML += " " + parts[perspectiveIdx];
+        }
+      } else if (hasPerspective) {
+        promptHTML = "Write " + parts[perspectiveIdx];
+      }
+    }
+
+    promptHTML += ".";
+
+    jQuery("#promptText").html(promptHTML);
+    jQuery("#promptDisplay").show();
+  }
+
+  function copyPrompt() {
+    var promptText = jQuery("#promptText").text();
+
+    var textArea = document.createElement("textarea");
+    textArea.value = promptText;
+    textArea.style.position = "fixed";
+    textArea.style.left = "-999999px";
+    textArea.style.top = "-999999px";
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+
+    try {
+      document.execCommand('copy');
+      var btn = jQuery("#copyBtn");
+      var originalText = btn.text();
+      btn.text('Copied!');
+      setTimeout(function() {
+        btn.text(originalText);
+      }, 2000);
+    } catch (err) {
+      console.error('Copy failed:', err);
+    }
+
+    document.body.removeChild(textArea);
+  }
+
+  jQuery(document).ready(function() {
+    jQuery("#generateBtn").on("click", function() {
+      generatePrompt();
+    });
+
+    jQuery("#copyBtn").on("click", function() {
+      copyPrompt();
+    });
+
+    generatePrompt();
+  });
+
+})();
+</script>
+
+<section class="section">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+
+        <div class="prompt-generator-controls">
+          <button id="generateBtn" class="btn btn-primary" role="button">Generate Prompt</button>
+        </div>
+
+        <div id="promptDisplay" class="prompt-display-card" style="display: none;">
+          <div class="prompt-text" id="promptText"></div>
+
+          <div class="share-section">
+            <button id="copyBtn" class="btn btn-success" role="button">Copy to Clipboard</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

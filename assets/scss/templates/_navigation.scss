@@ -26,6 +26,29 @@
       font-weight: bold;
     }
   }
+  .dropdown-menu {
+    background-color: black;
+    border: none;
+    margin-top: 0;
+    padding: 0;
+    .dropdown-item {
+      font-family: $tertiary-font;
+      text-transform: uppercase;
+      color: $white;
+      padding: 15px;
+      transition: .3s ease;
+      &:hover, &:focus {
+        background-color: $primary-color;
+        color: $white;
+      }
+    }
+  }
+  .dropdown-toggle::after {
+    vertical-align: middle;
+  }
+  .dropdown:hover .dropdown-menu {
+    display: block;
+  }
 }
 
 .navbar-dark .navbar-nav .nav-link{

@@ -9,6 +9,10 @@ menu:
 - {name: Books, link: '/books/'}
 - {name: Writing, link: '/writing/'}
 - {name: Events, link: '/events/'}
+- name: Fun
+  submenu:
+    - {name: Wuxia Names, link: '/wuxianame/'}
+    - {name: Writing Prompts, link: '/writingprompts/'}
 - {name: About, link: '/about/'}
 
 
