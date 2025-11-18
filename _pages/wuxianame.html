@@ -262,7 +262,6 @@ background-align: bg-shape-center
         {c: "飞流", p: "Fēiliú", m: "flying rapids", g: "m", src: "Li Bai/李白: Gazing at Lushan Waterfall/《望庐山瀑布》"},
         {c: "沧海", p: "Cānghǎi", m: "vast sea", g: "m", src: "Cao Cao/曹操: Viewing the Sea/《观沧海》"},
         {c: "青莲", p: "Qīnglián", m: "green lotus", g: "f", src: "Li Bai/李白's style name"},
-        {c: "明月", p: "Míngyuè", m: "bright moon", g: "f", src: "Li Bai/李白: Quiet Night Thought/《静夜思》"},
         {c: "长风", p: "Chángfēng", m: "long wind", g: "m", src: "classical poetry"},
         {c: "归燕", p: "Guīyàn", m: "returning swallow", g: "f", src: "classical poetry"},
         {c: "清风", p: "Qīngfēng", m: "clear breeze", g: "m", src: "classical poetry"},
@@ -565,6 +564,37 @@ background-align: bg-shape-center
         return filtered;
     }
 
+    /* Helper: Check if all characters in mingData are neutral */
+    function areAllCharsNeutral(mingData) {
+        if (!mingData) return false;
+
+        if (mingData.type === "standard") {
+            /* Check all chars in the array */
+            if (!mingData.chars || mingData.chars.length === 0) return false;
+            for (var i = 0; i < mingData.chars.length; i++) {
+                if (mingData.chars[i].g !== "neutral") {
+                    return false;
+                }
+            }
+            return true;
+        } else if (mingData.type === "zi_freeform") {
+            /* Check mingChar and ziChars */
+            if (mingData.mingChar && mingData.mingChar.g !== "neutral") {
+                return false;
+            }
+            if (mingData.ziChars) {
+                for (var i = 0; i < mingData.ziChars.length; i++) {
+                    if (mingData.ziChars[i].g !== "neutral") {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+        /* For other types (zi, poetic), we don't override since they're predefined */
+        return false;
+    }
+
     /* Helper: Get all category names */
     function getAllCategories() {
         return Object.keys(characters);
@@ -733,10 +763,16 @@ background-align: bg-shape-center
             mingData = {type: "standard", chars: givenChars, category: selectedCategory};
         }
 
+        /* Check if all characters are neutral and override gender if so */
+        var finalGender = gender;
+        if (areAllCharsNeutral(mingData)) {
+            finalGender = "n";
+        }
+
         currentName = {
             family: familyData,
             ming: mingData,
-            gender: gender
+            gender: finalGender
         };
 
         displayName();
