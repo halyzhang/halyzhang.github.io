@@ -16,15 +16,16 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:300,400,500,700&display=swap">
 
-  <!-- Preload critical hero image (LCP element) with responsive sizes -->
-  <link rel="preload"
+  <!-- Preload critical hero image (LCP element) with responsive sizes - only on homepage -->
+  {% if page.url == '/' %}
+    <link rel="preload"
         as="image"
         href="{{ '/assets/images/illustrations/Grace.webp' | relative_url }}"
         imagesrcset="{{ '/assets/images/illustrations/Grace-sm.webp' | relative_url }} 600w,
                      {{ '/assets/images/illustrations/Grace.webp' | relative_url }} 1200w"
         imagesizes="100vw"
         fetchpriority="high">
-
+  {% endif %}
   <!-- Canonical URL -->
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">
 
