@@ -13,7 +13,16 @@ layout: default
   </div>
   <!-- background shapes -->
 {% if page.background %}
-  <img src="{{ site.baseurl }}/assets/images/illustrations/{{ page.background }}.jpg" class="bg-shape-1 {{ page.background-align }} h-100">
+  <picture>
+    <source srcset="{{ site.baseurl }}/assets/images/illustrations/{{ page.background }}-sm.webp 600w,
+                    {{ site.baseurl }}/assets/images/illustrations/{{ page.background }}.webp 1200w"
+            sizes="100vw"
+            type="image/webp">
+    <img src="{{ site.baseurl }}/assets/images/illustrations/{{ page.background }}.jpg"
+         alt="Decorative background illustration"
+         class="bg-shape-1 {{ page.background-align }} h-100"
+         loading="eager">
+  </picture>
 {% endif %}
 </section>
 <!-- /page title -->

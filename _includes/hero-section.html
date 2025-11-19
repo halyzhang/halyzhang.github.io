@@ -8,8 +8,19 @@
     </div>
   </div>
   <div class="layer-bg w-100">
-    <img class="img-fluid w-100" src="{{ site.baseurl }}/assets/images/illustrations/Grace.jpg">
-
+    <picture>
+      <source srcset="{{ site.baseurl }}/assets/images/illustrations/Grace-sm.webp 600w,
+                      {{ site.baseurl }}/assets/images/illustrations/Grace.webp 1200w"
+              sizes="100vw"
+              type="image/webp">
+      <img class="img-fluid w-100"
+           src="{{ site.baseurl }}/assets/images/illustrations/Grace.jpg"
+           alt="Abstract illustration featuring flowing blue and purple curves against a starry background"
+           width="1200"
+           height="849"
+           style="height: auto; aspect-ratio: 1200 / 849;"
+           fetchpriority="high">
+    </picture>
   </div>
 </section>
 <!-- /hero area -->

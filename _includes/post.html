@@ -1,6 +1,15 @@
 <div class="col-lg-4 col-sm-6 mb-4">
   <article class="card shadow">
-    <img class="rounded card-img-top" src="{{ post.image | relative_url }}" alt="{{ post.title }}">
+    <picture>
+      <source srcset="{{ post.image | replace: '.jpg', '-sm.webp' | relative_url }} 400w,
+                      {{ post.image | replace: '.jpg', '.webp' | relative_url }} 800w"
+              sizes="(max-width: 768px) 100vw, 33vw"
+              type="image/webp">
+      <img class="rounded card-img-top"
+           src="{{ post.image | relative_url }}"
+           alt="{{ post.title }}"
+           loading="lazy">
+    </picture>
     <div class="card-body">
       <h4 class="card-title">
         <a class="text-dark" href="{{ post.url | relative_url }}">{{ post.title }}</a>

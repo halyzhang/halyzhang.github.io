@@ -3,10 +3,27 @@
   <title>{% if page.title %}Hal Y. Zhang: {{ page.title }}{% else %}{{ site.data.settings.title }}{% endif %}</title>
 
   <!-- mobile responsive meta -->
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="{%if page.description%}{{page.description}}{%else%}{{site.data.settings.description}}{%endif%}">
   <meta name="author" content="Hal Y. Zhang">
   <meta name="theme-color" content="#000000">
+
+  <!-- Preconnect to external resources for better performance -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Google Fonts CSS -->
+  <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=PT+Serif:400,700|Roboto:300,400,500,700&display=swap">
+
+  <!-- Preload critical hero image (LCP element) with responsive sizes -->
+  <link rel="preload"
+        as="image"
+        href="{{ '/assets/images/illustrations/Grace.webp' | relative_url }}"
+        imagesrcset="{{ '/assets/images/illustrations/Grace-sm.webp' | relative_url }} 600w,
+                     {{ '/assets/images/illustrations/Grace.webp' | relative_url }} 1200w"
+        imagesizes="100vw"
+        fetchpriority="high">
 
   <!-- Canonical URL -->
   <link rel="canonical" href="{{ page.url | replace:'index.html','' | absolute_url }}">

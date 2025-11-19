@@ -35,12 +35,21 @@ hero:
 books-home-items:
   - image : "assets/images/books/mother.jpg"
     url: "books#mother"
+    alt: "Cover of Hard Mother, Spider Mother, Soft Mother by Hal Y. Zhang"
+    width: 400
+    height: 640
 
   - image : "assets/images/books/amnesia.jpg"
     url: "books#amnesia"
+    alt: "Cover of AMNESIA, poetry chapbook by Hal Y. Zhang"
+    width: 600
+    height: 845
 
   - image : "assets/images/books/goddess.jpg"
     url: "books#goddess"
+    alt: "Cover of Goddess Bandit of the Thousand Arms by Hal Y. Zhang"
+    width: 600
+    height: 956
 
 #-------------------------------
 # Writing Page

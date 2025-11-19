@@ -11,7 +11,16 @@ layout: default
     </div>
   </div>
   <!-- background shapes -->
-  <img src="{{ site.baseurl }}/assets/images/illustrations/Atomic.jpg" class="bg-shape-1 h-100">
+  <picture>
+    <source srcset="{{ site.baseurl }}/assets/images/illustrations/Atomic-sm.webp 600w,
+                    {{ site.baseurl }}/assets/images/illustrations/Atomic.webp 1000w"
+            sizes="100vw"
+            type="image/webp">
+    <img src="{{ site.baseurl }}/assets/images/illustrations/Atomic.jpg"
+         alt="Decorative background illustration"
+         class="bg-shape-1 h-100"
+         loading="eager">
+  </picture>
 </section>
 <!-- /page title -->
 
@@ -24,7 +33,17 @@ layout: default
       </div>
       <div class="col-md-4 text-center drag-lg-top">
         <div class="shadow-down mb-4">
-          <img src="{{ site.baseurl }}/{{ page.image }}" alt="{{ page.author }}" class="img-fluid w-100 rounded-lg border-thick border-white">
+          <picture>
+            <source srcset="{{ site.baseurl }}/{{ page.image | replace: '.jpg', '-sm.webp' }} 200w,
+                            {{ site.baseurl }}/{{ page.image | replace: '.jpg', '.webp' }} 400w"
+                    sizes="(max-width: 768px) 100vw, 33vw"
+                    type="image/webp">
+            <img src="{{ site.baseurl }}/{{ page.image }}"
+                 alt="{{ page.author }}"
+                 width="330"
+                 height="330"
+                 class="img-fluid w-100 rounded-lg border-thick border-white">
+          </picture>
         </div>
       </div>
     </div>

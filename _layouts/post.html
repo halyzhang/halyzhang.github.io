@@ -11,9 +11,17 @@ layout: default
     </div>
   </div>
   <!-- background shapes -->
-  <!-- <img src="{{ site.baseurl }}/assets/images/illustrations/page-title.png" alt="illustrations" class="bg-shape-1 w-100"> -->
   {% if page.image %}
-  <img src="{{ page.image }}" alt="illustrations" class="bg-shape-1 {{ page.background-align }} h-100">
+  <picture>
+    <source srcset="{{ page.image | replace: '.jpg', '-sm.webp' }} 600w,
+                    {{ page.image | replace: '.jpg', '.webp' }} 1200w"
+            sizes="100vw"
+            type="image/webp">
+    <img src="{{ page.image }}"
+         alt="Blog post illustration"
+         class="bg-shape-1 {{ page.background-align }} h-100"
+         loading="eager">
+  </picture>
   {% endif %}
 </section>
 <!-- /page title -->

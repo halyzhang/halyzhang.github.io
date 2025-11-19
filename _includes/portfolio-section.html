@@ -11,7 +11,18 @@
       {% for item in site.data.settings.books-home-items %}
       <div class="col-lg-4 col-6 mb-4">
         <div class="position-relative rounded hover-wrapper">
-          <img src="{{ site.baseurl }}/{{ item.image }}" alt="portfolio-image" class="img-fluid rounded w-100 d-block">
+          <picture>
+            <source srcset="{{ site.baseurl }}/{{ item.image | replace: '.jpg', '-sm.webp' }} {{ item.width | divided_by: 1.5 | round }}w,
+                            {{ site.baseurl }}/{{ item.image | replace: '.jpg', '.webp' }} {{ item.width }}w"
+                    sizes="(max-width: 768px) 50vw, 33vw"
+                    type="image/webp">
+            <img src="{{ site.baseurl }}/{{ item.image }}"
+                 alt="{{ item.alt | default: 'Book cover' }}"
+                 width="{{ item.width }}"
+                 height="{{ item.height }}"
+                 style="height: auto;"
+                 class="img-fluid rounded w-100 d-block">
+          </picture>
           <div class="hover-overlay">
             <div class="hover-content">
               <a class="btn btn-light btn-sm" href="{{ item.url }}">view book</a>
