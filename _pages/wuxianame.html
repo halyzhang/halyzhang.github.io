@@ -178,7 +178,7 @@ background-align: bg-shape-center
         {c: "车", p: "Chē"}, {c: "侯", p: "Hóu"}, {c: "宓", p: "Mì"}, {c: "蓬", p: "Péng"},
         {c: "全", p: "Quán"}, {c: "郗", p: "Xī"}, {c: "班", p: "Bān"}, {c: "仰", p: "Yǎng"},
         {c: "秋", p: "Qiū"}, {c: "仲", p: "Zhòng"}, {c: "伊", p: "Yī"}, {c: "宫", p: "Gōng"},
-        {c: "宁", p: "Níng"}, {c: "仇", p: "Qiú"}, {c: "栾", p: "Luán"}, {c: "暴", p: "Bào"},
+        {c: "宁", p: "Níng"}, {c: "仇", p: "Qiú"}, {c: "栾", p: "Luán"},
         {c: "甘", p: "Gān"}, {c: "钭", p: "Tǒu"}, {c: "厉", p: "Lì"}, {c: "戎", p: "Róng"},
         {c: "祖", p: "Zǔ"}, {c: "武", p: "Wǔ"}, {c: "符", p: "Fú"}, {c: "刘", p: "Liú"},
         {c: "景", p: "Jǐng"}, {c: "詹", p: "Zhān"}, {c: "束", p: "Shù"}, {c: "龙", p: "Lóng"},
@@ -187,7 +187,7 @@ background-align: bg-shape-center
         {c: "印", p: "Yìn"}, {c: "宿", p: "Sù"}, {c: "白", p: "Bái"}, {c: "怀", p: "Huái"},
         {c: "蒲", p: "Pú"}, {c: "邰", p: "Tái"}, {c: "从", p: "Cóng"}, {c: "鄂", p: "È"},
         {c: "索", p: "Suǒ"}, {c: "咸", p: "Xián"}, {c: "籍", p: "Jí"}, {c: "赖", p: "Lài"},
-        {c: "卓", p: "Zhuó"}, {c: "蔺", p: "Lìn"}, {c: "屠", p: "Tú"}, {c: "蒙", p: "Méng"},
+        {c: "卓", p: "Zhuó"}, {c: "蔺", p: "Lìn"}, {c: "蒙", p: "Méng"},
         {c: "池", p: "Chí"}, {c: "乔", p: "Qiáo"}, {c: "阴", p: "Yīn"}, {c: "郁", p: "Yù"},
         {c: "胥", p: "Xū"}, {c: "能", p: "Néng"}, {c: "苍", p: "Cāng"}, {c: "双", p: "Shuāng"},
         {c: "闻", p: "Wén"}, {c: "莘", p: "Shēn"}, {c: "党", p: "Dǎng"}, {c: "翟", p: "Zhái"},
@@ -327,13 +327,13 @@ background-align: bg-shape-center
        Gender can be: "m" (masc), "f" (fem), or "n" */
     var characters = {
         celestial: [
-            {c: "天", p: "tiān", m: "heaven, sky", g: "m"},
+            {c: "天", p: "tiān", m: "heaven", g: "m"},
             {c: "星", p: "xīng", m: "star", g: "n"},
             {c: "月", p: "yuè", m: "moon", g: "f"},
             {c: "日", p: "rì", m: "sun", g: "m"},
-            {c: "辰", p: "chén", m: "celestial bodies, time", g: "n"},
+            {c: "辰", p: "chén", m: "celestial", g: "n"},
             {c: "曦", p: "xī", m: "sunlight", g: "n"},
-            {c: "霄", p: "xiāo", m: "sky, clouds", g: "m"}
+            {c: "霄", p: "xiāo", m: "sky", g: "m"}
         ],
         nature: [
             {c: "风", p: "fēng", m: "wind", g: "n"},
@@ -344,7 +344,7 @@ background-align: bg-shape-center
             {c: "冰", p: "bīng", m: "ice", g: "n"},
             {c: "露", p: "lù", m: "dew", g: "f"},
             {c: "烟", p: "yān", m: "mist", g: "n"},
-            {c: "泉", p: "quán", m: "fountain", g: "n"},
+            {c: "泉", p: "quán", m: "spring", g: "n"},
             {c: "流", p: "liú", m: "flow", g: "n"},
             {c: "山", p: "shān", m: "mountain", g: "m"},
             {c: "海", p: "hǎi", m: "ocean", g: "m"},
@@ -358,10 +358,10 @@ background-align: bg-shape-center
             {c: "菊", p: "jú", m: "chrysanthemum", g: "f"},
             {c: "莲", p: "lián", m: "lotus", g: "f"},
             {c: "荷", p: "hé", m: "lotus", g: "f"},
-            {c: "松", p: "sōng", m: "pine tree", g: "n"},
+            {c: "松", p: "sōng", m: "pine", g: "n"},
             {c: "柳", p: "liǔ", m: "willow", g: "f"},
             {c: "桃", p: "táo", m: "peach", g: "f"},
-            {c: "薇", p: "wēi", m: "fern, delicate", g: "f"},
+            {c: "薇", p: "wēi", m: "fern", g: "f"},
             {c: "芳", p: "fāng", m: "fragrant", g: "f"},
             {c: "蕊", p: "ruǐ", m: "flower bud", g: "f"}
         ],
@@ -369,83 +369,83 @@ background-align: bg-shape-center
             {c: "长", p: "cháng", m: "everlasting", g: "n"},
             {c: "仁", p: "rén", m: "benevolence", g: "m"},
             {c: "义", p: "yì", m: "righteousness", g: "m"},
-            {c: "礼", p: "lǐ", m: "propriety, rites", g: "n"},
+            {c: "礼", p: "lǐ", m: "propriety", g: "n"},
             {c: "智", p: "zhì", m: "wisdom", g: "n"},
-            {c: "信", p: "xìn", m: "trustworthiness", g: "n"},
+            {c: "信", p: "xìn", m: "trust", g: "n"},
             {c: "德", p: "dé", m: "virtue", g: "m"},
             {c: "善", p: "shàn", m: "goodness", g: "n"},
             {c: "贞", p: "zhēn", m: "faithfulness", g: "f"},
-            {c: "慧", p: "huì", m: "intelligent, wise", g: "f"},
+            {c: "慧", p: "huì", m: "intelligent", g: "f"},
             {c: "诚", p: "chéng", m: "sincerity", g: "m"}
         ],
         strength: [
             {c: "刚", p: "gāng", m: "strong", g: "m"},
             {c: "勇", p: "yǒng", m: "brave", g: "m"},
             {c: "毅", p: "yì", m: "resolute", g: "m"},
-            {c: "武", p: "wǔ", m: "martial, military", g: "m"},
+            {c: "武", p: "wǔ", m: "martial", g: "m"},
             {c: "豪", p: "háo", m: "heroic", g: "m"},
-            {c: "威", p: "wēi", m: "power, prestige", g: "m"},
+            {c: "威", p: "wēi", m: "power", g: "m"},
             {c: "烈", p: "liè", m: "fierce", g: "m"},
             {c: "刃", p: "rèn", m: "blade", g: "m"},
-            {c: "锋", p: "fēng", m: "sharp edge", g: "m"},
-            {c: "战", p: "zhàn", m: "battle, warrior", g: "m"}
+            {c: "锋", p: "fēng", m: "sharp", g: "m"},
+            {c: "战", p: "zhàn", m: "battle", g: "m"}
         ],
         animals: [
             {c: "龙", p: "lóng", m: "dragon", g: "m"},
             {c: "虎", p: "hǔ", m: "tiger", g: "m"},
             {c: "凤", p: "fèng", m: "phoenix", g: "f"},
             {c: "鹤", p: "hè", m: "crane", g: "n"},
-            {c: "鹰", p: "yīng", m: "eagle, hawk", g: "m"},
+            {c: "鹰", p: "yīng", m: "eagle", g: "m"},
             {c: "雁", p: "yàn", m: "wild goose", g: "n"},
-            {c: "燕", p: "yàn", m: "swallow (the bird)", g: "f"},
-            {c: "鸿", p: "hóng", m: "wild swan, vast", g: "n"},
-            {c: "麟", p: "lín", m: "qilin (mythical beast)", g: "m"},
+            {c: "燕", p: "yàn", m: "swallow", g: "f"},
+            {c: "鸿", p: "hóng", m: "swan", g: "n"},
+            {c: "麟", p: "lín", m: "qilin", g: "m"},
             {c: "蝶", p: "dié", m: "butterfly", g: "f"}
         ],
         excellence: [
             {c: "杰", p: "jié", m: "outstanding", g: "m"},
-            {c: "俊", p: "jùn", m: "handsome, talented", g: "m"},
-            {c: "秀", p: "xiù", m: "elegant, refined", g: "f"},
-            {c: "英", p: "yīng", m: "hero, outstanding", g: "m"},
-            {c: "华", p: "huá", m: "splendid, magnificent", g: "n"},
-            {c: "雅", p: "yǎ", m: "elegant, refined", g: "f"},
-            {c: "娟", p: "juān", m: "beautiful, graceful", g: "f"},
+            {c: "俊", p: "jùn", m: "talented", g: "m"},
+            {c: "秀", p: "xiù", m: "elegant", g: "f"},
+            {c: "英", p: "yīng", m: "hero", g: "m"},
+            {c: "华", p: "huá", m: "splendid", g: "n"},
+            {c: "雅", p: "yǎ", m: "refined", g: "f"},
+            {c: "娟", p: "juān", m: "graceful", g: "f"},
             {c: "美", p: "měi", m: "beautiful", g: "f"},
             {c: "娜", p: "nà", m: "graceful", g: "f"},
-            {c: "韵", p: "yùn", m: "charm, grace", g: "f"}
+            {c: "韵", p: "yùn", m: "charm", g: "f"}
         ],
         martial: [
             {c: "剑", p: "jiàn", m: "sword", g: "m"},
-            {c: "刀", p: "dāo", m: "blade, saber", g: "m"},
+            {c: "刀", p: "dāo", m: "saber", g: "m"},
             {c: "枪", p: "qiāng", m: "spear", g: "m"},
             {c: "戟", p: "jǐ", m: "halberd", g: "m"},
             {c: "拳", p: "quán", m: "fist", g: "m"},
             {c: "掌", p: "zhǎng", m: "palm", g: "m"},
-            {c: "功", p: "gōng", m: "skill, achievement", g: "n"},
-            {c: "气", p: "qì", m: "energy, spirit", g: "n"}
+            {c: "功", p: "gōng", m: "skill", g: "n"},
+            {c: "气", p: "qì", m: "energy", g: "n"}
         ],
         light: [
-            {c: "明", p: "míng", m: "bright, clear", g: "n"},
-            {c: "光", p: "guāng", m: "light, radiance", g: "n"},
+            {c: "明", p: "míng", m: "bright", g: "n"},
+            {c: "光", p: "guāng", m: "light", g: "n"},
             {c: "辉", p: "huī", m: "brilliance", g: "m"},
-            {c: "耀", p: "yào", m: "shine, glory", g: "m"},
+            {c: "耀", p: "yào", m: "shine", g: "m"},
             {c: "曜", p: "yào", m: "glorious", g: "m"},
             {c: "晖", p: "huī", m: "sunshine", g: "n"},
             {c: "煌", p: "huáng", m: "radiant", g: "m"}
         ],
         elegance: [
-            {c: "清", p: "qīng", m: "clear, pure", g: "n"},
-            {c: "静", p: "jìng", m: "quiet, calm", g: "f"},
+            {c: "清", p: "qīng", m: "pure", g: "n"},
+            {c: "静", p: "jìng", m: "quiet", g: "f"},
             {c: "婉", p: "wǎn", m: "graceful", g: "f"},
-            {c: "柔", p: "róu", m: "gentle, soft", g: "f"},
+            {c: "柔", p: "róu", m: "gentle", g: "f"},
             {c: "婷", p: "tíng", m: "graceful", g: "f"},
-            {c: "姿", p: "zī", m: "elegant poise", g: "f"},
+            {c: "姿", p: "zī", m: "poise", g: "f"},
             {c: "舞", p: "wǔ", m: "dance", g: "f"},
-            {c: "灵", p: "líng", m: "spirit, nimble", g: "n"}
+            {c: "灵", p: "líng", m: "spirit", g: "n"}
         ],
         beauty: [
             {c: "嫣", p: "yān", m: "beautiful", g: "f"},
-            {c: "绮", p: "qǐ", m: "fine silk, beautiful", g: "f"},
+            {c: "绮", p: "qǐ", m: "fine silk", g: "f"},
             {c: "媚", p: "mèi", m: "enchanting", g: "f"},
             {c: "艳", p: "yàn", m: "gorgeous", g: "f"},
             {c: "丽", p: "lì", m: "beautiful", g: "f"},
@@ -455,7 +455,7 @@ background-align: bg-shape-center
         tranquility: [
             {c: "安", p: "ān", m: "peaceful", g: "n"},
             {c: "宁", p: "níng", m: "tranquil", g: "n"},
-            {c: "泰", p: "tài", m: "peaceful, grand", g: "m"},
+            {c: "泰", p: "tài", m: "grand", g: "m"},
             {c: "和", p: "hé", m: "harmony", g: "n"},
             {c: "悠", p: "yōu", m: "leisurely", g: "n"},
             {c: "闲", p: "xián", m: "leisure", g: "n"},
@@ -463,21 +463,21 @@ background-align: bg-shape-center
         ],
         jade: [
             {c: "玉", p: "yù", m: "jade", g: "n"},
-            {c: "琳", p: "lín", m: "beautiful jade", g: "f"},
+            {c: "琳", p: "lín", m: "fine jade", g: "f"},
             {c: "瑶", p: "yáo", m: "precious jade", g: "f"},
             {c: "琼", p: "qióng", m: "fine jade", g: "f"},
             {c: "珠", p: "zhū", m: "pearl", g: "f"},
             {c: "璧", p: "bì", m: "jade disc", g: "n"},
-            {c: "璇", p: "xuán", m: "beautiful jade", g: "f"},
-            {c: "琪", p: "qí", m: "precious jade", g: "f"}
+            {c: "璇", p: "xuán", m: "jade", g: "f"},
+            {c: "琪", p: "qí", m: "jade", g: "f"}
         ],
         wisdom: [
-            {c: "文", p: "wén", m: "cultured, refined", g: "m"},
+            {c: "文", p: "wén", m: "cultured", g: "m"},
             {c: "学", p: "xué", m: "learning", g: "n"},
-            {c: "书", p: "shū", m: "book, writing", g: "n"},
+            {c: "书", p: "shū", m: "book", g: "n"},
             {c: "墨", p: "mò", m: "ink", g: "n"},
             {c: "诗", p: "shī", m: "poetry", g: "n"},
-            {c: "琴", p: "qín", m: "qin (zither)", g: "n"},
+            {c: "琴", p: "qín", m: "zither", g: "n"},
             {c: "棋", p: "qí", m: "chess", g: "n"},
             {c: "画", p: "huà", m: "painting", g: "n"}
         ],
@@ -485,17 +485,105 @@ background-align: bg-shape-center
             {c: "香", p: "xiāng", m: "fragrant", g: "f"},
             {c: "馨", p: "xīn", m: "fragrance", g: "f"},
             {c: "芬", p: "fēn", m: "fragrance", g: "f"},
-            {c: "芷", p: "zhǐ", m: "angelica (fragrant herb)", g: "f"}
+            {c: "芷", p: "zhǐ", m: "angelica", g: "f"}
         ],
         aspiration: [
-            {c: "志", p: "zhì", m: "will, ambition", g: "m"},
-            {c: "远", p: "yuǎn", m: "far, distant", g: "m"},
+            {c: "志", p: "zhì", m: "ambition", g: "m"},
+            {c: "远", p: "yuǎn", m: "distant", g: "m"},
             {c: "宏", p: "hóng", m: "grand", g: "m"},
-            {c: "博", p: "bó", m: "extensive, learned", g: "m"},
-            {c: "鹏", p: "péng", m: "roc (mythical bird)", g: "m"},
+            {c: "博", p: "bó", m: "learned", g: "m"},
+            {c: "鹏", p: "péng", m: "roc", g: "m"},
             {c: "翔", p: "xiáng", m: "soar", g: "m"},
             {c: "翼", p: "yì", m: "wings", g: "n"},
             {c: "凌", p: "líng", m: "soar above", g: "m"}
+        ],
+        directions: [
+            {c: "东", p: "dōng", m: "east", g: "n"},
+            {c: "西", p: "xī", m: "west", g: "n"},
+            {c: "南", p: "nán", m: "south", g: "n"},
+            {c: "北", p: "běi", m: "north", g: "n"},
+            {c: "上", p: "shàng", m: "above, upper", g: "n"},
+            {c: "下", p: "xià", m: "below, lower", g: "n"}
+        ],
+        /* 虚词 (function words) - used to create more natural name combinations
+           pos field indicates valid positions: 1=first char, 2=second char
+           Characters without pos can appear anywhere */
+        functional: [
+            {c: "之", p: "zhī", m: "of", g: "n", pos: [2]},
+            {c: "以", p: "yǐ", m: "by means of", g: "n", pos: [1]},
+            {c: "而", p: "ér", m: "and yet", g: "n", pos: [1, 2]},
+            {c: "于", p: "yú", m: "in", g: "n", pos: [1]},
+            {c: "若", p: "ruò", m: "like", g: "n", pos: [1]},
+            {c: "如", p: "rú", m: "as", g: "n", pos: [1]},
+            {c: "可", p: "kě", m: "can", g: "n", pos: [1]},
+            {c: "亦", p: "yì", m: "also", g: "n", pos: [1]},
+            {c: "乃", p: "nǎi", m: "thus", g: "n", pos: [1]},
+            {c: "其", p: "qí", m: "its", g: "n", pos: [1]},
+            {c: "且", p: "qiě", m: "moreover", g: "n", pos: [1]},
+            {c: "则", p: "zé", m: "then", g: "n", pos: [1]},
+            {c: "者", p: "zhě", m: "one who", g: "n", pos: [2]},
+            {c: "所", p: "suǒ", m: "that which", g: "n", pos: [1]},
+            {c: "为", p: "wéi", m: "become", g: "n", pos: [1]},
+            {c: "与", p: "yǔ", m: "with", g: "n", pos: [1]},
+            {c: "因", p: "yīn", m: "because", g: "n", pos: [1]},
+            {c: "焉", p: "yān", m: "therein", g: "n", pos: [2]},
+            {c: "也", p: "yě", m: "also", g: "n", pos: [2]},
+            {c: "乎", p: "hū", m: "exclamatory", g: "n", pos: [2]},
+            {c: "何", p: "hé", m: "what", g: "n", pos: [1]},
+            {c: "从", p: "cóng", m: "follow", g: "n", pos: [1]},
+            {c: "化", p: "huà", m: "transform", g: "n", pos: [2]},
+            /* More independent functional characters - can stand alone or in various positions */
+            {c: "大", p: "dà", m: "great", g: "m"},
+            {c: "不", p: "bù", m: "not", g: "n", pos: [1]},
+            {c: "自", p: "zì", m: "self", g: "n"},
+            {c: "然", p: "rán", m: "natural", g: "n", pos: [2]},
+            {c: "已", p: "yǐ", m: "already", g: "n", pos: [1, 2]},
+            {c: "非", p: "fēi", m: "not", g: "n", pos: [1]},
+            {c: "公", p: "gōng", m: "fair", g: "m"},
+            {c: "允", p: "yǔn", m: "just", g: "m"},
+            {c: "又", p: "yòu", m: "again", g: "n", pos: [1]},
+            {c: "有", p: "yǒu", m: "have", g: "n", pos: [1]},
+            {c: "由", p: "yóu", m: "from", g: "n", pos: [1]},
+            {c: "必", p: "bì", m: "must", g: "n", pos: [1]},
+            {c: "竟", p: "jìng", m: "unexpectedly", g: "n", pos: [1]},
+            {c: "予", p: "yǔ", m: "give", g: "n"},
+            {c: "充", p: "chōng", m: "fill", g: "n"},
+            {c: "少", p: "shào", m: "young", g: "n"},
+            {c: "今", p: "jīn", m: "present", g: "n", pos: [1]},
+            {c: "弃", p: "qì", m: "abandon", g: "n", pos: [1]},
+            {c: "岂", p: "qǐ", m: "how could", g: "n", pos: [1]},
+            {c: "才", p: "cái", m: "talent", g: "n"},
+            {c: "仅", p: "jǐn", m: "only", g: "n", pos: [1]},
+            {c: "在", p: "zài", m: "at", g: "n", pos: [1]},
+            {c: "再", p: "zài", m: "again", g: "n", pos: [1]},
+            {c: "尔", p: "ěr", m: "thus", g: "n", pos: [2]}
+        ],
+        /* Common elegant characters often used in names */
+        common: [
+            {c: "熙", p: "xī", m: "prosperous", g: "n"},
+            {c: "瑞", p: "ruì", m: "auspicious", g: "n"},
+            {c: "祥", p: "xiáng", m: "auspicious", g: "n"},
+            {c: "嘉", p: "jiā", m: "excellent", g: "n"},
+            {c: "逸", p: "yì", m: "leisurely", g: "n"},
+            {c: "轩", p: "xuān", m: "lofty", g: "m"},
+            {c: "辰", p: "chén", m: "celestial", g: "n"},
+            {c: "宇", p: "yǔ", m: "universe", g: "m"},
+            {c: "恒", p: "héng", m: "eternal", g: "m"},
+            {c: "睿", p: "ruì", m: "wise", g: "n"},
+            {c: "晨", p: "chén", m: "morning", g: "n"},
+            {c: "昊", p: "hào", m: "vast sky", g: "m"},
+            {c: "彦", p: "yàn", m: "accomplished", g: "m"},
+            {c: "卿", p: "qīng", m: "noble", g: "n"},
+            {c: "澈", p: "chè", m: "clear", g: "n"},
+            {c: "霖", p: "lín", m: "lasting rain", g: "n"},
+            {c: "朗", p: "lǎng", m: "bright", g: "m"},
+            {c: "珩", p: "héng", m: "jade pendant", g: "n"},
+            {c: "棠", p: "táng", m: "crabapple", g: "f"},
+            {c: "羽", p: "yǔ", m: "feather", g: "n"},
+            {c: "初", p: "chū", m: "beginning", g: "n"},
+            {c: "念", p: "niàn", m: "thought", g: "n"},
+            {c: "承", p: "chéng", m: "inherit", g: "m"},
+            {c: "启", p: "qǐ", m: "begin", g: "m"}
         ]
     };
 
@@ -616,6 +704,90 @@ background-align: bg-shape-center
         return familyObj.c.indexOf(char) !== -1;
     }
 
+    /* Helper: Check if character can appear in specified position (1 or 2)
+       Characters without pos field can appear anywhere */
+    function canAppearInPosition(charObj, position) {
+        if (!charObj.pos) return true;
+        return charObj.pos.indexOf(position) !== -1;
+    }
+
+    /* Helper: Check if character can be used as standalone (single-char name)
+       Characters with pos restrictions cannot be standalone */
+    function canBeStandalone(charObj) {
+        return !charObj.pos;
+    }
+
+    /* Helper: Get characters from functional category that can appear in a specific position */
+    function getFunctionalCharsForPosition(gender, position) {
+        var functionalChars = characters.functional || [];
+        var filtered = [];
+        for (var i = 0; i < functionalChars.length; i++) {
+            var ch = functionalChars[i];
+            if ((ch.g === gender || ch.g === "n") && canAppearInPosition(ch, position)) {
+                filtered.push(ch);
+            }
+        }
+        return filtered;
+    }
+
+    /* Helper: Get a random character from common or a complementary category (not the excluded one)
+       This is used to add variety to courtesy names */
+    function getComplementaryChar(gender, excludeCategory, position) {
+        var sources = [];
+
+        /* Always include common characters as they're versatile */
+        var commonChars = getAllCharsFromCategory("common", gender);
+        if (commonChars.length > 0) {
+            sources.push({chars: commonChars, weight: 2});
+        }
+
+        /* Include functional characters for this position */
+        var functionalChars = getFunctionalCharsForPosition(gender, position);
+        if (functionalChars.length > 0) {
+            sources.push({chars: functionalChars, weight: 3});
+        }
+
+        /* Include directions as they're neutral and elegant */
+        if (excludeCategory !== "directions") {
+            var directionChars = getAllCharsFromCategory("directions", gender);
+            if (directionChars.length > 0) {
+                sources.push({chars: directionChars, weight: 1});
+            }
+        }
+
+        /* Pick a random source based on weights */
+        var totalWeight = 0;
+        for (var i = 0; i < sources.length; i++) {
+            totalWeight += sources[i].weight;
+        }
+
+        if (totalWeight === 0) return null;
+
+        var rand = Math.random() * totalWeight;
+        var cumulative = 0;
+        for (var j = 0; j < sources.length; j++) {
+            cumulative += sources[j].weight;
+            if (rand < cumulative) {
+                return sources[j].chars[Math.floor(Math.random() * sources[j].chars.length)];
+            }
+        }
+
+        return null;
+    }
+
+    /* Helper: Get categories that exclude functional, common, and directions (the "content" categories) */
+    function getContentCategories() {
+        var all = getAllCategories();
+        var exclude = ["functional", "common", "directions"];
+        var result = [];
+        for (var i = 0; i < all.length; i++) {
+            if (exclude.indexOf(all[i]) === -1) {
+                result.push(all[i]);
+            }
+        }
+        return result;
+    }
+
     function generateName(useZi) {
         var familyData;
         if (Math.random() < 0.2) {
@@ -644,17 +816,18 @@ background-align: bg-shape-center
                 }
             }
 
-            /* Freeform zi generation: 1-char ming + 2-char zi from same category */
+            /* Freeform zi generation: 1-char ming + 2-char zi with mixed categories
+               One zi char from same category, one from complementary source (functional/common/directions) */
             if (!mingData) {
-                var categories = getAllCategories();
+                var contentCategories = getContentCategories();
                 var categoryAttempts = 0;
-                var maxCategoryAttempts = categories.length;
+                var maxCategoryAttempts = contentCategories.length;
 
                 while (!mingData && categoryAttempts < maxCategoryAttempts) {
-                    var selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+                    var selectedCategory = contentCategories[Math.floor(Math.random() * contentCategories.length)];
                     var categoryChars = getAllCharsFromCategory(selectedCategory, gender);
 
-                    if (categoryChars.length >= 3) {
+                    if (categoryChars.length >= 2) {
                         /* Pick 1 char for ming */
                         var mingChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
                         var mingAttempts = 0;
@@ -664,27 +837,72 @@ background-align: bg-shape-center
                             mingAttempts++;
                         }
 
-                        /* Pick 2 chars for zi from same category, ensuring they don't duplicate ming char */
-                        var ziChar1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                        var ziAttempts1 = 0;
-                        while (ziChar1.c === mingChar.c && ziAttempts1 < 20) {
-                            ziChar1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                            ziAttempts1++;
+                        /* Pick 1 zi char from same category (thematic connection) */
+                        var sameCategoryChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        var sameCatAttempts = 0;
+                        while (sameCategoryChar.c === mingChar.c && sameCatAttempts < 20) {
+                            sameCategoryChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                            sameCatAttempts++;
                         }
 
-                        var ziChar2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                        var ziAttempts2 = 0;
-                        while (ziChar2.c === mingChar.c && ziAttempts2 < 20) {
-                            ziChar2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                            ziAttempts2++;
+                        /* Pick 1 zi char from complementary source (adds variety)
+                           Try both positions and see which works better */
+                        var complementChar1 = getComplementaryChar(gender, selectedCategory, 1);
+                        var complementChar2 = getComplementaryChar(gender, selectedCategory, 2);
+
+                        /* Decide arrangement based on position constraints */
+                        var ziChar1, ziChar2;
+
+                        if (complementChar1 && complementChar2) {
+                            /* Both positions have candidates, randomly decide arrangement */
+                            if (Math.random() < 0.5) {
+                                /* Complementary char first, same-category char second */
+                                if (canAppearInPosition(sameCategoryChar, 2)) {
+                                    ziChar1 = complementChar1;
+                                    ziChar2 = sameCategoryChar;
+                                } else {
+                                    ziChar1 = sameCategoryChar;
+                                    ziChar2 = complementChar2;
+                                }
+                            } else {
+                                /* Same-category char first, complementary char second */
+                                if (canAppearInPosition(sameCategoryChar, 1)) {
+                                    ziChar1 = sameCategoryChar;
+                                    ziChar2 = complementChar2;
+                                } else {
+                                    ziChar1 = complementChar1;
+                                    ziChar2 = sameCategoryChar;
+                                }
+                            }
+                        } else if (complementChar1) {
+                            /* Only first position has complementary char */
+                            ziChar1 = complementChar1;
+                            ziChar2 = sameCategoryChar;
+                        } else if (complementChar2) {
+                            /* Only second position has complementary char */
+                            ziChar1 = sameCategoryChar;
+                            ziChar2 = complementChar2;
+                        } else {
+                            /* No complementary char available, fall back to same category */
+                            var fallbackChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                            var fallbackAttempts = 0;
+                            while ((fallbackChar.c === mingChar.c || fallbackChar.c === sameCategoryChar.c) && fallbackAttempts < 20) {
+                                fallbackChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                                fallbackAttempts++;
+                            }
+                            ziChar1 = sameCategoryChar;
+                            ziChar2 = fallbackChar;
                         }
 
-                        mingData = {
-                            type: "zi_freeform",
-                            mingChar: mingChar,
-                            ziChars: [ziChar1, ziChar2],
-                            category: selectedCategory
-                        };
+                        /* Ensure no duplicates between zi chars */
+                        if (ziChar1 && ziChar2 && ziChar1.c !== ziChar2.c) {
+                            mingData = {
+                                type: "zi_freeform",
+                                mingChar: mingChar,
+                                ziChars: [ziChar1, ziChar2],
+                                category: selectedCategory
+                            };
+                        }
                     }
                     categoryAttempts++;
                 }
@@ -704,18 +922,18 @@ background-align: bg-shape-center
 
         /* Standard name generation if no other type was generated */
         if (!mingData) {
-            var categories = getAllCategories();
-            var selectedCategory = categories[Math.floor(Math.random() * categories.length)];
+            var contentCategories = getContentCategories();
+            var selectedCategory = contentCategories[Math.floor(Math.random() * contentCategories.length)];
             var givenChars = [];
             var categoryChars = getAllCharsFromCategory(selectedCategory, gender);
 
             if (categoryChars.length === 0) {
-                /* Fallback to all categories if selected one has no chars for this gender */
-                for (var cat = 0; cat < categories.length; cat++) {
-                    var tempChars = getAllCharsFromCategory(categories[cat], gender);
+                /* Fallback to other content categories if selected one has no chars for this gender */
+                for (var cat = 0; cat < contentCategories.length; cat++) {
+                    var tempChars = getAllCharsFromCategory(contentCategories[cat], gender);
                     if (tempChars.length > 0) {
                         categoryChars = tempChars;
-                        selectedCategory = categories[cat];
+                        selectedCategory = contentCategories[cat];
                         break;
                     }
                 }
@@ -724,36 +942,102 @@ background-align: bg-shape-center
             if (categoryChars.length > 0) {
                 /* 70% chance of 2-char name, 30% chance of 1-char name */
                 if (Math.random() < 0.7 && categoryChars.length >= 2) {
-                    var char1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                    /* 50% chance to use a functional/common/direction char as one of the characters */
+                    var useMixedCategories = Math.random() < 0.5;
+
+                    /* Filter chars that can appear in first position */
+                    var firstPosChars = [];
+                    for (var fp = 0; fp < categoryChars.length; fp++) {
+                        if (canAppearInPosition(categoryChars[fp], 1)) {
+                            firstPosChars.push(categoryChars[fp]);
+                        }
+                    }
+                    if (firstPosChars.length === 0) firstPosChars = categoryChars;
+
+                    var char1 = firstPosChars[Math.floor(Math.random() * firstPosChars.length)];
                     var char1Attempts = 0;
                     /* Ensure first char doesn't appear in compound family name */
                     while (charInCompoundFamily(char1.c, familyData) && char1Attempts < 20) {
-                        char1 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        char1 = firstPosChars[Math.floor(Math.random() * firstPosChars.length)];
                         char1Attempts++;
+                    }
+
+                    /* If using mixed categories, maybe replace first char with complementary */
+                    var usedComplementFirst = false;
+                    if (useMixedCategories && Math.random() < 0.5) {
+                        var complementFirst = getComplementaryChar(gender, selectedCategory, 1);
+                        if (complementFirst && !charInCompoundFamily(complementFirst.c, familyData)) {
+                            char1 = complementFirst;
+                            usedComplementFirst = true;
+                        }
                     }
                     givenChars.push(char1);
 
-                    var char2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                    /* Filter chars that can appear in second position */
+                    var secondPosChars = [];
+                    for (var sp = 0; sp < categoryChars.length; sp++) {
+                        if (canAppearInPosition(categoryChars[sp], 2)) {
+                            secondPosChars.push(categoryChars[sp]);
+                        }
+                    }
+                    if (secondPosChars.length === 0) secondPosChars = categoryChars;
+
+                    var char2 = secondPosChars[Math.floor(Math.random() * secondPosChars.length)];
                     var char2Attempts = 0;
                     /* For masc: no duplicates allowed. For fem: 25% chance of duplicate, otherwise prevent */
                     var allowDuplicate = (gender === "f" && Math.random() < 0.25);
                     while (charInCompoundFamily(char2.c, familyData) && char2Attempts < 20) {
-                        char2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        char2 = secondPosChars[Math.floor(Math.random() * secondPosChars.length)];
                         char2Attempts++;
                     }
                     if (!allowDuplicate) {
                         while (char2.c === char1.c && char2Attempts < 20) {
-                            char2 = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                            char2 = secondPosChars[Math.floor(Math.random() * secondPosChars.length)];
                             char2Attempts++;
+                        }
+                    }
+
+                    /* If using mixed categories and didn't replace first char, replace second */
+                    if (useMixedCategories && !usedComplementFirst) {
+                        var complementSecond = getComplementaryChar(gender, selectedCategory, 2);
+                        if (complementSecond && complementSecond.c !== char1.c && !charInCompoundFamily(complementSecond.c, familyData)) {
+                            char2 = complementSecond;
                         }
                     }
                     givenChars.push(char2);
                 } else {
-                    var singleChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                    /* For single-char names, only use characters that can be standalone */
+                    var standaloneChars = [];
+                    for (var sc = 0; sc < categoryChars.length; sc++) {
+                        if (canBeStandalone(categoryChars[sc])) {
+                            standaloneChars.push(categoryChars[sc]);
+                        }
+                    }
+
+                    /* Also include standalone chars from common category */
+                    var commonChars = getAllCharsFromCategory("common", gender);
+                    for (var cc = 0; cc < commonChars.length; cc++) {
+                        if (canBeStandalone(commonChars[cc])) {
+                            standaloneChars.push(commonChars[cc]);
+                        }
+                    }
+
+                    /* Include standalone functional chars */
+                    var functionalChars = characters.functional || [];
+                    for (var fc = 0; fc < functionalChars.length; fc++) {
+                        var fch = functionalChars[fc];
+                        if ((fch.g === gender || fch.g === "n") && canBeStandalone(fch)) {
+                            standaloneChars.push(fch);
+                        }
+                    }
+
+                    if (standaloneChars.length === 0) standaloneChars = categoryChars;
+
+                    var singleChar = standaloneChars[Math.floor(Math.random() * standaloneChars.length)];
                     var singleAttempts = 0;
                     /* Ensure char doesn't appear in compound family name */
                     while (charInCompoundFamily(singleChar.c, familyData) && singleAttempts < 20) {
-                        singleChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
+                        singleChar = standaloneChars[Math.floor(Math.random() * standaloneChars.length)];
                         singleAttempts++;
                     }
                     givenChars.push(singleChar);
@@ -1044,7 +1328,7 @@ background-align: bg-shape-center
             <strong>⚠️ Important Note:</strong> This tool is for entertainment purposes only.
             The literal meanings of characters presented here are just one aspect—real Chinese names also carry tonal harmony,
             historical associations, familial traditions, and symbolism that require cultural knowledge and expertise. If you are creating a name for actual use,
-            please consult with those who are familiar with Chinese language and culture to ensure your name is culturally appropriate, meaningful, and respectful.
+            please consult with those who are familiar with Chinese language and culture to ensure your name is meaningful and respectful.
           </div>
 
           <div class="name-generator-controls">
