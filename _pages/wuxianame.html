@@ -5,6 +5,113 @@ description: Generate wuxia character names with meaning for your martial arts h
 background: Light
 background-align: bg-shape-center
 ---
+<style>
+.name-generator-controls {
+  margin-bottom: 30px;
+  text-align: center;
+}
+.name-generator-controls .btn-group {
+  display: inline-flex;
+  gap: 10px;
+}
+.name-generator-controls button {
+  background: #000;
+  color: #fff;
+  border: 2px solid #000;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.name-generator-controls button:hover {
+  background: #007bff;
+  color: #fff;
+  border-color: #007bff;
+}
+.name-display-card {
+  background: #fff;
+  border: 3px solid #000;
+  box-shadow: 8px 8px 0 rgba(0, 123, 255, 0.3);
+  padding: 40px;
+  margin-bottom: 30px;
+}
+.name-display-card h3 {
+  font-size: 48px;
+  color: #000;
+  margin: 0 0 10px 0;
+  font-weight: 700;
+}
+.name-display-card .pinyin {
+  font-size: 20px;
+  color: #666;
+  margin-bottom: 20px;
+}
+.names-horizontal {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+.name-section {
+  flex: 1;
+  min-width: 250px;
+}
+.breakdown-section {
+  background: #f9f9f9;
+  border-left: 4px solid #007bff;
+  padding: 20px;
+  margin: 20px 0;
+}
+.breakdown-section h5 {
+  color: #000;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+.character-detail {
+  margin: 10px 0;
+  padding: 10px;
+  background: #fff;
+  border-radius: 4px;
+}
+.literary-source {
+  background: #f0f8ff;
+  color: #333;
+  padding: 15px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+.share-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid #eaeaea;
+  text-align: center;
+}
+.share-section button {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.share-section button:hover {
+  background: #0056b3;
+  color: #fff;
+}
+.disclaimer {
+  background: #fff9e6;
+  border: 2px solid #ffd700;
+  padding: 20px;
+  margin: 30px 0;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.disclaimer strong {
+  color: #000;
+}
+</style>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
@@ -166,18 +273,18 @@ background-align: bg-shape-center
         {c: "乘风", p: "Chéngfēng", m: "riding the wind", g: "m", src: "Zhuangzi/庄子: Xiaoyao You/《逍遥游》"},
         {c: "星河", p: "Xīnghé", m: "river of stars", g: "m", src: "classical poetry"},
         {c: "听雨", p: "Tīngyǔ", m: "listening to rain", g: "f", src: "Jiang Jie/蒋捷: Yu Mei Ren/《虞美人》"},
-        {c: "无为", p: "Wúwéi", m: "non-action (Daoist concept)", g: "m", src: "Daodejing/道德经 (Laozi/老子)"},
+        {c: "无为", p: "Wúwéi", m: "non-action", g: "m", src: "Daoist philosophy"},
         {c: "清虚", p: "Qīngxū", m: "clear emptiness", g: "m", src: "Daoist philosophy"},
         {c: "逍遥", p: "Xiāoyáo", m: "carefree wandering", g: "m", src: "Zhuangzi/庄子: Xiaoyao You/《逍遥游》"},
         {c: "抱朴", p: "Bàopǔ", m: "embracing simplicity", g: "m", src: "Daodejing/道德经 and Ge Hong/葛洪"},
-        {c: "玄妙", p: "Xuánmiào", m: "mysterious and profound (Daoist concept)", g: "f", src: "Daoist philosophy"},
+        {c: "玄妙", p: "Xuánmiào", m: "mysterious and profound", g: "f", src: "Daoist philosophy"},
         {c: "般若", p: "Bōrě", m: "prajna/wisdom", g: "f", src: "Buddhist sutras/佛经"},
-        {c: "禅心", p: "Chánxīn", m: "chan/zen mind", g: "m", src: "Chan Buddhism/禅宗"},
+        {c: "禅心", p: "Chánxīn", m: "chan mind", g: "m", src: "Chan Buddhism/禅宗"},
         {c: "慈悲", p: "Cíbēi", m: "compassion", g: "f", src: "Buddhist teachings"},
-        {c: "觉悟", p: "Juéwù", m: "enlightenment/awakening", g: "m", src: "Buddhist philosophy"},
+        {c: "觉悟", p: "Juéwù", m: "enlightenment", g: "m", src: "Buddhist philosophy"},
         {c: "空明", p: "Kōngmíng", m: "emptiness and clarity", g: "f", src: "Heart Sutra/《心经》"},
         {c: "破军", p: "Pòjūn", m: "breaking army/unstoppable force (star name)", g: "m", src: "Wuxia tradition and Chinese astronomy"},
-        {c: "绝世", p: "Juéshì", m: "peerless/unmatched in the world", g: "m", src: "Wuxia tradition"},
+        {c: "绝世", p: "Juéshì", m: "peerless", g: "m", src: "Wuxia tradition"},
         {c: "孤星", p: "Gūxīng", m: "lone star", g: "m", src: "Wuxia tradition"},
         {c: "剑魂", p: "Jiànhún", m: "spirit of the blade", g: "m", src: "Wuxia tradition"},
         {c: "霸刀", p: "Bàdāo", m: "tyrant blade", g: "m", src: "Wuxia tradition"},
@@ -297,7 +404,7 @@ background-align: bg-shape-center
         ],
         excellence: [
             {c: "杰", p: "jié", m: "outstanding", g: "m"},
-            {c: "俊", p: "jùn", m: "talented", g: "m"},
+            {c: "俊", p: "jùn", m: "handsome", g: "m"},
             {c: "秀", p: "xiù", m: "elegant", g: "f"},
             {c: "英", p: "yīng", m: "hero", g: "m"},
             {c: "华", p: "huá", m: "splendid", g: "n"},
@@ -451,7 +558,6 @@ background-align: bg-shape-center
             {c: "再", p: "zài", m: "again", g: "n", pos: [1]},
             {c: "尔", p: "ěr", m: "thus", g: "n", pos: [2]}
         ],
-        /* Common elegant characters often used in names */
         common: [
             {c: "熙", p: "xī", m: "prosperous", g: "n"},
             {c: "瑞", p: "ruì", m: "auspicious", g: "n"},
@@ -477,6 +583,87 @@ background-align: bg-shape-center
             {c: "念", p: "niàn", m: "thought", g: "n"},
             {c: "承", p: "chéng", m: "inherit", g: "m"},
             {c: "启", p: "qǐ", m: "begin", g: "m"}
+        ],
+        numbers: [
+            {c: "一", p: "yī", m: "one", g: "n"},
+            {c: "二", p: "èr", m: "two", g: "n"},
+            {c: "三", p: "sān", m: "three", g: "n"},
+            {c: "四", p: "sì", m: "four", g: "n"},
+            {c: "五", p: "wǔ", m: "five", g: "n"},
+            {c: "六", p: "liù", m: "six", g: "n"},
+            {c: "七", p: "qī", m: "seven", g: "n"},
+            {c: "八", p: "bā", m: "eight", g: "n"},
+            {c: "九", p: "jiǔ", m: "nine", g: "n"},
+            {c: "十", p: "shí", m: "ten", g: "n"},
+            {c: "百", p: "bǎi", m: "hundred", g: "n"},
+            {c: "千", p: "qiān", m: "thousand", g: "n"},
+            {c: "万", p: "wàn", m: "ten thousand", g: "n"},
+            {c: "半", p: "bàn", m: "half", g: "n"},
+            {c: "双", p: "shuāng", m: "pair", g: "n"}
+        ],
+        colors: [
+            {c: "玄", p: "xuán", m: "black, mysterious", g: "n"},
+            {c: "赤", p: "chì", m: "red", g: "n"},
+            {c: "青", p: "qīng", m: "blue-green", g: "n"},
+            {c: "白", p: "bái", m: "white", g: "n"},
+            {c: "黑", p: "hēi", m: "black", g: "n"},
+            {c: "紫", p: "zǐ", m: "purple", g: "n"},
+            {c: "碧", p: "bì", m: "jade-green", g: "n"},
+            {c: "金", p: "jīn", m: "gold", g: "n"},
+            {c: "银", p: "yín", m: "silver", g: "n"},
+            {c: "朱", p: "zhū", m: "vermilion", g: "n"},
+            {c: "素", p: "sù", m: "plain white", g: "n"},
+            {c: "翠", p: "cuì", m: "emerald green", g: "f"},
+            {c: "丹", p: "dān", m: "cinnabar", g: "n"},
+            {c: "绯", p: "fēi", m: "crimson", g: "f"},
+            {c: "苍", p: "cāng", m: "grey-blue", g: "n"}
+        ],
+        offbeat: [
+            {c: "邪", p: "xié", m: "unorthodox", g: "m"},
+            {c: "魔", p: "mó", m: "demon", g: "m"},
+            {c: "狂", p: "kuáng", m: "wild", g: "m"},
+            {c: "醉", p: "zuì", m: "drunk", g: "n"},
+            {c: "痴", p: "chī", m: "obsessed", g: "n"},
+            {c: "隐", p: "yǐn", m: "recluse", g: "n"},
+            {c: "幽", p: "yōu", m: "secluded", g: "n"},
+            {c: "奇", p: "qí", m: "strange", g: "n"},
+            {c: "诡", p: "guǐ", m: "cunning", g: "m"},
+            {c: "异", p: "yì", m: "unusual", g: "n"},
+            {c: "鬼", p: "guǐ", m: "ghost", g: "m"},
+            {c: "影", p: "yǐng", m: "shadow", g: "n"},
+            {c: "夜", p: "yè", m: "night", g: "n"},
+            {c: "暗", p: "àn", m: "hidden", g: "n"},
+            {c: "血", p: "xuè", m: "blood", g: "m"},
+            {c: "毒", p: "dú", m: "poison", g: "n"},
+            {c: "残", p: "cán", m: "cruel", g: "m"},
+            {c: "苦", p: "kǔ", m: "bitter", g: "n"},
+            {c: "孽", p: "niè", m: "sin", g: "n"},
+            {c: "厄", p: "è", m: "adversity", g: "n"},
+            {c: "殇", p: "shāng", m: "tragedy", g: "n"},
+            {c: "枯", p: "kū", m: "withered", g: "n"},
+            {c: "寂", p: "jì", m: "lonely", g: "n"},
+            {c: "冥", p: "míng", m: "underworld", g: "n"},
+            {c: "绝", p: "jué", m: "extreme", g: "n"},
+            {c: "傲", p: "ào", m: "proud", g: "m"},
+            {c: "怒", p: "nù", m: "anger", g: "m"},
+            {c: "哀", p: "āi", m: "sorrow", g: "n"},
+            {c: "忘", p: "wàng", m: "forget", g: "n"},
+            {c: "断", p: "duàn", m: "sever", g: "n"},
+            {c: "离", p: "lí", m: "separate", g: "n"},
+            {c: "落", p: "luò", m: "fall", g: "n"},
+            {c: "散", p: "sàn", m: "disperse", g: "n"},
+            {c: "浊", p: "zhuó", m: "turbid", g: "n"},
+            {c: "破", p: "pò", m: "break", g: "m"},
+            {c: "败", p: "bài", m: "defeat", g: "n"},
+            {c: "荒", p: "huāng", m: "desolate", g: "n"},
+            {c: "无", p: "wú", m: "without", g: "n"},
+            {c: "空", p: "kōng", m: "void", g: "n"},
+            {c: "寒", p: "hán", m: "cold", g: "n"},
+            {c: "孤", p: "gū", m: "solitary", g: "n"},
+            {c: "独", p: "dú", m: "alone", g: "n"},
+            {c: "默", p: "mò", m: "silent", g: "n"},
+            {c: "乞", p: "qǐ", m: "beggar", g: "m"},
+            {c: "丐", p: "gài", m: "beggar", g: "m"}
         ]
     };
 
