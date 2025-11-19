@@ -13,6 +13,7 @@ background-align: bg-shape-center
 .name-generator-controls .btn-group {
   display: inline-flex;
   gap: 10px;
+  margin-bottom: 25px;
 }
 .name-generator-controls button {
   background: #000;
@@ -21,11 +22,89 @@ background-align: bg-shape-center
   padding: 15px 30px;
   cursor: pointer;
   transition: all 0.3s ease;
+  font-size: 16px;
+  font-weight: 600;
 }
 .name-generator-controls button:hover {
   background: #007bff;
   color: #fff;
   border-color: #007bff;
+}
+.options-container {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.toggle-label-left,
+.toggle-label-right {
+  font-size: 14px;
+  font-weight: 500;
+  color: #666;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  min-width: 120px;
+}
+.toggle-label-left.active,
+.toggle-label-right.active {
+  color: #007bff;
+}
+.toggle-label-chinese {
+  display: block;
+  font-size: 13px;
+  margin-top: 2px;
+  opacity: 0.8;
+}
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+  flex-shrink: 0;
+}
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 28px;
+}
+.toggle-slider:before {
+  position: absolute;
+  content: "";
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.3s;
+  border-radius: 50%;
+}
+.toggle-switch input:checked + .toggle-slider {
+  background-color: #007bff;
+}
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+.toggle-switch input:focus + .toggle-slider {
+  box-shadow: 0 0 1px #007bff;
 }
 .name-display-card {
   background: #fff;
@@ -116,6 +195,119 @@ background-align: bg-shape-center
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 (function() {
+    /* Toggle state for simplified/traditional characters */
+    var useTraditional = false;
+
+    var simplifiedToTraditional = {
+        /* Family names */
+        "赵": "趙", "钱": "錢", "孙": "孫", "周": "週", "吴": "吳", "郑": "鄭", "冯": "馮", "陈": "陳",
+        "卫": "衛", "蒋": "蔣", "韩": "韓", "杨": "楊", "朱": "硃", "许": "許", "吕": "呂", "张": "張",
+        "严": "嚴", "华": "華", "姜": "薑", "谢": "謝", "邹": "鄒", "窦": "竇", "云": "雲",
+        "苏": "蘇", "鲁": "魯", "韦": "韋", "马": "馬", "凤": "鳳", "鲍": "鮑", "费": "費",
+        "贺": "賀", "汤": "湯", "罗": "羅", "毕": "畢", "邬": "鄔",
+        "乐": "樂", "时": "時", "齐": "齊", "顾": "顧", "黄": "黃",
+        "萧": "蕭", "贝": "貝", "计": "計", "谈": "談", "庞": "龐", "纪": "紀", "项": "項",
+        "蓝": "藍", "闵": "閔", "强": "強", "贾": "賈",
+        "娄": "婁", "颜": "顏", "钟": "鐘", "骆": "駱",
+        "万": "萬", "卢": "盧", "经": "經", "缪": "繆", "应": "應", "邓": "鄧",
+        "郁": "鬱", "单": "單", "诸": "諸", "龚": "龔",
+        "陆": "陸", "荣": "榮", "储": "儲", "乌": "烏",
+        "车": "車", "宁": "寧",
+        "栾": "欒", "厉": "厲", "刘": "劉", "龙": "龍", "叶": "葉", "蓟": "薊", "怀": "懷",
+        "赖": "賴", "蔺": "藺", "乔": "喬", "阴": "陰", "苍": "蒼", "双": "雙", "闻": "聞",
+        "党": "黨", "谭": "譚", "贡": "貢", "劳": "勞", "郦": "酈",
+        "寿": "壽", "边": "邊", "郏": "郟", "农": "農", "温": "溫", "庄": "莊",
+        "阎": "閻", "连": "連", "习": "習", "鱼": "魚", "终": "終",
+        "满": "滿", "国": "國", "广": "廣", "禄": "祿", "阙": "闕", "东": "東", "欧": "歐",
+        "师": "師", "巩": "鞏", "聂": "聶", "阚": "闞", "简": "簡",
+        "饶": "饒", "养": "養", "须": "須", "丰": "豐", "关": "關",
+        "荆": "荊", "红": "紅", "游": "遊", "权": "權", "盖": "蓋", "阳": "陽",
+        "晋": "晉", "闫": "閆", "钦": "欽", "归": "歸", "岳": "嶽", "帅": "帥",
+        "缑": "緱", "赏": "賞", "谯": "譙", "爱": "愛", "独": "獨",
+        /* Compound family names */
+        "万俟": "萬俟", "司马": "司馬", "欧阳": "歐陽", "诸葛": "諸葛",
+        "闻人": "聞人", "东方": "東方", "赫连": "赫連", "尉迟": "尉遲",
+        "澹台": "澹臺", "濮阳": "濮陽", "单于": "單于",
+        "公孙": "公孫", "仲孙": "仲孫", "轩辕": "軒轅",
+        "钟离": "鐘離", "长孙": "長孫", "鲜于": "鮮于", "闾丘": "閭丘",
+        "子车": "子車", "颛孙": "顓孫",
+        "巫马": "巫馬", "乐正": "樂正", "壤驷": "壤駟",
+        "夹谷": "夾谷", "谷梁": "穀梁",
+        "东郭": "東郭", "南门": "南門",
+        "东门": "東門", "西门": "西門", "南宫": "南宮",
+        /* Common characters */
+        "飞": "飛", "沧": "滄", "长": "長", "风": "風", "归": "歸", "梦": "夢", "惊": "驚", "鸿": "鴻",
+        "寻": "尋", "听": "聽", "无": "無",
+        "为": "為", "虚": "虛", "遥": "遙", "朴": "樸",
+        "禅": "禪", "觉": "覺", "军": "軍", "绝": "絕", "剑": "劍",
+        "啸": "嘯", "残": "殘", "烟": "煙", "离": "離",
+        "兑": "兌", "泽": "澤", "复": "復", "恒": "恆", "济": "濟", "极": "極", "仪": "儀",
+        /* Flora */
+        "兰": "蘭", "莲": "蓮",
+        /* Virtue */
+        "义": "義", "礼": "禮", "贞": "貞", "诚": "誠",
+        /* Strength */
+        "刚": "剛", "锋": "鋒", "战": "戰",
+        /* Animals */
+        "鹤": "鶴", "鹰": "鷹",
+        /* Excellence */
+        "杰": "傑", "韵": "韻",
+        /* Martial */
+        "枪": "槍", "气": "氣",
+        /* Light */
+        "辉": "輝", "晖": "暉",
+        /* Elegance */
+        "静": "靜", "灵": "靈",
+        /* Beauty */
+        "绮": "綺", "艳": "艷", "丽": "麗",
+        /* Tranquility */
+        "闲": "閒",
+        /* Jade */
+        "瑶": "瑤", "琼": "瓊",
+        /* Wisdom */
+        "学": "學", "书": "書", "诗": "詩", "画": "畫",
+        /* Aspiration */
+        "远": "遠", "鹏": "鵬",
+        /* Functional */
+        "于": "於", "则": "則", "与": "與", "从": "從", "弃": "棄", "岂": "豈",
+        "仅": "僅", "尔": "爾",
+        /* Common names */
+        "轩": "軒", "彦": "彥", "启": "啟",
+        /* Colors */
+        "银": "銀", "绯": "緋",
+        /* Offbeat */
+        "痴": "癡", "隐": "隱", "诡": "詭", "异": "異", "殇": "殤", "断": "斷", "浊": "濁", "败": "敗",
+        /* Zi pairs specific */
+        "岁": "歲", "晓": "曉", "潜": "潛", "渊": "淵",
+        "临": "臨", "涛": "濤",
+        "扬": "揚", "采": "採", "笔": "筆",
+        "观": "觀", "澜": "瀾", "凭": "憑",
+        "问": "問", "鸣": "鳴"
+    };
+
+    /* Convert a string from simplified to traditional characters */
+    function toTraditional(str) {
+        if (!useTraditional || !str) return str;
+        var result = "";
+        /* First try to match compound characters (2 chars) */
+        var i = 0;
+        while (i < str.length) {
+            if (i < str.length - 1) {
+                var twoChar = str.substring(i, i + 2);
+                if (simplifiedToTraditional[twoChar]) {
+                    result += simplifiedToTraditional[twoChar];
+                    i += 2;
+                    continue;
+                }
+            }
+            /* Single character conversion */
+            var singleChar = str.charAt(i);
+            result += simplifiedToTraditional[singleChar] || singleChar;
+            i++;
+        }
+        return result;
+    }
+
     /* Single-character family names from 百家姓 (Hundred Family Surnames) */
     var singleFamily = [
         {c: "赵", p: "Zhào"}, {c: "钱", p: "Qián"}, {c: "孙", p: "Sūn"}, {c: "李", p: "Lǐ"},
@@ -1147,7 +1339,7 @@ background-align: bg-shape-center
 
         var html = "";
         var shareText = "";
-        var fullMingName = currentName.family.c;
+        var fullMingName = toTraditional(currentName.family.c);
         var fullMingPinyin = currentName.family.p;
 
         if (currentName.ming.type === "zi" || currentName.ming.type === "zi_freeform") {
@@ -1155,18 +1347,18 @@ background-align: bg-shape-center
 
             if (currentName.ming.type === "zi") {
                 /* Predefined zi pair */
-                mingChars = currentName.ming.ming;
+                mingChars = toTraditional(currentName.ming.ming);
                 mingPinyin = currentName.ming.mp;
-                ziChars = currentName.ming.zi;
+                ziChars = toTraditional(currentName.ming.zi);
                 ziPinyin = currentName.ming.zp;
                 mingMeaning = currentName.ming.m.split(' / ')[0];
                 ziMeaning = currentName.ming.m.split(' / ')[1];
                 hasReference = true;
             } else {
                 /* Freeform zi */
-                mingChars = currentName.ming.mingChar.c;
+                mingChars = toTraditional(currentName.ming.mingChar.c);
                 mingPinyin = currentName.ming.mingChar.p.charAt(0).toUpperCase() + currentName.ming.mingChar.p.slice(1);
-                ziChars = currentName.ming.ziChars[0].c + currentName.ming.ziChars[1].c;
+                ziChars = toTraditional(currentName.ming.ziChars[0].c + currentName.ming.ziChars[1].c);
                 ziPinyin = currentName.ming.ziChars[0].p.charAt(0).toUpperCase() + currentName.ming.ziChars[0].p.slice(1) + currentName.ming.ziChars[1].p;
                 mingMeaning = currentName.ming.mingChar.m;
                 ziMeaning = currentName.ming.ziChars[0].m + ", " + currentName.ming.ziChars[1].m;
@@ -1176,7 +1368,7 @@ background-align: bg-shape-center
             fullMingName += mingChars;
             fullMingPinyin += " " + mingPinyin;
 
-            var fullZiName = currentName.family.c + ziChars;
+            var fullZiName = toTraditional(currentName.family.c) + ziChars;
             var fullZiPinyin = currentName.family.p + " " + ziPinyin;
 
             html += "<div class='name-display-card'>";
@@ -1209,18 +1401,18 @@ background-align: bg-shape-center
             html += "<div class='breakdown-section'>";
             html += "<h5>Name Breakdown</h5>";
             html += "<div class='character-detail'>";
-            html += "<strong>Family Name:</strong><br>" + currentName.family.c + " (" + currentName.family.p + ")";
+            html += "<strong>Family Name:</strong><br>" + toTraditional(currentName.family.c) + " (" + currentName.family.p + ")";
             html += "</div>";
 
             if (currentName.ming.type === "zi") {
                 /* Predefined zi pair - use simple breakdown */
                 html += "<div class='character-detail'>";
                 html += "<strong>Given Name:</strong><br>";
-                html += mingChars + ": <em>" + mingMeaning + "</em>";
+                html += toTraditional(currentName.ming.ming) + ": <em>" + mingMeaning + "</em>";
                 html += "</div>";
                 html += "<div class='character-detail'>";
                 html += "<strong>Courtesy Name:</strong><br>";
-                html += ziChars + ": <em>" + ziMeaning + "</em>";
+                html += toTraditional(currentName.ming.zi) + ": <em>" + ziMeaning + "</em>";
                 html += "</div>";
             } else {
                 /* Freeform zi - break down each character individually */
@@ -1236,7 +1428,7 @@ background-align: bg-shape-center
                     if (!seenMingChars[mingCharKey]) {
                         seenMingChars[mingCharKey] = true;
                         if (displayedMingCount > 0) html += "<br>";
-                        html += mingCharArray[mingIdx].c + " (" + mingCharArray[mingIdx].p + "): <em>" + mingCharArray[mingIdx].m + "</em>";
+                        html += toTraditional(mingCharArray[mingIdx].c) + " (" + mingCharArray[mingIdx].p + "): <em>" + mingCharArray[mingIdx].m + "</em>";
                         displayedMingCount++;
                     }
                 }
@@ -1251,7 +1443,7 @@ background-align: bg-shape-center
                     if (!seenZiChars[ziCharKey]) {
                         seenZiChars[ziCharKey] = true;
                         if (displayedZiCount > 0) html += "<br>";
-                        html += ziCharArray[ziIdx].c + " (" + ziCharArray[ziIdx].p + "): <em>" + ziCharArray[ziIdx].m + "</em>";
+                        html += toTraditional(ziCharArray[ziIdx].c) + " (" + ziCharArray[ziIdx].p + "): <em>" + ziCharArray[ziIdx].m + "</em>";
                         displayedZiCount++;
                     }
                 }
@@ -1268,7 +1460,7 @@ background-align: bg-shape-center
             shareText = "My wuxia name: " + fullMingName + " (" + fullMingPinyin + "), courtesy name " + fullZiName + " (" + fullZiPinyin + "). Generated at halyzhang.com/wuxianame";
 
         } else if (currentName.ming.type === "poetic") {
-            fullMingName += currentName.ming.chars;
+            fullMingName += toTraditional(currentName.ming.chars);
             fullMingPinyin += " " + currentName.ming.pinyin;
 
             html += "<div class='name-display-card'>";
@@ -1283,11 +1475,11 @@ background-align: bg-shape-center
             html += "<div class='breakdown-section'>";
             html += "<h5>Name Breakdown</h5>";
             html += "<div class='character-detail'>";
-            html += "<strong>Family Name:</strong><br>" + currentName.family.c + " (" + currentName.family.p + ")";
+            html += "<strong>Family Name:</strong><br>" + toTraditional(currentName.family.c) + " (" + currentName.family.p + ")";
             html += "</div>";
             html += "<div class='character-detail'>";
             html += "<strong>Given Name:</strong><br>";
-            html += currentName.ming.chars + " (" + currentName.ming.pinyin + "): <em>" + currentName.ming.meaning + "</em><br>";
+            html += toTraditional(currentName.ming.chars) + " (" + currentName.ming.pinyin + "): <em>" + currentName.ming.meaning + "</em><br>";
             html += "</div>";
             html += "<div class='literary-source'>";
             html += "<strong>Inspired by:</strong> " + currentName.ming.source;
@@ -1299,7 +1491,7 @@ background-align: bg-shape-center
         } else {
             var givenNamePinyin = "";
             for (var i = 0; i < currentName.ming.chars.length; i++) {
-                fullMingName += currentName.ming.chars[i].c;
+                fullMingName += toTraditional(currentName.ming.chars[i].c);
                 if(i===0){
                   givenNamePinyin += currentName.ming.chars[i].p.charAt(0).toUpperCase() + currentName.ming.chars[i].p.slice(1);
                 } else {
@@ -1320,7 +1512,7 @@ background-align: bg-shape-center
             html += "<div class='breakdown-section'>";
             html += "<h5>Name Breakdown</h5>";
             html += "<div class='character-detail'>";
-            html += "<strong>Family Name:</strong><br>" + currentName.family.c + " (" + currentName.family.p + ")";
+            html += "<strong>Family Name:</strong><br>" + toTraditional(currentName.family.c) + " (" + currentName.family.p + ")";
             html += "</div>";
             html += "<div class='character-detail'>";
             var genderLabel = currentName.gender === "n" ? "" : (currentName.gender === "m" ? " (masculine)" : " (feminine)");
@@ -1332,7 +1524,7 @@ background-align: bg-shape-center
                 if (!seenChars[charKey]) {
                     seenChars[charKey] = true;
                     if (displayedCount > 0) html += "<br>";
-                    html += currentName.ming.chars[j].c + " (" + currentName.ming.chars[j].p + "): <em>" + currentName.ming.chars[j].m + "</em>";
+                    html += toTraditional(currentName.ming.chars[j].c) + " (" + currentName.ming.chars[j].p + "): <em>" + currentName.ming.chars[j].m + "</em>";
                     displayedCount++;
                 }
             }
@@ -1387,6 +1579,34 @@ background-align: bg-shape-center
             generateName(includeZi);
         });
 
+        /* Courtesy name toggle handler */
+        jQuery("#includeZi").change(function() {
+            var isChecked = jQuery(this).is(":checked");
+            if (isChecked) {
+                jQuery("#nameOnlyLabel").removeClass("active");
+                jQuery("#courtesyLabel").addClass("active");
+            } else {
+                jQuery("#nameOnlyLabel").addClass("active");
+                jQuery("#courtesyLabel").removeClass("active");
+            }
+        });
+
+        /* Character toggle handler */
+        jQuery("#charToggle").change(function() {
+            useTraditional = jQuery(this).is(":checked");
+            if (useTraditional) {
+                jQuery("#simplifiedLabel").removeClass("active");
+                jQuery("#traditionalLabel").addClass("active");
+            } else {
+                jQuery("#simplifiedLabel").addClass("active");
+                jQuery("#traditionalLabel").removeClass("active");
+            }
+            /* Re-display current name with new character set */
+            if (currentName) {
+                displayName();
+            }
+        });
+
         generateName(false);
     });
 })();
@@ -1412,14 +1632,40 @@ background-align: bg-shape-center
           </div>
 
           <div class="name-generator-controls">
-            <div class="btn-group" style="margin-bottom: 20px;">
+            <div class="btn-group">
               <button id="genname" class="btn btn-primary" role="button">Generate Wuxia Name</button>
             </div>
-            <div>
-              <label style="display: inline-flex; align-items: center; font-size: 16px; cursor: pointer;">
-                <input type="checkbox" id="includeZi" style="width: 20px; height: 20px; margin-right: 10px; cursor: pointer;">
-                <span>Include Courtesy Name (zì/字)</span>
-              </label>
+
+            <div class="options-container">
+              <div class="option-item">
+                <div id="nameOnlyLabel" class="toggle-label-left active">
+                  Given Name Only
+                  <span class="toggle-label-chinese">名</span>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="includeZi">
+                  <span class="toggle-slider"></span>
+                </label>
+                <div id="courtesyLabel" class="toggle-label-right">
+                  Include Courtesy Name
+                  <span class="toggle-label-chinese">名+字</span>
+                </div>
+              </div>
+
+              <div class="option-item">
+                <div id="simplifiedLabel" class="toggle-label-left active">
+                  Simplified Chinese
+                  <span class="toggle-label-chinese">简体字</span>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="charToggle">
+                  <span class="toggle-slider"></span>
+                </label>
+                <div id="traditionalLabel" class="toggle-label-right">
+                  Traditional Chinese
+                  <span class="toggle-label-chinese">繁體字</span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -1427,10 +1673,10 @@ background-align: bg-shape-center
 
           <div style="background: #f9f9f9; padding: 20px; margin-top: 30px; border-left: 4px solid #007bff;">
             <ul style="line-height: 1.8;">
-              <li>Characters are in Simplified Chinese. Pinyin tone marks are provided for the generated name, but Chinese names are often written without the marks, especially in an English context.</li>
+              <li>Pinyin tone marks are provided for the romanized name, but Chinese names are often written without the marks, especially in an English context.</li>
               <li>Family names come first in Chinese naming tradition, followed by the given name.</li>
               <li>Single-character family names like 李 (Lǐ), 王 (Wáng), or 张 (Zhāng) are the most common; compound family names like 第五 (Dìwǔ) or 诸葛 (Zhūgě) are rarer and often lend an ancient and striking air, appropriate for a wuxia name. The family names used here come from the Song dynasty compendium Hundred Family Surnames/百家姓.</li>
-              <li>Míng/名 is the given name bestowed in early life. Zì/字 is the courtesy name adopted upon reaching adulthood, often thematically related to the given name. Using someone's courtesy name showed respect, while calling them by their given name was more intimate.</li>
+              <li>The given name Míng/名 is bestowed in early life. Upon coming of age, one adopts the courtesy name Zì/字, often thematically related to the given name. Using someone's courtesy name showed respect, while calling them by their given name was more intimate.</li>
               <li>Note that some characters have multiple readings (for example, 万俟 the family name is pronounced mòqí and not wànqí), which Google Translate doesn't always get right.</li>
             </ul>
           </div>
