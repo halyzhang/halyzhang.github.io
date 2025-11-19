@@ -1,0 +1,181 @@
+// Generator Pages Styles (Wuxia Name Generator & Writing Prompts)
+
+// Shared Controls
+.name-generator-controls,
+.prompt-generator-controls {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.name-generator-controls .btn-group {
+  display: inline-flex;
+  gap: 10px;
+}
+
+.name-generator-controls button {
+  background: $black;
+  color: $white;
+  border: 2px solid $black;
+  padding: 15px 30px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: $accent-color;
+    color: $white;
+    border-color: $accent-color;
+  }
+}
+
+// Shared Display Card Styles
+.name-display-card,
+.prompt-display-card {
+  background: $white;
+  border: 3px solid $black;
+  box-shadow: 8px 8px 0 rgba(0, 123, 255, 0.3);
+  padding: 40px;
+  margin-bottom: 30px;
+}
+
+// Wuxia Name Generator Specific
+.name-display-card {
+  h3 {
+    font-size: 48px;
+    color: $black;
+    margin: 0 0 10px 0;
+    font-weight: 700;
+  }
+
+  .pinyin {
+    font-size: 20px;
+    color: $text-color-light;
+    margin-bottom: 20px;
+  }
+}
+
+.names-horizontal {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.name-section {
+  flex: 1;
+  min-width: 250px;
+}
+
+.breakdown-section {
+  background: $light-gray;
+  border-left: 4px solid $accent-color;
+  padding: 20px;
+  margin: 20px 0;
+
+  h5 {
+    color: $black;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+}
+
+.character-detail {
+  margin: 10px 0;
+  padding: 10px;
+  background: $white;
+  border-radius: 4px;
+}
+
+.literary-source {
+  background: #f0f8ff;
+  color: #333;
+  padding: 15px;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 4px;
+}
+
+.disclaimer {
+  background: $warning-bg;
+  border: 2px solid $warning-border;
+  padding: 20px;
+  margin: 30px 0;
+  font-size: 14px;
+  line-height: 1.6;
+
+  strong {
+    color: $black;
+  }
+}
+
+// Writing Prompt Generator Specific
+.prompt-display-card {
+  min-height: 200px;
+
+  .prompt-text {
+    font-size: 24px;
+    line-height: 1.6;
+    color: $black;
+    font-weight: 500;
+    text-align: center;
+
+    .clause {
+      display: inline;
+    }
+
+    .constraint {
+      color: $danger-color;
+      font-weight: 600;
+    }
+
+    .subject {
+      color: $accent-color;
+      font-weight: 600;
+    }
+
+    .form {
+      color: $success-color;
+      font-weight: 600;
+    }
+
+    .perspective {
+      color: $purple-color;
+      font-weight: 600;
+    }
+  }
+}
+
+.instructions {
+  background: $light-gray;
+  border-left: 4px solid $accent-color;
+  padding: 20px;
+  margin: 30px 0;
+
+  h4 {
+    margin-top: 0;
+    color: $black;
+  }
+}
+
+// Shared Share Section
+.share-section {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 2px solid $gray;
+  text-align: center;
+
+  button {
+    background: $accent-color;
+    color: $white;
+    border: none;
+    padding: 12px 24px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: $accent-color-dark;
+      color: $white;
+    }
+  }
+}
