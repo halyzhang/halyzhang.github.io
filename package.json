@@ -4,7 +4,7 @@
   "description": "Hal Y. Zhang's author website",
   "private": true,
   "scripts": {
-    "test": "npm run test:html && npm run test:seo && npm run test:a11y && npm run test:generators",
+    "test": "npm run test:html && npm run test:seo && npm run test:a11y && npm run test:generators && npm run test:visual",
     "test:html": "node tests/validate-html.js",
     "test:seo": "node tests/seo-compliance.js",
     "test:a11y": "node tests/accessibility.js",
