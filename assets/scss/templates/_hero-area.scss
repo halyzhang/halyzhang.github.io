@@ -5,6 +5,9 @@
     padding: 250px 0 150px;
     overflow: hidden;
   }
+  @include mobile {
+    padding: 100px 0 80px;
+  }
   h1{
     position: relative;
     z-index: 2;

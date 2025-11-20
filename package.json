@@ -10,9 +10,18 @@
     "test:a11y": "node tests/accessibility.js",
     "test:generators": "node tests/generators.js",
     "test:verbose": "node tests/validate-html.js --verbose",
-    "test:all": "npm run test:html && npm run test:seo && npm run test:a11y && npm run test:generators"
+    "test:all": "npm run test:html && npm run test:seo && npm run test:a11y && npm run test:generators",
+    "build": "bundle exec jekyll build",
+    "serve": "bundle exec jekyll serve",
+    "test:visual": "npm run build && playwright test tests/visual-regression.spec.js",
+    "test:visual:update": "npm run build && playwright test tests/visual-regression.spec.js --update-snapshots",
+    "test:visual:ui": "npm run build && playwright test tests/visual-regression.spec.js --ui",
+    "test:visual:debug": "npm run build && playwright test tests/visual-regression.spec.js --debug",
+    "test:visual:report": "playwright show-report playwright-report"
   },
   "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "http-server": "^14.1.1",
     "jsdom": "^23.2.0"
   },
   "author": "Hal Y. Zhang",

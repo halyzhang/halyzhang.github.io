@@ -1,197 +1,10 @@
 ---
 layout: page
 title: Wuxia Name Generator
-description: Generate wuxia character names with meaning for your martial arts heroes.
+description: Generate names in Chinese with pinyin and meaning for your martial arts heroes.
 background: Light
 background-align: bg-shape-center
 ---
-<style>
-.name-generator-controls {
-  margin-bottom: 30px;
-  text-align: center;
-}
-.name-generator-controls .btn-group {
-  display: inline-flex;
-  gap: 10px;
-  margin-bottom: 25px;
-}
-.name-generator-controls button {
-  background: #000;
-  color: #fff;
-  border: 2px solid #000;
-  padding: 15px 30px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  font-size: 16px;
-  font-weight: 600;
-}
-.name-generator-controls button:hover {
-  background: #007bff;
-  color: #fff;
-  border-color: #007bff;
-}
-.options-container {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-.option-item {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-}
-.toggle-label-left,
-.toggle-label-right {
-  font-size: 14px;
-  font-weight: 500;
-  color: #666;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  user-select: none;
-  text-align: center;
-  min-width: 120px;
-}
-.toggle-label-left.active,
-.toggle-label-right.active {
-  color: #007bff;
-}
-.toggle-label-chinese {
-  display: block;
-  font-size: 13px;
-  margin-top: 2px;
-  opacity: 0.8;
-}
-.toggle-switch {
-  position: relative;
-  display: inline-block;
-  width: 54px;
-  height: 28px;
-  flex-shrink: 0;
-}
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-.toggle-slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  transition: 0.3s;
-  border-radius: 28px;
-}
-.toggle-slider:before {
-  position: absolute;
-  content: "";
-  height: 22px;
-  width: 22px;
-  left: 3px;
-  bottom: 3px;
-  background-color: white;
-  transition: 0.3s;
-  border-radius: 50%;
-}
-.toggle-switch input:checked + .toggle-slider {
-  background-color: #007bff;
-}
-.toggle-switch input:checked + .toggle-slider:before {
-  transform: translateX(26px);
-}
-.toggle-switch input:focus + .toggle-slider {
-  box-shadow: 0 0 1px #007bff;
-}
-.name-display-card {
-  background: #fff;
-  border: 3px solid #000;
-  box-shadow: 8px 8px 0 rgba(0, 123, 255, 0.3);
-  padding: 40px;
-  margin-bottom: 30px;
-}
-.name-display-card h3 {
-  font-size: 48px;
-  color: #000;
-  margin: 0 0 10px 0;
-  font-weight: 700;
-}
-.name-display-card .pinyin {
-  font-size: 20px;
-  color: #666;
-  margin-bottom: 20px;
-}
-.names-horizontal {
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: center;
-  margin-top: 20px;
-}
-.name-section {
-  flex: 1;
-  min-width: 250px;
-}
-.breakdown-section {
-  background: #f9f9f9;
-  border-left: 4px solid #007bff;
-  padding: 20px;
-  margin: 20px 0;
-}
-.breakdown-section h5 {
-  color: #000;
-  margin-bottom: 15px;
-  font-weight: 600;
-}
-.character-detail {
-  margin: 10px 0;
-  padding: 10px;
-  background: #fff;
-  border-radius: 4px;
-}
-.literary-source {
-  background: #f0f8ff;
-  color: #333;
-  padding: 15px;
-  margin: 10px 0;
-  padding: 10px;
-  border-radius: 4px;
-}
-.share-section {
-  margin-top: 20px;
-  padding-top: 20px;
-  border-top: 2px solid #eaeaea;
-  text-align: center;
-}
-.share-section button {
-  background: #007bff;
-  color: #fff;
-  border: none;
-  padding: 12px 24px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.share-section button:hover {
-  background: #0056b3;
-  color: #fff;
-}
-.disclaimer {
-  background: #fff9e6;
-  border: 2px solid #ffd700;
-  padding: 20px;
-  margin: 30px 0;
-  font-size: 14px;
-  line-height: 1.6;
-}
-.disclaimer strong {
-  color: #000;
-}
-</style>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
 (function() {
@@ -1539,8 +1352,12 @@ background-align: bg-shape-center
         }
 
         html += "<div class='share-section'>";
-        html += "<button id='copyButton' class='btn btn-success'>Copy to Share</button>";
-        html += "<div id='shareConfirm' style='margin-top: 10px; color: #007bff; font-weight: 600; display: none;'>Copied to clipboard!</div>";
+        html += "<button id='copyButton' class='copy-icon' title='Copy name to clipboard'>";
+        html += "<svg width='16' height='16' viewBox='0 0 16 16' fill='currentColor'>";
+        html += "<path d='M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1H2z'/>";
+        html += "</svg>";
+        html += "<span id='copyText'>Copy</span>";
+        html += "</button>";
         html += "</div>";
 
         html += "</div>";
@@ -1565,7 +1382,10 @@ background-align: bg-shape-center
 
         try {
             document.execCommand("copy");
-            jQuery("#shareConfirm").fadeIn().delay(2000).fadeOut();
+            jQuery("#copyText").text("Copied!");
+            setTimeout(function() {
+                jQuery("#copyText").text("Copy");
+            }, 2000);
         } catch (err) {
             alert("Could not copy text. Please copy manually: " + currentShareText);
         }
@@ -1617,38 +1437,34 @@ background-align: bg-shape-center
     <div class="row">
       <div class="col-lg-10 mx-auto">
         <div style="max-width: 800px; margin: 0 auto;">
-          <p style="margin-bottom: 30px;">
+          <p>
             Wǔxiá/武侠 refers to a genre of fiction depicting heroes in ancient China
             who study incredible martial arts techniques as a means of cultivating their body and spirit. Out in the Jiānghú/江湖, beyond the reach of central authorities, these individuals take it upon themselves to form alliances, right injustices, and leave their mark on the world.
-            <br><br>
+        </p>
+        <p>
             This tool generates the Chinese characters and pinyin of names in the wuxia tradition, drawing from literature, philosophy, and period-appropriate naming conventions.</em>
           </p>
 
           <div class="name-generator-controls">
-            <div class="btn-group">
-              <button id="genname" class="btn btn-primary" role="button">Generate Wuxia Name</button>
-            </div>
-
+            <div class="controls-row">
+              <button id="genname" class="btn btn-primary" role="button">Generate</button>
             <div class="options-container">
               <div class="option-item">
                 <div id="nameOnlyLabel" class="toggle-label-left active">
                   Given Name Only
-                  <span class="toggle-label-chinese">名</span>
                 </div>
                 <label class="toggle-switch">
                   <input type="checkbox" id="includeZi">
                   <span class="toggle-slider"></span>
                 </label>
                 <div id="courtesyLabel" class="toggle-label-right">
-                  Include Courtesy Name
-                  <span class="toggle-label-chinese">名+字</span>
+                  + Courtesy Name
                 </div>
               </div>
 
               <div class="option-item">
                 <div id="simplifiedLabel" class="toggle-label-left active">
                   Simplified Chinese
-                  <span class="toggle-label-chinese">简体字</span>
                 </div>
                 <label class="toggle-switch">
                   <input type="checkbox" id="charToggle">
@@ -1656,17 +1472,17 @@ background-align: bg-shape-center
                 </label>
                 <div id="traditionalLabel" class="toggle-label-right">
                   Traditional Chinese
-                  <span class="toggle-label-chinese">繁體字</span>
                 </div>
               </div>
             </div>
+        </div>
           </div>
 
           <div id="nameDisplay"></div>
 
           <div style="background: #f9f9f9; padding: 20px; margin-top: 30px; border-left: 4px solid #007bff;">
             <ul style="line-height: 1.8;">
-              <li>This tool is for entertainment purposes only.
+              <li>This generator is for entertainment purposes only.
             Real Chinese names carry tonal harmony,
             historical associations, familial traditions, and symbolism that require cultural knowledge and expertise. If you are creating a name for actual use,
             please consult with those who are familiar with Chinese language and culture to ensure your name is meaningful and respectful.
@@ -1674,7 +1490,7 @@ background-align: bg-shape-center
               <li>Pinyin tone marks are provided for the romanized name, but Chinese names are often written without the marks, especially in an English context.</li>
               <li>Family names come first in Chinese naming tradition, followed by the given name.</li>
               <li>Single-character family names like 李 (Lǐ), 王 (Wáng), or 张 (Zhāng) are the most common; compound family names like 第五 (Dìwǔ) or 诸葛 (Zhūgě) are rarer and often lend an ancient and striking air, appropriate for a wuxia name. The family names used here come from the Song dynasty compendium Hundred Family Surnames/百家姓.</li>
-              <li>The given name Míng/名 is bestowed in early life. Upon coming of age, one adopts the courtesy name Zì/字, often thematically related to the given name. Using someone's courtesy name showed respect, while calling them by their given name was more intimate.</li>
+              <li>The given name Míng/名 is bestowed in early life. Upon coming of age, one adopts a courtesy name Zì/字, often thematically related to the given name. Using someone's courtesy name showed respect, while calling them by their given name was more intimate.</li>
               <li>Note that some characters have multiple readings (for example, 万俟 the family name is pronounced mòqí and not wànqí), which Google Translate doesn't always get right.</li>
             </ul>
           </div>

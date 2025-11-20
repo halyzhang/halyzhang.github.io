@@ -18,3 +18,8 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Playwright
+playwright-report/
+test-results/
+tests/__snapshots__/

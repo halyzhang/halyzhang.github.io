@@ -3,13 +3,22 @@
 // Shared Controls
 .name-generator-controls,
 .prompt-generator-controls {
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   text-align: center;
 }
 
 .name-generator-controls .btn-group {
   display: inline-flex;
   gap: 10px;
+  margin-bottom: 25px;
+}
+
+.controls-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
 }
 
 .name-generator-controls button {
@@ -19,7 +28,9 @@
   padding: 15px 30px;
   cursor: pointer;
   transition: all 0.3s ease;
-
+  font-size: 16px;
+  font-weight: 600;
+  flex-shrink: 0;
   &:hover {
     background: $accent-color;
     color: $white;
@@ -27,7 +38,92 @@
   }
 }
 
-// Shared Display Card Styles
+.options-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 0;
+}
+
+.option-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.toggle-label-left,
+.toggle-label-right {
+  font-size: 14px;
+  font-weight: 500;
+  color: $text-color-light;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  text-align: center;
+  min-width: 95px;
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+
+  &.active {
+    color: $accent-color;
+  }
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 54px;
+  height: 28px;
+  flex-shrink: 0;
+  margin-bottom: 0; // Override Bootstrap's label margin
+
+  input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  transition: 0.3s;
+  border-radius: 28px;
+
+  &:before {
+    position: absolute;
+    content: "";
+    height: 22px;
+    width: 22px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.3s;
+    border-radius: 50%;
+  }
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background-color: $accent-color;
+}
+
+.toggle-switch input:checked + .toggle-slider:before {
+  transform: translateX(26px);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+  box-shadow: 0 0 1px $accent-color;
+}
+
 .name-display-card,
 .prompt-display-card {
   background: $white;
@@ -37,7 +133,6 @@
   margin-bottom: 30px;
 }
 
-// Wuxia Name Generator Specific
 .name-display-card {
   h3 {
     font-size: 48px;
@@ -160,22 +255,129 @@
 // Shared Share Section
 .share-section {
   margin-top: 20px;
-  padding-top: 20px;
-  border-top: 2px solid $gray;
-  text-align: center;
+  text-align: right;
+}
 
-  button {
-    background: $accent-color;
-    color: $white;
-    border: none;
-    padding: 12px 24px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.copy-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  color: $accent-color;
+  cursor: pointer;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: all 0.2s ease;
 
-    &:hover {
-      background: $accent-color-dark;
-      color: $white;
+  &:hover {
+    background: lighten($accent-color, 45%);
+    color: darken($accent-color, 10%);
+  }
+}
+
+
+// Mobile Responsive Styles
+@media (max-width: 768px) {
+  .controls-row {
+    gap: 10px;
+  }
+
+  .name-generator-controls {
+    margin-bottom: 10px;
+  }
+
+  .name-generator-controls button {
+    padding: 10px 18px;
+    font-size: 14px;
+  }
+
+  .options-container {
+    gap: 10px;
+  }
+
+  .option-item {
+    gap: 6px;
+  }
+
+  .toggle-label-left,
+  .toggle-label-right {
+    font-size: 11px;
+    min-width: 60px;
+  }
+
+  .toggle-switch {
+    width: 40px;
+    height: 20px;
+
+    .toggle-slider:before {
+      height: 14px;
+      width: 14px;
+      left: 3px;
+      bottom: 3px;
     }
+  }
+
+  .toggle-switch input:checked + .toggle-slider:before {
+    transform: translateX(20px);
+  }
+
+  .name-display-card,
+  .prompt-display-card {
+    padding: 18px;
+    margin-bottom: 12px;
+    box-shadow: 3px 3px 0 rgba(0, 123, 255, 0.3);
+  }
+
+  .name-display-card h3 {
+    font-size: 24px;
+    margin-bottom: 6px;
+  }
+
+  .name-display-card .pinyin {
+    font-size: 13px;
+    margin-bottom: 8px;
+  }
+
+  .name-display-card p {
+    font-size: 13px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+  }
+
+  .names-horizontal {
+    gap: 15px;
+    margin-top: 12px;
+  }
+
+  .name-section {
+    flex: 1;
+    min-width: 140px;
+
+    strong {
+      font-size: 12px;
+    }
+
+    div[style*="margin-top"] {
+      margin-top: 6px !important;
+      font-size: 12px;
+    }
+  }
+
+  .breakdown-section {
+    padding: 12px;
+    margin: 12px 0;
+
+    h5 {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .character-detail {
+    margin: 8px 0;
+    padding: 8px;
+    font-size: 13px;
   }
 }

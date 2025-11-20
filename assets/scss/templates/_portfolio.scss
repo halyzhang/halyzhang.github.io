@@ -1,6 +1,8 @@
 .page-title {
   padding: 250px 0 150px;
-
+  @include mobile {
+    padding: 180px 0 80px;
+  }
   .container {
     position: relative;
     z-index: 1;
