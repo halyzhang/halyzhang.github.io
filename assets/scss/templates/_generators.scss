@@ -18,7 +18,11 @@
   align-items: center;
   justify-content: center;
   gap: 30px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; // Keep on one row on desktop
+
+  @media (max-width: 992px) {
+    flex-wrap: wrap; // Allow wrapping on smaller screens
+  }
 }
 
 .name-generator-controls button {
@@ -42,8 +46,12 @@
   display: flex;
   justify-content: center;
   gap: 25px;
-  flex-wrap: wrap;
+  flex-wrap: nowrap; // Keep options together on desktop
   margin: 0;
+
+  @media (max-width: 768px) {
+    flex-wrap: wrap; // Allow wrapping on mobile
+  }
 }
 
 .option-item {
@@ -70,6 +78,7 @@
 
   &.active {
     color: $accent-color;
+    cursor: default; // Active state is not clickable
   }
 }
 

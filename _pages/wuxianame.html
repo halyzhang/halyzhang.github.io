@@ -247,7 +247,7 @@ background-align: bg-shape-center
         {c: "皇甫", p: "Huángfǔ"}, {c: "尉迟", p: "Yùchí"}, {c: "公羊", p: "Gōngyáng"},
         {c: "澹台", p: "Tántái"}, {c: "公冶", p: "Gōngyě"}, {c: "宗政", p: "Zōngzhèng"},
         {c: "濮阳", p: "Púyáng"}, {c: "淳于", p: "Chúnyú"}, {c: "单于", p: "Chányú"},
-        {c: "太叔", p: "Tàishū"}, {c: "申屠", p: "Shēntú"}, {c: "公孙", p: "Gōngsūn"},
+        {c: "太叔", p: "Tàishū"}, {c: "公孙", p: "Gōngsūn"},
         {c: "仲孙", p: "Zhòngsūn"}, {c: "轩辕", p: "Xuānyuán"}, {c: "令狐", p: "Línghú"},
         {c: "钟离", p: "Zhōnglí"}, {c: "宇文", p: "Yǔwén"}, {c: "长孙", p: "Zhǎngsūn"},
         {c: "慕容", p: "Mùróng"}, {c: "鲜于", p: "Xiānyú"}, {c: "闾丘", p: "Lǘqiū"},
@@ -328,8 +328,6 @@ background-align: bg-shape-center
         {c: "四象", p: "Sìxiàng", m: "four symbols", g: "m", src: "I Ching/《易经》 philosophy"}
     ];
 
-    /* Unified character database organized by category
-       Gender can be: "m" (masc), "f" (fem), or "n" */
     var characters = {
         celestial: [
             {c: "天", p: "tiān", m: "heaven", g: "m"},
@@ -724,6 +722,44 @@ background-align: bg-shape-center
     var currentName = null;
     var currentShareText = "";
 
+    /* Helper: Generate Google Translate pronunciation link HTML */
+    function makePronunciationLink(name) {
+        var langCode = useTraditional ? "zh-TW" : "zh-CN";
+        var encoded = encodeURIComponent(name);
+        return "<div style='margin-top: 10px;'>" +
+               "<a href='https://translate.google.com/?sl=" + langCode + "&tl=en&text=" + encoded +
+               "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>" +
+               "🔊 Hear Pronunciation</a></div>";
+    }
+
+    /* Helper: Select a character with retry logic to avoid matches */
+    function selectCharWithRetry(charArray, avoidChars, maxAttempts) {
+        if (!charArray || charArray.length === 0) return null;
+        var char = charArray[Math.floor(Math.random() * charArray.length)];
+        var attempts = 0;
+        avoidChars = avoidChars || [];
+        maxAttempts = maxAttempts || 20;
+
+        while (attempts < maxAttempts) {
+            var hasMatch = false;
+            for (var i = 0; i < avoidChars.length; i++) {
+                if (avoidChars[i] && char.c === avoidChars[i].c) {
+                    hasMatch = true;
+                    break;
+                }
+                /* Also check string matches for compound family names */
+                if (typeof avoidChars[i] === 'string' && char.c === avoidChars[i]) {
+                    hasMatch = true;
+                    break;
+                }
+            }
+            if (!hasMatch) return char;
+            char = charArray[Math.floor(Math.random() * charArray.length)];
+            attempts++;
+        }
+        return char;
+    }
+
     /* Helper: Get all chars from a category filtered by gender */
     function getAllCharsFromCategory(category, gender) {
         var categoryChars = characters[category] || [];
@@ -913,27 +949,29 @@ background-align: bg-shape-center
                     var categoryChars = getAllCharsFromCategory(selectedCategory, gender);
 
                     if (categoryChars.length >= 2) {
-                        /* Pick 1 char for ming */
-                        var mingChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                        var mingAttempts = 0;
-                        /* Ensure ming char doesn't appear in compound family name */
-                        while (charInCompoundFamily(mingChar.c, familyData) && mingAttempts < 20) {
-                            mingChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                            mingAttempts++;
-                        }
+                        /* Pick 1 char for ming, avoiding compound family name */
+                        var familyCharsToAvoid = familyData.c.split('').map(function(c) { return c; });
+                        var mingChar = selectCharWithRetry(categoryChars, familyCharsToAvoid);
 
                         /* Pick 1 zi char from same category (thematic connection) */
-                        var sameCategoryChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                        var sameCatAttempts = 0;
-                        while (sameCategoryChar.c === mingChar.c && sameCatAttempts < 20) {
-                            sameCategoryChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                            sameCatAttempts++;
-                        }
+                        var sameCategoryChar = selectCharWithRetry(categoryChars, [mingChar]);
 
-                        /* Pick 1 zi char from complementary source (adds variety)
-                           Try both positions and see which works better */
-                        var complementChar1 = getComplementaryChar(gender, selectedCategory, 1);
-                        var complementChar2 = getComplementaryChar(gender, selectedCategory, 2);
+                        /* Pick zi chars from complementary source (adds variety) */
+                        var complementChar1 = null, complementChar2 = null;
+                        for (var compAttempt = 0; compAttempt < 10; compAttempt++) {
+                            var tempChar = getComplementaryChar(gender, selectedCategory, 1);
+                            if (!tempChar || tempChar.c !== mingChar.c) {
+                                complementChar1 = tempChar;
+                                break;
+                            }
+                        }
+                        for (var compAttempt2 = 0; compAttempt2 < 10; compAttempt2++) {
+                            var tempChar2 = getComplementaryChar(gender, selectedCategory, 2);
+                            if (!tempChar2 || tempChar2.c !== mingChar.c) {
+                                complementChar2 = tempChar2;
+                                break;
+                            }
+                        }
 
                         /* Decide arrangement based on position constraints */
                         var ziChar1, ziChar2;
@@ -969,18 +1007,13 @@ background-align: bg-shape-center
                             ziChar2 = complementChar2;
                         } else {
                             /* No complementary char available, fall back to same category */
-                            var fallbackChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                            var fallbackAttempts = 0;
-                            while ((fallbackChar.c === mingChar.c || fallbackChar.c === sameCategoryChar.c) && fallbackAttempts < 20) {
-                                fallbackChar = categoryChars[Math.floor(Math.random() * categoryChars.length)];
-                                fallbackAttempts++;
-                            }
+                            var fallbackChar = selectCharWithRetry(categoryChars, [mingChar, sameCategoryChar]);
                             ziChar1 = sameCategoryChar;
                             ziChar2 = fallbackChar;
                         }
 
-                        /* Ensure no duplicates between zi chars */
-                        if (ziChar1 && ziChar2 && ziChar1.c !== ziChar2.c) {
+                        /* Ensure no duplicates between zi chars and no duplicates with ming char */
+                        if (ziChar1 && ziChar2 && ziChar1.c !== ziChar2.c && ziChar1.c !== mingChar.c && ziChar2.c !== mingChar.c) {
                             mingData = {
                                 type: "zi_freeform",
                                 mingChar: mingChar,
@@ -1039,13 +1072,9 @@ background-align: bg-shape-center
                     }
                     if (firstPosChars.length === 0) firstPosChars = categoryChars;
 
-                    var char1 = firstPosChars[Math.floor(Math.random() * firstPosChars.length)];
-                    var char1Attempts = 0;
-                    /* Ensure first char doesn't appear in compound family name */
-                    while (charInCompoundFamily(char1.c, familyData) && char1Attempts < 20) {
-                        char1 = firstPosChars[Math.floor(Math.random() * firstPosChars.length)];
-                        char1Attempts++;
-                    }
+                    /* Select first char, avoiding compound family name */
+                    var familyCharsToAvoid = familyData.c.split('').map(function(c) { return c; });
+                    var char1 = selectCharWithRetry(firstPosChars, familyCharsToAvoid);
 
                     /* If using mixed categories, maybe replace first char with complementary */
                     var usedComplementFirst = false;
@@ -1067,20 +1096,11 @@ background-align: bg-shape-center
                     }
                     if (secondPosChars.length === 0) secondPosChars = categoryChars;
 
-                    var char2 = secondPosChars[Math.floor(Math.random() * secondPosChars.length)];
-                    var char2Attempts = 0;
                     /* For masc: no duplicates allowed. For fem: 25% chance of duplicate, otherwise prevent */
                     var allowDuplicate = (gender === "f" && Math.random() < 0.25);
-                    while (charInCompoundFamily(char2.c, familyData) && char2Attempts < 20) {
-                        char2 = secondPosChars[Math.floor(Math.random() * secondPosChars.length)];
-                        char2Attempts++;
-                    }
-                    if (!allowDuplicate) {
-                        while (char2.c === char1.c && char2Attempts < 20) {
-                            char2 = secondPosChars[Math.floor(Math.random() * secondPosChars.length)];
-                            char2Attempts++;
-                        }
-                    }
+                    var avoidChars = familyCharsToAvoid.slice();
+                    if (!allowDuplicate) avoidChars.push(char1);
+                    var char2 = selectCharWithRetry(secondPosChars, avoidChars);
 
                     /* If using mixed categories and didn't replace first char, replace second */
                     if (useMixedCategories && !usedComplementFirst) {
@@ -1118,13 +1138,9 @@ background-align: bg-shape-center
 
                     if (standaloneChars.length === 0) standaloneChars = categoryChars;
 
-                    var singleChar = standaloneChars[Math.floor(Math.random() * standaloneChars.length)];
-                    var singleAttempts = 0;
-                    /* Ensure char doesn't appear in compound family name */
-                    while (charInCompoundFamily(singleChar.c, familyData) && singleAttempts < 20) {
-                        singleChar = standaloneChars[Math.floor(Math.random() * standaloneChars.length)];
-                        singleAttempts++;
-                    }
+                    /* Select single char, avoiding compound family name */
+                    var familyCharsToAvoid = familyData.c.split('').map(function(c) { return c; });
+                    var singleChar = selectCharWithRetry(standaloneChars, familyCharsToAvoid);
                     givenChars.push(singleChar);
                 }
             }
@@ -1152,6 +1168,7 @@ background-align: bg-shape-center
 
         var html = "";
         var shareText = "";
+        var langCode = useTraditional ? "zh-TW" : "zh-CN";
         var fullMingName = toTraditional(currentName.family.c);
         var fullMingPinyin = currentName.family.p;
 
@@ -1191,22 +1208,14 @@ background-align: bg-shape-center
             html += "<div><strong>Given Name:</strong></div>";
             html += "<h3>" + fullMingName + "</h3>";
             html += "<div class='pinyin'>" + fullMingPinyin + "</div>";
-            var encodedMingName = encodeURIComponent(fullMingName);
-            html += "<div style='margin-top: 10px;'>";
-            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedMingName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
-            html += "🔊 Hear Pronunciation";
-            html += "</a></div>";
+            html += makePronunciationLink(fullMingName);
             html += "</div>";
 
             html += "<div class='name-section'>";
             html += "<div><strong>Courtesy Name:</strong></div>";
             html += "<h3>" + fullZiName + "</h3>";
             html += "<div class='pinyin'>" + fullZiPinyin + "</div>";
-            var encodedZiName = encodeURIComponent(fullZiName);
-            html += "<div style='margin-top: 10px;'>";
-            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedZiName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
-            html += "🔊 Hear Pronunciation";
-            html += "</a></div>";
+            html += makePronunciationLink(fullZiName);
             html += "</div>";
 
             html += "</div>";
@@ -1270,7 +1279,7 @@ background-align: bg-shape-center
             }
             html += "</div>";
 
-            shareText = "My wuxia name: " + fullMingName + " (" + fullMingPinyin + "), courtesy name " + fullZiName + " (" + fullZiPinyin + "). Generated at halyzhang.com/wuxianame";
+            shareText = "My wuxia name: " + fullMingName + " (" + fullMingPinyin + ") - " + mingMeaning + ", courtesy name " + fullZiName + " (" + fullZiPinyin + ") - " + ziMeaning + ". Generated at halyzhang.com/wuxianame";
 
         } else if (currentName.ming.type === "poetic") {
             fullMingName += toTraditional(currentName.ming.chars);
@@ -1279,11 +1288,7 @@ background-align: bg-shape-center
             html += "<div class='name-display-card'>";
             html += "<h3>" + fullMingName + "</h3>";
             html += "<div class='pinyin'>" + fullMingPinyin + "</div>";
-            var encodedPoeticName = encodeURIComponent(fullMingName);
-            html += "<div style='margin-top: 10px;'>";
-            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedPoeticName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
-            html += "🔊 Hear Pronunciation";
-            html += "</a></div>";
+            html += makePronunciationLink(fullMingName);
 
             html += "<div class='breakdown-section'>";
             html += "<h5>Name Breakdown</h5>";
@@ -1316,11 +1321,7 @@ background-align: bg-shape-center
             html += "<div class='name-display-card'>";
             html += "<h3>" + fullMingName + "</h3>";
             html += "<div class='pinyin'>" + fullMingPinyin + "</div>";
-            var encodedStandardName = encodeURIComponent(fullMingName);
-            html += "<div style='margin-top: 10px;'>";
-            html += "<a href='https://translate.google.com/?sl=zh-CN&tl=en&text=" + encodedStandardName + "&op=translate' target='_blank' style='color: #007bff; text-decoration: underline;'>";
-            html += "🔊 Hear Pronunciation";
-            html += "</a></div>";
+            html += makePronunciationLink(fullMingName);
 
             html += "<div class='breakdown-section'>";
             html += "<h5>Name Breakdown</h5>";
@@ -1399,32 +1400,29 @@ background-align: bg-shape-center
             generateName(includeZi);
         });
 
-        /* Courtesy name toggle handler */
-        jQuery("#includeZi").change(function() {
-            var isChecked = jQuery(this).is(":checked");
-            if (isChecked) {
-                jQuery("#nameOnlyLabel").removeClass("active");
-                jQuery("#courtesyLabel").addClass("active");
-            } else {
-                jQuery("#nameOnlyLabel").addClass("active");
-                jQuery("#courtesyLabel").removeClass("active");
-            }
-        });
+        /* Generic toggle setup helper */
+        function setupToggle(checkboxId, labelLeft, labelRight, onChangeCallback) {
+            jQuery("#" + checkboxId).change(function() {
+                var isChecked = jQuery(this).is(":checked");
+                jQuery("#" + labelLeft).toggleClass("active", !isChecked);
+                jQuery("#" + labelRight).toggleClass("active", isChecked);
+                if (onChangeCallback) onChangeCallback(isChecked);
+            });
+            jQuery("#" + labelLeft + ", #" + labelRight).click(function() {
+                /* Only toggle if clicking the inactive label */
+                if (!jQuery(this).hasClass("active")) {
+                    jQuery("#" + checkboxId).prop("checked", !jQuery("#" + checkboxId).is(":checked")).trigger("change");
+                }
+            });
+        }
 
-        /* Character toggle handler */
-        jQuery("#charToggle").change(function() {
-            useTraditional = jQuery(this).is(":checked");
-            if (useTraditional) {
-                jQuery("#simplifiedLabel").removeClass("active");
-                jQuery("#traditionalLabel").addClass("active");
-            } else {
-                jQuery("#simplifiedLabel").addClass("active");
-                jQuery("#traditionalLabel").removeClass("active");
-            }
-            /* Re-display current name with new character set */
-            if (currentName) {
-                displayName();
-            }
+        /* Setup courtesy name toggle */
+        setupToggle("includeZi", "nameOnlyLabel", "courtesyLabel");
+
+        /* Setup character set toggle */
+        setupToggle("charToggle", "simplifiedLabel", "traditionalLabel", function(isChecked) {
+            useTraditional = isChecked;
+            if (currentName) displayName();
         });
 
         generateName(false);

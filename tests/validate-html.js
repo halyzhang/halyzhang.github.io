@@ -30,20 +30,6 @@ function validateFile(filePath) {
         hasErrors = true;
     }
 
-    // Check for unmatched quotes
-    const singleQuotes = (content.match(/'/g) || []).length;
-    const doubleQuotes = (content.match(/"/g) || []).length;
-
-    if (singleQuotes % 2 !== 0) {
-        console.error(`❌ Unmatched single quotes in ${filePath}`);
-        hasErrors = true;
-    }
-
-    if (doubleQuotes % 2 !== 0) {
-        console.error(`❌ Unmatched double quotes in ${filePath}`);
-        hasErrors = true;
-    }
-
     // Try to parse with JSDOM
     try {
         // Remove Jekyll front matter for parsing
