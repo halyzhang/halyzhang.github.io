@@ -21,7 +21,7 @@ concurrency:
 jobs:
   # Test job - runs validation before deployment
   test:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     if: github.repository == 'halyzhang/halyzhang.github.io'
     steps:
       - name: Checkout
