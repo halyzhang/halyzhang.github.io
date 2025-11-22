@@ -1,0 +1,51 @@
+name: Generate Linux Visual Snapshots
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-snapshots:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Required to push commits
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Build site
+        run: bundle exec jekyll build
+        env:
+          JEKYLL_ENV: production
+
+      - name: Generate Linux snapshots
+        run: npm run test:visual:update
+
+      - name: Commit and push snapshots
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add tests/**/*-linux.png
+          if git diff --staged --quiet; then
+            echo "No snapshot changes to commit"
+          else
+            git commit -m "Update Linux visual snapshots"
+            git push
+          fi

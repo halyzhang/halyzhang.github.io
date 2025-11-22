@@ -21,7 +21,7 @@ concurrency:
 jobs:
   # Test job - runs validation before deployment
   test:
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     if: github.repository == 'halyzhang/halyzhang.github.io'
     steps:
       - name: Checkout
@@ -48,15 +48,16 @@ jobs:
       - name: Run validation tests
         run: npm test
 
-      - name: Report test results
-        if: always()
-        run: |
-          if [ $? -eq 0 ]; then
-            echo "✅ All tests passed!"
-          else
-            echo "❌ Tests failed - deployment blocked"
-            exit 1
-          fi
+      - name: Upload test artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: |
+            playwright-report/
+            tests/**/*-actual.png
+            tests/**/*-diff.png
+          retention-days: 30
 
   # Build job - only runs if tests pass
   build:
